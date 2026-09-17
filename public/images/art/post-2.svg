@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <defs>
+    <linearGradient id="p2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#171a21"/><stop offset="1" stop-color="#b98a2f"/></linearGradient>
+    <pattern id="pg2" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0v40" fill="none" stroke="#fff" stroke-opacity=".12"/></pattern>
+  </defs>
+  <rect width="800" height="500" fill="url(#p2)"/>
+  <rect width="800" height="500" fill="url(#pg2)"/>
+  <circle cx="660" cy="110" r="150" fill="#fff" fill-opacity=".10"/>
+  <circle cx="140" cy="410" r="120" fill="#fff" fill-opacity=".08"/>
+  <text x="56" y="270" font-family="system-ui,sans-serif" font-size="46" font-weight="800" fill="#fff" fill-opacity=".92">AI and Search</text>
+  <rect x="56" y="292" width="120" height="6" rx="3" fill="#fff" fill-opacity=".75"/>
+</svg>
