@@ -84,21 +84,7 @@ export function Hero() {
 
       {/* LEFT IMAGE */}
       {!hideLeft && (
-        <div
-          className="
-            pointer-events-none
-            absolute
-            -left-[55px]
-            top-[130px]
-            z-[2]
-            hidden
-            w-[290px]
-            lg:block
-            lg:w-[340px]
-            xl:-left-[35px]
-            xl:w-[400px]
-          "
-        >
+        <div className=" pointer-events-none absolute -left-[55px] top-[130px] z-[2] hidden w-[290px] lg:block lg:w-[340px] xl:-left-[35px] xl:w-[400px]">
           <img
             src={SIDE_LEFT}
             alt=""
@@ -111,20 +97,7 @@ export function Hero() {
       {/* RIGHT IMAGE */}
       {!hideRight && (
         <div
-          className="
-            pointer-events-none
-            absolute
-            -right-[55px]
-            top-[115px]
-            z-[2]
-            hidden
-            w-[300px]
-            lg:block
-            lg:w-[360px]
-            xl:-right-[35px]
-            xl:w-[420px]
-          "
-        >
+          className=" pointer-events-none absolute -right-[55px] top-[125px] z-[2] hidden w-[300px] lg:block lg:w-[360px] xl:-right-[35px] xl:w-[420px]">
           <img
             src={SIDE_RIGHT}
             alt=""
@@ -135,7 +108,7 @@ export function Hero() {
       )}
 
       {/* HERO CONTENT */}
-      <div className="container-max relative z-20 pb-14 pt-16 md:pt-20">
+      <div className="container-max relative z-20 pb-14 py-16 md:py-30">
         <div className="relative mx-auto max-w-[900px] text-center">
           {/* Badge */}
           <span className="inline-flex items-center gap-2 rounded-full border border-[var(--color-border)] bg-white/90 px-5 py-2 text-[var(--fs-xs)] font-bold uppercase tracking-[0.12em] text-[var(--color-ink)] shadow-sm backdrop-blur">
@@ -250,7 +223,7 @@ export function Hero() {
       </div>
 
       {/* METRICS */}
-      <div className="container-max relative z-20 pb-16">
+      {/* <div className="container-max relative z-20 pb-16">
         <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {heroMetrics.map((m, i) => {
             const Icon = icons[i] ?? TrendingUp;
@@ -298,7 +271,7 @@ export function Hero() {
             );
           })}
         </div>
-      </div>
+      </div> */}
     </section>
   );
 }

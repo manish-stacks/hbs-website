@@ -48,6 +48,29 @@ export const nav: NavItem[] = [
           ["Online Marketing", "/online-marketing"],
         ],
       },
+      {
+        heading: "Email Marketing",
+        links: [
+          ["Email Marketing Software", "/email-marketing-software"],
+          ["Email Marketing Automation", "/email-marketing-automation"],
+          ["Email Marketing Services", "/email-marketing-services"],
+        ],
+      },
+      {
+        heading: "WhatsApp Marketing",
+        links: [
+          ["WhatsApp Marketing Software", "/whatsapp-marketing-software"],
+          ["WhatsApp Marketing Automation", "/whatsapp-marketing-automation"],
+          ["WhatsApp Marketing Services", "/whatsapp-marketing-services"],
+        ],
+      },{
+        heading: "Lead Generation",
+        links: [
+          ["Lead Generation Services", "/lead-generation-services"],
+          ["Lead Generation Software", "/lead-generation-software"],
+          ["Lead Generation Automation", "/lead-generation-automation"],
+        ],
+      }
     ],
   },
   {
@@ -73,6 +96,30 @@ export const nav: NavItem[] = [
           ["React Native Apps", "/software-app-development"],
         ],
       },
+      {
+        heading: "Digital Marketing",
+        links: [
+          ["Digital Marketing Services", "/digital-marketing-services"],
+          ["Digital Marketing Automation", "/digital-marketing-automation"],
+          ["Digital Marketing Software", "/digital-marketing-software"],
+        ],
+      },
+      {
+        heading: "Lead Generation",
+        links: [
+          ["Lead Generation Services", "/lead-generation-services"],
+          ["Lead Generation Software", "/lead-generation-software"],
+          ["Lead Generation Automation", "/lead-generation-automation"],
+        ],
+      },
+      {
+        heading: "Email Marketing",
+        links: [
+          ["Email Marketing Software", "/email-marketing-software"],
+          ["Email Marketing Automation", "/email-marketing-automation"],
+          ["Email Marketing Services", "/email-marketing-services"],
+        ],
+      }
     ],
   },
   {
@@ -267,18 +314,11 @@ export const whyUs = [
     body: "SEO, ads, development and design handled in-house by 80+ specialists, not outsourced.",
   },
   {
-    title: "Friendly & cordial",
-    body: "Strong, positive client relationships are how we consistently do our best work.",
-  },
-  {
-    title: "Excellent quality delivered",
-    body: "Quality is not a final review stage — it is built into every sprint we run.",
-  },
-  {
     title: "Effective & continuous",
     body: "Momentum matters. We keep optimising long after the launch week is over.",
   },
 ];
+
 
 export const testimonials = [
   {

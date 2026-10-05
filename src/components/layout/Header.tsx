@@ -4,8 +4,51 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { ArrowRight, ChevronDown, Mail, Menu, Phone, X } from "lucide-react";
+import { ArrowRight, ChevronDown, ChevronRight, Code, Mail, Megaphone, Menu, PenTool, Phone, Search, Smartphone, X } from "lucide-react";
+import type { ComponentType } from "react";
 import { company, nav } from "@/data/home";
+
+const groupIcons: Record<string, ComponentType<{ size?: number; strokeWidth?: number; className?: string }>> = {
+  "SEO Services": Search,
+  "Paid & Social": Megaphone,
+  "Web Design & Development": Code,
+  "Apps & Software": Smartphone,
+  "Creative Communication": PenTool,
+  "Email Marketing": Mail,
+  "GMB Management": Phone,
+  "WhatsApp Marketing": Smartphone,
+  "AI Automation": Code,
+  "Performance Marketing": Megaphone,
+  "Digital Marketing": Search,
+  "Social Media": Smartphone,
+  "Web & App Development": Code,
+  "Lead Generation": Megaphone,
+};
+
+type NavGroup = { heading: string; links: [string, string][] | string[][] };
+
+function DropGroup({ g }: { g: NavGroup }) {
+  const Icon = groupIcons[g.heading] ?? Search;
+  return (
+    <div>
+      <Icon size={40} strokeWidth={1.4} className="text-[var(--color-brand)]" />
+      <p className="mb-3 mt-5 text-[15px] font-bold text-[var(--color-ink)]">{g.heading}</p>
+      <ul className="flex flex-col gap-2.5">
+        {g.links.map(([label, href]) => (
+          <li key={label}>
+            <Link
+              href={href}
+              className="group/l flex items-start gap-2 text-[14px] text-[#4a5468] transition-colors hover:text-[var(--color-brand)]"
+            >
+              <ChevronRight size={12} strokeWidth={3} className="mt-[5px] shrink-0 text-[var(--color-brand)]" />
+              {label}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -79,7 +122,7 @@ export function Header() {
 
           <nav className="hidden items-center gap-1 lg:flex">
             {nav.map((item) => (
-              <div key={item.label} className="group relative">
+              <div key={item.label} className={`group flex h-[70px] items-center ${item.groups && item.groups.length < 2 ? "relative" : ""}`}>
                 <Link
                   href={item.href}
                   className="flex items-center gap-1 rounded-full px-3.5 py-2 text-[var(--fs-sm)] font-medium text-[var(--color-text)] transition-colors hover:text-[var(--color-primary)]"
@@ -91,40 +134,33 @@ export function Header() {
                 </Link>
 
                 {item.groups ? (
-                  <div className="invisible absolute left-1/2 top-full z-10 w-max -translate-x-1/2 translate-y-2 pt-2 opacity-0 transition-all duration-300 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
-                    <div
-                      className="flex gap-9 rounded-[var(--radius-md)] border border-[var(--color-border)] bg-white p-7"
-                      style={{ boxShadow: "var(--shadow-lg)" }}
-                    >
-                      {item.groups.map((g) => (
-                        <div key={g.heading}>
-                          <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-[var(--color-primary)]">
-                            {g.heading}
-                          </p>
-                          <ul className="mt-4 flex flex-col gap-2.5">
-                            {g.links.map(([label, href]) => (
-                              <li key={label}>
-                                <Link
-                                  href={href}
-                                  className="text-[var(--fs-sm)] text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-primary)]"
-                                >
-                                  {label}
-                                </Link>
-                              </li>
-                            ))}
-                          </ul>
+                  item.groups.length > 1 ? (
+                    <div className="invisible absolute inset-x-0 top-full z-10 translate-y-1 opacity-0 transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
+                      <div className="border-t-2 border-[var(--color-brand)] bg-white shadow-[0_24px_50px_rgba(16,19,26,.12)]">
+                        <div className="container-max flex justify-center py-7">
+                          {item.groups.map((g) => (
+                            <div key={g.heading} className="w-[260px] border-l border-[var(--color-border)] px-8 first:border-l-0">
+                              <DropGroup g={g} />
+                            </div>
+                          ))}
                         </div>
-                      ))}
+                      </div>
                     </div>
-                  </div>
+                  ) : (
+                    <div className="invisible absolute left-1/2 top-full z-10 w-[300px] -translate-x-1/2 translate-y-1 opacity-0 transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
+                      <div className="border-t-2 border-[var(--color-brand)] bg-white p-6 shadow-[0_24px_50px_rgba(16,19,26,.12)]">
+                        <DropGroup g={item.groups[0]!} />
+                      </div>
+                    </div>
+                  )
                 ) : null}
               </div>
             ))}
           </nav>
 
           <div className="flex items-center gap-2">
-            <Link href="/contact-us" className="btn btn-accent hidden sm:inline-flex">
-              Get free proposal <ArrowRight size={16} />
+            <Link href="/free-website-audit" className="btn btn-accent hidden sm:inline-flex">
+              Free Website Audit <ArrowRight size={16} />
             </Link>
             <button
               onClick={() => setOpen((v) => !v)}

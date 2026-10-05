@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
+import { buildMeta } from "@/lib/seo";
 import { PageHero } from "@/components/layout/PageHero";
 import { PageCta } from "@/components/layout/PageCta";
 import { Products } from "@/components/home/Products";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMeta({
   title: "Products",
-  description:
-    "Hover Business Services SaaS products — email marketing, Google Business posting, WhatsApp Business API and CRM.",
-};
+  description: "Hover Business Services SaaS products — email marketing, Google Business posting, WhatsApp Business API and CRM.",
+  path: "/products",
+});
 
 export default function ProductsPage() {
   return (

@@ -4,7 +4,7 @@ import { industries } from "@/data/home";
 
 export function Industries() {
   return (
-    <section className="section-space bg-[var(--color-surface)]">
+    <section className="section-space ">
       <div className="container-max">
         <SectionHead
           pill="Industries we serve"

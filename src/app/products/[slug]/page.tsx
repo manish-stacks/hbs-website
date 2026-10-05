@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildMeta } from "@/lib/seo";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowRight, Check } from "lucide-react";
@@ -18,7 +19,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const p = productMap.get(slug);
-  return p ? { title: p.name, description: p.tagline } : {};
+  return p ? buildMeta({ title: p.name, description: p.tagline, path: `/products/${slug}` }) : {};
 }
 
 export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {

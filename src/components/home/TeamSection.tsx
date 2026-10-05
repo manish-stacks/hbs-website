@@ -23,13 +23,7 @@ const team = [
     role: "UX Designer, Research",
     image:
       "https://html.kodesolution.com/2025/digiplus-html/images/resource/team-h1-3.jpg",
-  },
-  {
-    name: "Robert Fox",
-    role: "UI/UX Designer",
-    image:
-      "https://html.kodesolution.com/2025/digiplus-html/images/resource/team-h1-4.jpg",
-  },
+  }
 ];
 
 export function TeamSection() {

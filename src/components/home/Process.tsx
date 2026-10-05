@@ -32,9 +32,7 @@ export function Process() {
   return (
     <section className="section-space relative overflow-hidden bg-white">
       <DottedGrid className="pointer-events-none absolute right-6 top-14 hidden h-28 w-28 opacity-70 md:block" />
-      <div className="pointer-events-none absolute left-6 top-12 hidden h-20 w-20 opacity-80 lg:block">
-        <Image src={art.stepIcon} alt="" fill sizes="80px" className="object-contain" />
-      </div>
+      
       <div className="container-max relative">
         <SectionHead
           pill="How we work"

@@ -7,7 +7,7 @@ import { blogPosts } from "@/data/blog";
 
 export function Blog({ limit = 3 }: { limit?: number }) {
   return (
-    <section className="section-space bg-white">
+    <section className="section-space bg-[var(--color-surface)]">
       <div className="container-max">
         <SectionHead
           pill="From the blog"

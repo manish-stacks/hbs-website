@@ -16,8 +16,8 @@ export function SectionHead({
     <Reveal
       className={
         center
-          ? "mx-auto w-full max-w-[62ch] text-center"
-          : "w-full max-w-[62ch]"
+          ? "mx-auto w-full max-w-[65ch] text-center"
+          : "w-full max-w-[65ch]"
       }
     >
       {pill ? <span className="pill">{pill}</span> : null}

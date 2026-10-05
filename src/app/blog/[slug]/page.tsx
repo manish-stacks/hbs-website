@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildMeta } from "@/lib/seo";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -19,7 +20,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const p = postMap.get(slug);
-  return p ? { title: p.title, description: p.excerpt } : {};
+  return p ? buildMeta({ title: p.title, description: p.excerpt, path: `/blog/${slug}`, type: "article" }) : {};
 }
 
 export default async function BlogDetail({ params }: { params: Promise<{ slug: string }> }) {

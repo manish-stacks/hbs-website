@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildMeta } from "@/lib/seo";
 import { PageHero } from "@/components/layout/PageHero";
 import { PageCta } from "@/components/layout/PageCta";
 import { About } from "@/components/home/About";
@@ -8,12 +9,13 @@ import { Process } from "@/components/home/Process";
 import { Offices } from "@/components/home/Offices";
 import { TeamSection } from "@/components/home/TeamSection";
 import { Testimonials } from "@/components/home/Testimonials";
+import { ContactCTA } from "@/components/home/ContactCTA";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMeta({
   title: "About Us",
-  description:
-    "Hover Business Services LLP — 80+ specialists across four offices delivering SEO, performance marketing, web and app development.",
-};
+  description: "Hover Business Services LLP — 80+ specialists across four offices delivering SEO, performance marketing, web and app development.",
+  path: "/about-us",
+});
 
 export default function AboutPage() {
   return (
@@ -31,6 +33,7 @@ export default function AboutPage() {
       <TeamSection />
       <Testimonials />
       <Offices />
+      <ContactCTA />
       <PageCta />
     </>
   );

@@ -1,59 +1,18 @@
 import type { Metadata } from "next";
-import Image from "next/image";
-import Link from "next/link";
-import { ArrowRight, ExternalLink } from "lucide-react";
+import { buildMeta } from "@/lib/seo";
 import { PageHero } from "@/components/layout/PageHero";
 import { PageCta } from "@/components/layout/PageCta";
 import { Reveal } from "@/components/ui/Reveal";
+import { WorkGallery } from "@/components/portfolio/WorkGallery";
 import { Industries } from "@/components/home/Industries";
 import { Testimonials } from "@/components/home/Testimonials";
 import { results, stats } from "@/data/home";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMeta({
   title: "Portfolio",
   description: "Selected client work and measurable results from Hover Business Services LLP.",
-};
-
-const work = [
-  {
-    name: "EFOS",
-    sector: "Food services",
-    scope: ["Web platform", "SEO", "Branding"],
-    outcome: "Rebuilt the site and search presence around service-intent keywords.",
-    image: "/images/company/efos.jpg",
-    featured: true,
-  },
-  {
-    name: "PrintHutt",
-    sector: "E-commerce",
-    scope: ["Store build", "Performance marketing"],
-    outcome: "Custom print storefront with a paid funnel tuned to order value.",
-    image: "/images/company/printhutt.avif",
-  },
-  {
-    name: "OncoHealthMart",
-    sector: "Healthcare",
-    scope: ["E-commerce SEO", "Rebuild"],
-    outcome: "Catalogue site turned into a transacting store with trust signals.",
-    image: "/images/company/onco.png",
-  },
-  {
-    name: "Dikshant",
-    sector: "Education",
-    scope: ["Website", "Admissions funnel"],
-    outcome: "Course pages and lead routing built around the admission season.",
-    image: "/images/company/dikshant.avif",
-  },
-  {
-    name: "Becho Gadi",
-    sector: "Marketplace",
-    scope: ["Platform", "Lead generation"],
-    outcome: "Listing marketplace with a qualified-seller acquisition engine.",
-    image: "/images/company/becho-gadi.webp",
-  },
-];
-
-const filters = ["All", "E-commerce", "Healthcare", "Education", "Marketplace", "Food services"];
+  path: "/portfolio",
+});
 
 export default function PortfolioPage() {
   return (
@@ -65,138 +24,95 @@ export default function PortfolioPage() {
         crumbs={[{ label: "Portfolio", href: "/portfolio" }]}
       />
 
-      {/* stat strip */}
-      <section className="border-b border-[var(--color-border)] bg-[var(--color-surface)] py-8">
-        <div className="container-max grid grid-cols-2 gap-6 lg:grid-cols-4">
-          {stats.map((s) => (
-            <div key={s.label} className="text-center">
-              <p className="font-display text-3xl font-extrabold sm:text-4xl">
-                {s.value.toLocaleString("en-IN")}
-                <span className="text-[var(--color-brand)]">{s.suffix}</span>
-              </p>
-              <p className="mt-1 text-[var(--fs-xs)] text-[var(--color-text-muted)] sm:text-[var(--fs-sm)]">
-                {s.label}
-              </p>
-            </div>
-          ))}
+      {/* stats */}
+      <section className="relative z-10 -mt-2 pb-4">
+        <div className="container-max">
+          <Reveal className="grid grid-cols-2 divide-x divide-y divide-[var(--color-border)] overflow-hidden rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-white shadow-[var(--shadow-md)] lg:grid-cols-4 lg:divide-y-0">
+            {stats.map((s) => (
+              <div key={s.label} className="px-4 py-7 text-center sm:py-9">
+                <p className="font-display text-3xl font-extrabold text-[var(--color-ink)] sm:text-4xl">
+                  {s.value.toLocaleString("en-IN")}
+                  <span className="text-[var(--color-brand)]">{s.suffix}</span>
+                </p>
+                <p className="mt-1 text-[var(--fs-xs)] font-semibold uppercase tracking-wider text-[var(--color-text-muted)]">
+                  {s.label}
+                </p>
+              </div>
+            ))}
+          </Reveal>
         </div>
       </section>
 
-      {/* work grid */}
+      {/* work */}
       <section className="section-space">
         <div className="container-max">
-          <Reveal className="flex flex-wrap justify-center gap-2">
-            {filters.map((f, i) => (
-              <span
-                key={f}
-                className={`rounded-full px-4 py-2 text-[var(--fs-xs)] font-semibold sm:text-[var(--fs-sm)] ${
-                  i === 0
-                    ? "bg-[var(--color-ink)] text-white"
-                    : "border border-[var(--color-border)] bg-white text-[var(--color-text-muted)]"
-                }`}
-              >
-                {f}
-              </span>
-            ))}
+          <Reveal className="mx-auto max-w-[60ch] text-center">
+            <span className="pill">Selected work</span>
+            <h2 className="mt-4" style={{ fontSize: "var(--fs-3xl)" }}>
+              Projects built to <span className="text-gradient-brand">perform</span>
+            </h2>
           </Reveal>
 
-          <Reveal stagger className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {work.map((w) => (
-              <article
-                key={w.name}
-                className={`card group relative flex flex-col overflow-hidden ${
-                  w.featured ? "sm:col-span-2" : ""
-                }`}
-              >
-                <div className={`relative overflow-hidden ${w.featured ? "aspect-[16/9]" : "aspect-[4/3]"}`}>
-                  <Image
-                    src={w.image}
-                    alt={w.name}
-                    fill
-                    sizes="(max-width: 640px) 100vw, 520px"
-                    className="object-cover transition-transform duration-[900ms] group-hover:scale-110"
-                  />
-                  <div
-                    className="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-                    style={{ background: "linear-gradient(180deg, transparent 35%, rgba(11,13,18,.85))" }}
-                  />
-                  <span className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-[var(--color-ink)] backdrop-blur">
-                    {w.sector}
-                  </span>
-                  <span className="absolute bottom-4 right-4 flex h-10 w-10 translate-y-3 items-center justify-center rounded-full bg-[var(--color-brand)] text-white opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
-                    <ExternalLink size={16} />
-                  </span>
-                </div>
-
-                <div className="flex flex-1 flex-col p-6">
-                  <h2 className="font-display text-[var(--fs-lg)] font-extrabold">{w.name}</h2>
-                  <p className="mt-2 flex-1 text-[var(--fs-sm)] leading-relaxed text-[var(--color-text-muted)]">
-                    {w.outcome}
-                  </p>
-                  <ul className="mt-4 flex flex-wrap gap-2">
-                    {w.scope.map((s) => (
-                      <li
-                        key={s}
-                        className="rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-1 text-[12px] text-[var(--color-text-muted)]"
-                      >
-                        {s}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </article>
-            ))}
-
-            {/* add-your-brand tile */}
-            <Link
-              href="/contact-us"
-              className="group flex flex-col items-center justify-center gap-3 rounded-[var(--radius-md)] border border-dashed border-[var(--color-border)] bg-[var(--color-surface)] p-8 text-center transition-colors hover:border-[var(--color-brand)]"
-            >
-              <span className="flex h-12 w-12 items-center justify-center rounded-full bg-[var(--color-brand-soft)] text-[var(--color-brand)]">
-                <ArrowRight size={20} />
-              </span>
-              <p className="font-display text-[var(--fs-lg)] font-bold">Your brand here</p>
-              <p className="text-[var(--fs-sm)] text-[var(--color-text-muted)]">
-                Tell us what you are building and we will show you a plan.
-              </p>
-            </Link>
-          </Reveal>
+          <div className="mt-10">
+            <WorkGallery />
+          </div>
         </div>
       </section>
 
       {/* case studies */}
-      <section className="section-space bg-[var(--color-surface)]">
-        <div className="container-max">
+      <section className="section-space relative overflow-hidden bg-[var(--color-ink)] text-white">
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px)",
+            backgroundSize: "52px 52px",
+            maskImage: "radial-gradient(ellipse at center, #000 25%, transparent 75%)",
+          }}
+        />
+        <div
+          className="pointer-events-none absolute -left-40 top-0 h-[420px] w-[420px] rounded-full blur-[120px]"
+          style={{ background: "radial-gradient(circle, rgba(229,35,27,.3), transparent 70%)" }}
+        />
+
+        <div className="container-max relative">
           <Reveal className="mx-auto max-w-[56ch] text-center">
-            <span className="pill">Case studies</span>
-            <h2 className="mt-4" style={{ fontSize: "var(--fs-2xl)" }}>
-              What changed after we took over
+            <span className="inline-flex rounded-full border border-white/15 bg-white/5 px-4 py-2 text-[12px] font-semibold uppercase tracking-[0.12em] text-white/80">
+              Case studies
+            </span>
+            <h2 className="mt-4 text-white" style={{ fontSize: "var(--fs-3xl)" }}>
+              What changed after we <span className="text-gradient-brand">took over</span>
             </h2>
           </Reveal>
 
-          <Reveal stagger className="mt-10 grid gap-5 lg:grid-cols-3">
+          <Reveal stagger className="mt-12 grid gap-5 lg:grid-cols-3">
             {results.map((r) => (
-              <article key={r.industry} className="card flex flex-col p-6 sm:p-7">
-                <span className="pill w-fit">{r.industry}</span>
-                <p className="mt-4 text-[11px] font-bold uppercase tracking-[0.14em] text-[var(--color-text-muted)]">
-                  {r.client}
-                </p>
-                <h3 className="mt-4 font-display text-[var(--fs-base)] font-bold">The challenge</h3>
-                <p className="mt-1.5 text-[var(--fs-sm)] leading-relaxed text-[var(--color-text-muted)]">
-                  {r.challenge}
-                </p>
-                <h3 className="mt-4 font-display text-[var(--fs-base)] font-bold">What we did</h3>
-                <p className="mt-1.5 flex-1 text-[var(--fs-sm)] leading-relaxed text-[var(--color-text-muted)]">
-                  {r.solution}
-                </p>
-
-                <div className="mt-6 grid grid-cols-3 gap-3 border-t border-[var(--color-border)] pt-5">
+              <article
+                key={r.industry}
+                className="flex flex-col overflow-hidden rounded-[var(--radius-lg)] border border-white/10 bg-white/[.04] transition-colors duration-300 hover:border-[var(--color-brand)]/50 hover:bg-white/[.07]"
+              >
+                <div className="grid grid-cols-3 gap-3 border-b border-white/10 bg-white/[.04] p-6">
                   {r.metrics.map(([v, l]) => (
                     <div key={l}>
-                      <p className="font-display text-xl font-extrabold text-[var(--color-brand)]">{v}</p>
-                      <p className="text-[11px] leading-tight text-[var(--color-text-muted)]">{l}</p>
+                      <p className="text-gradient-brand font-display text-2xl font-extrabold sm:text-3xl">{v}</p>
+                      <p className="mt-1 text-[11px] leading-tight text-white/55">{l}</p>
                     </div>
                   ))}
+                </div>
+
+                <div className="flex flex-1 flex-col p-6 sm:p-7">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="rounded-full bg-[var(--color-brand)]/15 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-[#ff8a82]">
+                      {r.industry}
+                    </span>
+                    <span className="text-[11px] font-bold uppercase tracking-[0.14em] text-white/45">{r.client}</span>
+                  </div>
+
+                  <h3 className="mt-5 text-[11px] font-bold uppercase tracking-[0.16em] text-[var(--color-accent)]">The challenge</h3>
+                  <p className="mt-1.5 text-[var(--fs-sm)] leading-relaxed text-white/70">{r.challenge}</p>
+
+                  <h3 className="mt-5 text-[11px] font-bold uppercase tracking-[0.16em] text-[var(--color-accent)]">What we did</h3>
+                  <p className="mt-1.5 flex-1 text-[var(--fs-sm)] leading-relaxed text-white/70">{r.solution}</p>
                 </div>
               </article>
             ))}

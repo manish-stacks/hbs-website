@@ -253,3 +253,41 @@ details > summary { user-select: none; }
 @media (max-width: 1024px) {
   .section-space { padding-block: clamp(3rem, 6vw, 4.5rem); }
 }
+
+/* ---- Modern layer ---- */
+.no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+
+.grid-lines-light {
+  background-image:
+    linear-gradient(rgba(16,19,26,.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(16,19,26,.05) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse at center, #000 30%, transparent 78%);
+}
+.grid-lines-dark {
+  background-image:
+    linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
+  background-size: 52px 52px;
+  mask-image: radial-gradient(ellipse at center, #000 25%, transparent 75%);
+}
+
+.bento {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  background: #fff;
+  box-shadow: var(--shadow-sm);
+  transition: transform .4s ease, box-shadow .4s ease, border-color .4s ease;
+}
+.bento::before {
+  content: "";
+  position: absolute; inset: 0;
+  background: radial-gradient(480px circle at 85% 0%, var(--glow, rgba(229,35,27,.10)), transparent 60%);
+  opacity: 0; transition: opacity .4s ease; pointer-events: none;
+}
+.bento:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); border-color: var(--accent, var(--color-border)); }
+.bento:hover::before { opacity: 1; }
+@media (hover: none) { .bento:hover { transform: none; } }
