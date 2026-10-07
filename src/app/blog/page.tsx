@@ -4,11 +4,15 @@ import { PageHero } from "@/components/layout/PageHero";
 import { PageCta } from "@/components/layout/PageCta";
 import { Blog } from "@/components/home/Blog";
 
-export const metadata: Metadata = buildMeta({
+export const revalidate = 60;
+
+export async function generateMetadata(): Promise<Metadata> {
+  return buildMeta({
   title: "Blog",
   description: "Notes on SEO, paid media, AI-driven search and building websites that convert.",
   path: "/blog",
 });
+}
 
 export default function BlogPage() {
   return (
@@ -19,7 +23,7 @@ export default function BlogPage() {
         tagline="What we are seeing in search, paid media and AI-driven discovery right now."
         crumbs={[{ label: "Blog", href: "/blog" }]}
       />
-      <Blog />
+      <Blog limit={30} />
       <PageCta title="Want this kind of thinking on your account?" />
     </>
   );

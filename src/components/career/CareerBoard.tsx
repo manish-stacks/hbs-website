@@ -1,40 +1,37 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 import { ArrowRight, Briefcase, ChevronDown, Clock, MapPin, Send } from "lucide-react";
-import { company } from "@/data/home";
 
-const openings = [
-  { role: "SEO Executive", team: "Digital Marketing", type: "Full-time", location: "Pitampura, Delhi", exp: "1–3 years", points: ["Run audits, keyword research and on-page optimisation", "Build and track link and content campaigns", "Report ranking and traffic growth to clients"] },
-  { role: "Performance Marketing Specialist", team: "Paid Media", type: "Full-time", location: "Pitampura, Delhi", exp: "2–5 years", points: ["Plan and optimise Google and Meta ad accounts", "Own budgets, tracking and conversion goals", "Test creatives and landing pages weekly"] },
-  { role: "Next.js Developer", team: "Engineering", type: "Full-time", location: "Delhi / Hybrid", exp: "2–4 years", points: ["Build fast, SEO-friendly websites and web apps", "Integrate APIs, CMS and payment systems", "Review code and improve performance"] },
-  { role: "React Native Developer", team: "Engineering", type: "Full-time", location: "Delhi / Remote", exp: "2–4 years", points: ["Ship Android and iOS apps from one codebase", "Work with REST APIs and push notifications", "Publish and maintain store releases"] },
-  { role: "UI/UX Designer", team: "Creative", type: "Full-time", location: "Pitampura, Delhi", exp: "1–4 years", points: ["Design user flows, wireframes and interfaces", "Create and maintain design systems in Figma", "Work closely with developers on handoff"] },
-  { role: "Content Writer", team: "Content", type: "Full-time", location: "Delhi / Hybrid", exp: "0–2 years", points: ["Write blogs, service pages and ad copy", "Research topics with search intent in mind", "Edit for clarity, tone and accuracy"] },
-  { role: "Business Development Executive", team: "Sales", type: "Full-time", location: "Pitampura, Delhi", exp: "1–3 years", points: ["Qualify inbound and outbound leads", "Run discovery calls and prepare proposals", "Build long-term client relationships"] },
-  { role: "Graphic Design Intern", team: "Creative", type: "Internship", location: "Pitampura, Delhi", exp: "Fresher", points: ["Create social media and ad creatives", "Support senior designers on live projects", "Learn brand and layout fundamentals"] },
-];
-
-const teams = ["All", ...Array.from(new Set(openings.map((o) => o.team)))];
-
+type Opening = { role: string; team: string; type: string; location: string; exp: string; points: string[] };
 const field = "w-full rounded-[var(--radius-sm)] border border-[var(--color-border)] bg-white px-4 py-3 text-[var(--fs-sm)] outline-none transition focus:border-[var(--color-ink)]";
 
-export function CareerBoard() {
+export function CareerBoard({ openings }: { openings: Opening[] }) {
+  const router = useRouter();
+  const [busy, setBusy] = useState(false);
+  const [err, setErr] = useState("");
+  const teams = ["All", ...Array.from(new Set(openings.map((o) => o.team)))];
   const [team, setTeam] = useState("All");
   const [openRole, setOpenRole] = useState<string | null>(null);
   const [role, setRole] = useState("");
-  const list = useMemo(() => openings.filter((o) => team === "All" || o.team === team), [team]);
+  const list = useMemo(() => openings.filter((o) => team === "All" || o.team === team), [team, openings]);
 
   function apply(r: string) {
     setRole(r);
     document.getElementById("apply")?.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
-  function submit(e: React.FormEvent<HTMLFormElement>) {
+  async function submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const f = new FormData(e.currentTarget);
-    const body = `Name: ${f.get("name")}\nPhone: ${f.get("phone")}\nExperience: ${f.get("exp")}\nPortfolio / LinkedIn: ${f.get("link")}\n\n${f.get("msg")}`;
-    window.location.href = `mailto:${company.email}?subject=${encodeURIComponent(`Application: ${f.get("role") || "Open application"}`)}&body=${encodeURIComponent(body)}`;
+    if (busy) return;
+    setBusy(true);
+    setErr("");
+    const body = Object.fromEntries(new FormData(e.currentTarget));
+    const r = await fetch("/api/career", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+    if (r.ok) return router.push("/thank-you");
+    setErr((await r.json().catch(() => ({}))).error || "Could not send. Please try again.");
+    setBusy(false);
   }
 
   return (
@@ -53,7 +50,7 @@ export function CareerBoard() {
                 role="tab"
                 aria-selected={team === t}
                 onClick={() => setTeam(t)}
-                className={`rounded-full border px-5 py-2 text-[var(--fs-xs)] font-semibold transition sm:text-[var(--fs-sm)] ${team === t ? "border-[var(--color-ink)] bg-[var(--color-ink)] text-white" : "border-[var(--color-border)] bg-white text-[var(--color-text-muted)] hover:border-[var(--color-ink)]"}`}
+                className={`rounded-full border px-5 py-2 text-[var(--fs-xs)] font-semibold transition sm:text-[var(--fs-sm)] ${team === t ? "border-[var(--color-ink)] bg-[var(--color-ink)] text-white!" : "border-[var(--color-border)] bg-white text-[var(--color-text-muted)] hover:border-[var(--color-ink)]"}`}
               >
                 {t}
               </button>
@@ -108,6 +105,7 @@ export function CareerBoard() {
           <form onSubmit={submit} className="card mx-auto mt-10 grid max-w-[760px] gap-4 p-6 sm:grid-cols-2 sm:p-8">
             <input name="name" required placeholder="Full name" aria-label="Full name" className={field} />
             <input name="phone" required type="tel" placeholder="Phone number" aria-label="Phone number" className={field} />
+            <input name="email" required type="email" placeholder="Email address" aria-label="Email address" className={field} />
             <select name="role" value={role} onChange={(e) => setRole(e.target.value)} required aria-label="Role" className={field}>
               <option value="">Select a role</option>
               {openings.map((o) => <option key={o.role}>{o.role}</option>)}
@@ -116,7 +114,8 @@ export function CareerBoard() {
             <input name="exp" placeholder="Total experience (e.g. 2 years)" aria-label="Experience" className={field} />
             <input name="link" placeholder="Portfolio or LinkedIn link" aria-label="Portfolio or LinkedIn" className={`${field} sm:col-span-2`} />
             <textarea name="msg" rows={4} placeholder="Why would you like to join us?" aria-label="Message" className={`${field} sm:col-span-2`} />
-            <button className="btn btn-brand justify-center sm:col-span-2">Submit application <Send size={16} /></button>
+            {err ? <p className="text-sm font-medium text-red-600 sm:col-span-2">{err}</p> : null}
+            <button disabled={busy} className="btn btn-brand justify-center disabled:opacity-60 sm:col-span-2">{busy ? "Sending..." : "Submit application"} <Send size={16} /></button>
           </form>
         </div>
       </section>

@@ -10,7 +10,7 @@ const items = [
     icon: MapPin, name: "GMB Pro", href: "/products/gmb-posting",
     desc: "Google Business posts, reviews aur rank tracking — AI se auto-manage. Local search me #1 aao.",
     tags: ["Auto posting", "Review replies", "Rank tracker"],
-    color: "#e5231b", glow: "rgba(229,35,27,.14)", span: "lg:col-span-2",
+    color: "#6a2c91", glow: "rgba(106,44,145,.14)", span: "lg:col-span-2",
   },
   {
     icon: Mail, name: "Email Marketing", href: "/products/email-marketing",

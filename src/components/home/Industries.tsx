@@ -1,8 +1,9 @@
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHead } from "./SectionHead";
-import { industries } from "@/data/home";
+import { getSetting } from "@/lib/site";
 
-export function Industries() {
+export async function Industries() {
+  const industries = (await getSetting("industries")).items.map((x) => x.name);
   return (
     <section className="section-space ">
       <div className="container-max">

@@ -1,14 +1,15 @@
 import Link from "next/link";
 import { ArrowRight, Phone } from "lucide-react";
-import { company } from "@/data/home";
+import { getCompany } from "@/lib/site";
 
-export function PageCta({
+export async function PageCta({
   title = "Ready to talk about your growth?",
   body = "Tell us what you are trying to grow. We come back with a plan, a timeline and a number — not a sales pitch.",
 }: {
   title?: string;
   body?: string;
 }) {
+  const company = await getCompany();
   return (
     <section className="section-space">
       <div className="container-max">

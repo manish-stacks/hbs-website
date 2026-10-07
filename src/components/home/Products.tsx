@@ -24,8 +24,8 @@ const meta: Record<
   },
   "gmb-posting": {
     icon: MapPin,
-    color: "#e5231b",
-    glow: "rgba(229,35,27,.09)",
+    color: "#6a2c91",
+    glow: "rgba(106,44,145,.09)",
   },
   "whatsapp-marketing": {
     icon: MessageCircle,
@@ -149,7 +149,7 @@ export function Products() {
               className="pointer-events-none absolute -right-16 -top-20 h-48 w-48 rounded-full blur-[70px]"
               style={{
                 background:
-                  "radial-gradient(circle, rgba(229,35,27,.38), transparent 70%)",
+                  "radial-gradient(circle, rgba(106,44,145,.38), transparent 70%)",
               }}
             />
 

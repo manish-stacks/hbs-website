@@ -4,11 +4,13 @@ import { PageHero } from "@/components/layout/PageHero";
 import { PageCta } from "@/components/layout/PageCta";
 import { Products } from "@/components/home/Products";
 
-export const metadata: Metadata = buildMeta({
+export async function generateMetadata(): Promise<Metadata> {
+  return buildMeta({
   title: "Products",
   description: "Hover Business Services SaaS products — email marketing, Google Business posting, WhatsApp Business API and CRM.",
   path: "/products",
 });
+}
 
 export default function ProductsPage() {
   return (

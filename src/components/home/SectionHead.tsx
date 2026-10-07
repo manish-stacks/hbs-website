@@ -6,11 +6,13 @@ export function SectionHead({
   title,
   sub,
   center = true,
+  pillClass = "",
 }: {
   pill?: string;
   title: React.ReactNode;
   sub?: string;
   center?: boolean;
+  pillClass?: string;
 }) {
   return (
     <Reveal
@@ -20,7 +22,7 @@ export function SectionHead({
           : "w-full max-w-[65ch]"
       }
     >
-      {pill ? <span className="pill">{pill}</span> : null}
+      {pill ? <span className={`pill ${pillClass}`}>{pill}</span> : null}
 
       <div className="mt-4">
         <h2

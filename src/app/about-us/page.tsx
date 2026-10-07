@@ -11,11 +11,13 @@ import { TeamSection } from "@/components/home/TeamSection";
 import { Testimonials } from "@/components/home/Testimonials";
 import { ContactCTA } from "@/components/home/ContactCTA";
 
-export const metadata: Metadata = buildMeta({
+export async function generateMetadata(): Promise<Metadata> {
+  return buildMeta({
   title: "About Us",
   description: "Hover Business Services LLP — 80+ specialists across four offices delivering SEO, performance marketing, web and app development.",
   path: "/about-us",
 });
+}
 
 export default function AboutPage() {
   return (

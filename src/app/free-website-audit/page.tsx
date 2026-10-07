@@ -6,11 +6,13 @@ import { PageCta } from "@/components/layout/PageCta";
 import { Reveal } from "@/components/ui/Reveal";
 import { AuditTool } from "@/components/audit/AuditTool";
 
-export const metadata: Metadata = buildMeta({
+export async function generateMetadata(): Promise<Metadata> {
+  return buildMeta({
   title: "Free Website Audit",
   description: "Check your website's SEO, speed, mobile readiness and security in seconds with the free audit tool from Hover Business Services.",
   path: "/free-website-audit",
 });
+}
 
 const covers = [
   { icon: ListChecks, title: "On-page SEO", body: "Titles, descriptions, headings, images and content depth." },

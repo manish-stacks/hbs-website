@@ -1,10 +1,7 @@
 import type { MetadataRoute } from "next";
-import { SITE_URL } from "@/lib/seo";
+import { getSeo } from "@/lib/site";
 
-export default function robots(): MetadataRoute.Robots {
-  return {
-    rules: [{ userAgent: "*", allow: "/" }],
-    sitemap: `${SITE_URL}/sitemap.xml`,
-    host: SITE_URL,
-  };
+export default async function robots(): Promise<MetadataRoute.Robots> {
+  const { siteUrl } = await getSeo();
+  return { rules: [{ userAgent: "*", allow: "/", disallow: ["/admin", "/api/", "/thank-you"] }], sitemap: `${siteUrl}/sitemap.xml`, host: siteUrl };
 }

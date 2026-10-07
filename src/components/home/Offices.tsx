@@ -2,9 +2,11 @@ import Image from "next/image";
 import { Phone } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHead } from "./SectionHead";
-import { art, offices } from "@/data/home";
+import { art } from "@/data/home";
+import { getSetting } from "@/lib/site";
 
-export function Offices() {
+export async function Offices() {
+  const { items: offices } = await getSetting("offices");
   return (
     <section className="section-space bg-white">
       <div className="container-max">

@@ -4,15 +4,17 @@ import { BookOpen, Clock, Laptop, TrendingUp, Users, Wrench } from "lucide-react
 import { PageHero } from "@/components/layout/PageHero";
 import { PageCta } from "@/components/layout/PageCta";
 import { Reveal } from "@/components/ui/Reveal";
+import { getSetting } from "@/lib/site";
 import { CareerBoard } from "@/components/career/CareerBoard";
 
-export const metadata: Metadata = buildMeta({
+export async function generateMetadata(): Promise<Metadata> {
+  return buildMeta({
   title: "Careers",
   description: "Open roles at Hover Business Services LLP — SEO, performance marketing, development and design jobs in Delhi NCR.",
   path: "/career",
 });
+}
 
-const numbers = [["80+", "Team members"], ["4", "Offices"], ["1500+", "Clients served"], ["6 mo", "Review cycle"]];
 
 const perks = [
   { icon: Laptop, title: "Work that ships", body: "Live client accounts from week one, not months of shadowing." },
@@ -30,7 +32,10 @@ const steps = [
   { n: "04", title: "Offer", body: "Written offer with scope, pay and review criteria." },
 ];
 
-export default function CareerPage() {
+export default async function CareerPage() {
+  const [c, jobs] = await Promise.all([getSetting("career"), getSetting("jobs")]);
+  const numbers = c.numbers.map((n) => [n.value, n.label]);
+  const openings = jobs.items.map((j) => ({ ...j, points: j.points.filter(Boolean) }));
   return (
     <>
       <PageHero
@@ -71,7 +76,7 @@ export default function CareerPage() {
         </div>
       </section>
 
-      <CareerBoard />
+      <CareerBoard openings={openings} />
 
       <section className="section-space bg-[var(--color-surface)]">
         <div className="container-max">

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, BadgeCheck, Cpu, Handshake, Repeat2, ShieldCheck, Users } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
-import { whyUs } from "@/data/home";
+import { getSetting } from "@/lib/site";
 
 const icons = [ShieldCheck, Users, Cpu, Handshake, BadgeCheck, Repeat2];
 const facts = [
@@ -10,13 +10,14 @@ const facts = [
   ["5+", "Years of growth"],
 ];
 
-export function WhyUs() {
+export async function WhyUs() {
+  const { items: whyUs } = await getSetting("whyUs");
   return (
     <section className="section-space relative overflow-hidden bg-[var(--color-ink)] text-white">
       <div className="grid-lines-dark pointer-events-none absolute inset-0" />
       <div
         className="pointer-events-none absolute -right-40 -top-40 h-[480px] w-[480px] rounded-full blur-[120px]"
-        style={{ background: "radial-gradient(circle, rgba(229,35,27,.35), transparent 70%)" }}
+        style={{ background: "radial-gradient(circle, rgba(106,44,145,.35), transparent 70%)" }}
       />
       <div
         className="pointer-events-none absolute -bottom-48 -left-40 h-[420px] w-[420px] rounded-full blur-[120px]"
@@ -63,7 +64,7 @@ export function WhyUs() {
                 <span className="absolute right-5 top-4 font-display text-4xl font-extrabold text-white/[.06] transition-colors group-hover:text-white/[.12]">
                   {String(i + 1).padStart(2, "0")}
                 </span>
-                <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-[var(--color-brand)] to-[#f0562b] text-white shadow-[0_10px_24px_rgba(229,35,27,.35)]">
+                <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-[var(--color-brand)] to-[#a45ad6] text-white shadow-[0_10px_24px_rgba(106,44,145,.35)]">
                   <Icon size={21} />
                 </span>
                 <h3 className="mt-5 text-[var(--fs-lg)] font-bold text-white">{w.title}</h3>

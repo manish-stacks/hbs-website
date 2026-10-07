@@ -291,3 +291,14 @@ details > summary { user-select: none; }
 .bento:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); border-color: var(--accent, var(--color-border)); }
 .bento:hover::before { opacity: 1; }
 @media (hover: none) { .bento:hover { transform: none; } }
+
+/* ==== Sonar pulse (floating WhatsApp) ==== */
+.sonar::before, .sonar::after {
+  content: ""; position: absolute; inset: 0; z-index: -1; border-radius: 9999px;
+  background: #25d366; opacity: .5; animation: sonar 2.4s ease-out infinite;
+}
+.sonar::after { animation-delay: 1.2s; }
+@keyframes sonar { 0% { transform: scale(1); opacity: .55; } 100% { transform: scale(2.3); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .sonar::before, .sonar::after { animation: none; } }
+
+.bg-circuit { background-image: url(/images/theme/circuit-bg.png); background-repeat: repeat; background-size: 626px auto; }

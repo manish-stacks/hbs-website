@@ -1,10 +1,9 @@
 import type { Metadata, Viewport } from "next";
+import Script from "next/script";
 import { Plus_Jakarta_Sans, Inter } from "next/font/google";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
+import { SiteChrome } from "@/components/layout/SiteChrome";
 import { SmoothScroll } from "@/components/providers/SmoothScroll";
-import { company } from "@/data/home";
-import { OG_IMAGE, SITE_NAME, SITE_URL } from "@/lib/seo";
+import { getCompany, getSeo, getSetting } from "@/lib/site";
 import "@/styles/globals.css";
 
 const jakarta = Plus_Jakarta_Sans({
@@ -27,86 +26,60 @@ export const viewport: Viewport = {
   themeColor: "#171a21",
 };
 
-export const metadata: Metadata = {
-  metadataBase: new URL(SITE_URL),
-  applicationName: SITE_NAME,
-  title: {
-    default: "Digital Marketing Agency in India | Hover Business Services LLP",
-    template: "%s | Hover Business Services LLP",
-  },
-  description:
-    "Hover Business Services is one of the best digital marketing agencies in India. SEO, PPC, social media, web and app development that generates leads and increases sales.",
-  keywords: [
-    "digital marketing agency India",
-    "SEO services",
-    "performance marketing",
-    "GMB management",
-    "email marketing software",
-    "WhatsApp marketing",
-    "AI automation",
-    "web development Delhi",
-  ],
-  authors: [{ name: SITE_NAME, url: SITE_URL }],
-  creator: SITE_NAME,
-  publisher: SITE_NAME,
-  category: "business",
-  formatDetection: { telephone: false, email: false, address: false },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1, "max-video-preview": -1 },
-  },
-  openGraph: {
-    type: "website",
-    siteName: SITE_NAME,
-    locale: "en_IN",
-    url: "/",
-    images: [OG_IMAGE],
-  },
-  twitter: { card: "summary_large_image", images: [OG_IMAGE.url] },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const s = await getSeo();
+  const img = s.ogImage ? [{ url: s.ogImage, width: 1200, height: 630, alt: s.ogImageAlt || s.siteName }] : undefined;
+  return {
+    metadataBase: new URL(s.siteUrl || "http://localhost:3000"),
+    applicationName: s.siteName,
+    title: { default: s.defaultTitle, template: s.titleTemplate },
+    description: s.description,
+    keywords: s.keywords.filter(Boolean),
+    authors: [{ name: s.siteName, url: s.siteUrl }],
+    creator: s.siteName,
+    publisher: s.siteName,
+    category: "business",
+    formatDetection: { telephone: false, email: false, address: false },
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1, "max-video-preview": -1 } },
+    verification: s.googleVerification ? { google: s.googleVerification } : undefined,
+    icons: s.favicon ? { icon: s.favicon } : undefined,
+    openGraph: { type: "website", siteName: s.siteName, locale: "en_IN", url: "/", images: img },
+    twitter: { card: "summary_large_image", images: s.ogImage ? [s.ogImage] : undefined, site: s.twitterHandle || undefined },
+  };
+}
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Organization",
-      "@id": `${SITE_URL}/#organization`,
-      name: SITE_NAME,
-      url: SITE_URL,
-      logo: `${SITE_URL}/images/hbs-logo.png`,
-      email: company.email,
-      telephone: company.phone,
-      address: {
-        "@type": "PostalAddress",
-        streetAddress: "916, 9th Floor, Tower-2, Pearls Omaxe, NSP, Pitampura",
-        addressLocality: "Delhi",
-        postalCode: "110034",
-        addressCountry: "IN",
+export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  const [company, seo, menu, footer] = await Promise.all([getCompany(), getSeo(), getSetting("menu"), getSetting("footer")]);
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": `${seo.siteUrl}/#organization`,
+        name: seo.siteName,
+        url: seo.siteUrl,
+        logo: company.logo,
+        email: company.email,
+        telephone: company.phone,
+        address: { "@type": "PostalAddress", streetAddress: seo.orgStreet, addressLocality: seo.orgCity, postalCode: seo.orgPostal, addressCountry: seo.orgCountry },
+        sameAs: Object.values(company.social).filter(Boolean),
+        contactPoint: [{ "@type": "ContactPoint", telephone: company.phone, contactType: "customer support", availableLanguage: ["en", "hi"] }],
       },
-      sameAs: Object.values(company.social),
-      contactPoint: [{ "@type": "ContactPoint", telephone: company.phone, contactType: "customer support", areaServed: ["IN", "NZ"], availableLanguage: ["en", "hi"] }],
-    },
-    {
-      "@type": "WebSite",
-      "@id": `${SITE_URL}/#website`,
-      url: SITE_URL,
-      name: SITE_NAME,
-      inLanguage: "en-IN",
-      publisher: { "@id": `${SITE_URL}/#organization` },
-    },
-  ],
-};
-
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+      { "@type": "WebSite", "@id": `${seo.siteUrl}/#website`, url: seo.siteUrl, name: seo.siteName, inLanguage: "en-IN", publisher: { "@id": `${seo.siteUrl}/#organization` } },
+    ],
+  };
   return (
     <html lang="en-IN" className={`${jakarta.variable} ${inter.variable}`}>
-      <body className="font-body antialiased">
+      <body className="font-body antialiased" suppressHydrationWarning>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+        {seo.gaId ? (
+          <>
+            <Script src={`https://www.googletagmanager.com/gtag/js?id=${seo.gaId}`} strategy="afterInteractive" />
+            <Script id="ga" strategy="afterInteractive">{`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${seo.gaId}');`}</Script>
+          </>
+        ) : null}
         <SmoothScroll>
-          <Header />
-          <main className="pt-[70px] md:pt-[110px]">{children}</main>
-          <Footer />
+          <SiteChrome company={company} menu={menu.items} footer={footer}>{children}</SiteChrome>
         </SmoothScroll>
       </body>
     </html>

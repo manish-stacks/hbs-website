@@ -8,6 +8,7 @@ export function PageHero({
   tagline,
   crumbs = [],
   image = DEFAULT_BANNER,
+  variant = "default",
 }: {
   eyebrow: string;
   title: string;
@@ -15,19 +16,31 @@ export function PageHero({
   crumbs?: Crumb[];
   /** drop any photo here per page, e.g. "/images/banners/seo.jpg" */
   image?: string;
+  variant?: "default" | "purple";
 }) {
+  const purple = variant === "purple";
   return (
     <section className="relative overflow-hidden">
       {/* banner image */}
       <div
         className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: `url(${image})` }}
+        style={{
+          backgroundImage: purple
+            ? "linear-gradient(135deg,#10131a 0%,#2a1215 55%,#b8140e 100%)"
+            : `url(${image})`,
+        }}
         aria-hidden
       />
       
+      {purple ? (
+        <div
+          className="absolute inset-0 bg-circuit opacity-[.12] invert"
+          aria-hidden
+        />
+      ) : null}
       <div
         className="pointer-events-none absolute left-1/2 top-0 h-[320px] w-[760px] -translate-x-1/2 rounded-full blur-[110px]"
-        style={{ background: "radial-gradient(ellipse, rgba(229,35,27,.22), transparent 70%)" }}
+        style={{ background: `radial-gradient(ellipse, ${purple ? "rgba(229,35,27,.35)" : "rgba(229,35,27,.22)"}, transparent 70%)` }}
         aria-hidden
       />
 

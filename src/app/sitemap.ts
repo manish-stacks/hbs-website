@@ -1,10 +1,12 @@
 import type { MetadataRoute } from "next";
-import { SITE_URL } from "@/lib/seo";
-import { innerSlugs } from "@/data/pages";
-import { postSlugs } from "@/data/blog";
+import { getSeo } from "@/lib/site";
 import { productSlugs } from "@/data/products";
+import { listSlugs } from "@/lib/content";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export const revalidate = 3600;
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const SITE_URL = (await getSeo()).siteUrl;
   const now = new Date();
   const entry = (path: string, priority: number, changeFrequency: "weekly" | "monthly") => ({
     url: `${SITE_URL}${path}`,
@@ -12,12 +14,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     changeFrequency,
     priority,
   });
+  const dynamic = await listSlugs();
 
   return [
     entry("", 1, "weekly"),
     ...["/about-us", "/products", "/portfolio", "/blog", "/career", "/free-website-audit", "/contact-us"].map((p) => entry(p, 0.8, "monthly")),
-    ...innerSlugs.map((s) => entry(`/${s}`, 0.7, "monthly")),
+    ...dynamic.filter((e) => e.type !== "blog").map((e) => entry(`/${e.slug}`, 0.7, "monthly")),
     ...productSlugs.map((s) => entry(`/products/${s}`, 0.7, "monthly")),
-    ...postSlugs.map((s) => entry(`/blog/${s}`, 0.6, "monthly")),
+    ...dynamic.filter((e) => e.type === "blog").map((e) => entry(`/blog/${e.slug}`, 0.6, "monthly")),
   ];
 }

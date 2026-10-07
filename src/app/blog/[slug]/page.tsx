@@ -1,140 +1,75 @@
 import type { Metadata } from "next";
-import { buildMeta } from "@/lib/seo";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ArrowRight, Clock, Tag, User } from "lucide-react";
+import { ArrowUpRight, CalendarDays, Clock, User } from "lucide-react";
+import { BlockRenderer } from "@/components/blocks/BlockRenderer";
 import { PageCta } from "@/components/layout/PageCta";
+import { ServiceHero } from "@/components/layout/ServiceHero";
 import { Reveal } from "@/components/ui/Reveal";
-import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
-import { blogPosts, postMap, postSlugs } from "@/data/blog";
+import { company } from "@/data/home";
+import { getEntry, listBlog, toPost } from "@/lib/content";
+import { buildMeta } from "@/lib/seo";
+import { serviceTheme } from "@/lib/serviceTheme";
 
-export function generateStaticParams() {
-  return postSlugs.map((slug) => ({ slug }));
-}
+export const revalidate = 60;
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  const p = postMap.get(slug);
-  return p ? buildMeta({ title: p.title, description: p.excerpt, path: `/blog/${slug}`, type: "article" }) : {};
+  const e = await getEntry(["blog"], slug);
+  return e ? buildMeta({ title: e.seoTitle || e.title, description: e.seoDescription || e.excerpt || e.title, path: `/blog/${slug}`, type: "article" }) : {};
 }
 
 export default async function BlogDetail({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const post = postMap.get(slug);
-  if (!post) notFound();
-
-  const more = blogPosts.filter((p) => p.slug !== post.slug).slice(0, 2);
+  const e = await getEntry(["blog"], slug);
+  if (!e) notFound();
+  const post = toPost(e);
+  const more = await listBlog(3, slug);
 
   return (
-    <>
+    <div className="theme-hbs">
       <article>
-        {/* header */}
-        <header className="relative overflow-hidden">
-          <div
-            className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: "url(/images/art/page-banner.svg)" }}
-            aria-hidden
-          />
-          <div
-            className="absolute inset-0"
-            style={{ background: "linear-gradient(180deg, rgba(9,11,16,.80), rgba(9,11,16,.88))" }}
-            aria-hidden
-          />
-          <div className="container-max relative py-10 sm:py-14">
-            <Breadcrumbs
-              align="left"
-              crumbs={[
-                { label: "Blog", href: "/blog" },
-                { label: post.title, href: `/blog/${post.slug}` },
-              ]}
-            />
-
-            <span className="mt-5 inline-flex items-center rounded-full border border-white/15 bg-white/[.07] px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.14em] text-[var(--color-accent)] backdrop-blur">{post.tag}</span>
-            <h1 className="mt-4 max-w-[24ch] text-white" style={{ fontSize: "var(--fs-3xl)" }}>
-              {post.title}
-            </h1>
-
-            <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-[var(--fs-sm)] text-white/65">
-              <span className="inline-flex items-center gap-2">
-                <User size={15} className="text-[var(--color-brand)]" /> {post.author}
-              </span>
-              <span className="inline-flex items-center gap-2">
-                <Tag size={15} className="text-[var(--color-brand)]" /> {post.date.full}
-              </span>
-              <span className="inline-flex items-center gap-2">
-                <Clock size={15} className="text-[var(--color-brand)]" /> {post.readTime}
-              </span>
-            </div>
-          </div>
-        </header>
-
-        {/* cover */}
-        <div className="container-max -mt-2 pt-8">
-          <div className="relative aspect-[16/8] overflow-hidden rounded-[var(--radius-lg)]">
-            <Image src={post.image} alt={post.title} fill priority sizes="100vw" className="object-cover" />
+        <ServiceHero
+          eyebrow={post.tag}
+          title={post.title}
+          tagline={post.excerpt}
+          crumbs={[{ label: "Blog", href: "/blog" }, { label: post.title, href: `/blog/${slug}` }]}
+          theme={{ ...serviceTheme("custom-web-design"), image: post.image, label: post.tag }}
+          phone={company.phone}
+        />
+        <div className="container-max pt-10">
+          <div className="mx-auto flex max-w-[860px] flex-wrap items-center gap-x-6 gap-y-2 text-[var(--fs-sm)] text-[var(--color-text-muted)]">
+            <span className="inline-flex items-center gap-2"><User size={15} className="text-[var(--color-brand)]" /> {post.author}</span>
+            <span className="inline-flex items-center gap-2"><CalendarDays size={15} className="text-[var(--color-brand)]" /> {post.date.full}</span>
+            <span className="inline-flex items-center gap-2"><Clock size={15} className="text-[var(--color-brand)]" /> {post.readTime}</span>
           </div>
         </div>
-
-        {/* body */}
-        <div className="container-max py-10 sm:py-14">
-          <Reveal className="mx-auto flex max-w-[72ch] flex-col gap-6">
-            <p className="text-[var(--fs-lg)] font-medium leading-relaxed text-[var(--color-ink)]">
-              {post.excerpt}
-            </p>
-
-            {post.body.map((b, i) => (
-              <div key={i}>
-                {b.heading ? (
-                  <h2 className="mb-3 mt-4 text-[var(--fs-xl)] font-bold">{b.heading}</h2>
-                ) : null}
-                <p className="leading-relaxed text-[var(--color-text-muted)]">{b.text}</p>
-              </div>
-            ))}
-
-            <div className="mt-6 flex flex-wrap items-center justify-between gap-4 border-t border-[var(--color-border)] pt-6">
-              <Link href="/blog" className="btn btn-ghost">
-                <ArrowLeft size={16} /> All articles
-              </Link>
-              <Link href="/contact-us" className="btn btn-brand">
-                Talk to a strategist <ArrowRight size={16} />
-              </Link>
-            </div>
-          </Reveal>
-        </div>
+        <BlockRenderer blocks={e.blocks} slug={slug} path={`/blog/${slug}`} />
       </article>
 
-      {/* related */}
-      <section className="section-space bg-[var(--color-surface)]">
-        <div className="container-max">
-          <h2 className="text-center" style={{ fontSize: "var(--fs-2xl)" }}>
-            Keep reading
-          </h2>
-          <Reveal stagger className="mx-auto mt-10 grid max-w-[900px] gap-5 sm:grid-cols-2">
-            {more.map((p) => (
-              <Link key={p.slug} href={`/blog/${p.slug}`} className="card group flex flex-col overflow-hidden">
-                <div className="relative aspect-[16/9]">
-                  <Image src={p.image} alt={p.title} fill sizes="440px" className="object-cover" />
-                </div>
-                <div className="p-6">
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-[var(--color-brand)]">
-                    {p.tag}
-                  </span>
-                  <h3 className="mt-2 text-[var(--fs-lg)] font-bold leading-snug transition-colors group-hover:text-[var(--color-brand)]">
-                    {p.title}
-                  </h3>
-                </div>
-              </Link>
-            ))}
-          </Reveal>
-        </div>
-      </section>
-
+      {more.length ? (
+        <section className="section-space bg-[var(--color-surface)]">
+          <div className="container-max">
+            <h2 className="text-center" style={{ fontSize: "var(--fs-2xl)" }}>Keep reading</h2>
+            <Reveal stagger className="mx-auto mt-10 grid max-w-[1100px] gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {more.map((p) => (
+                <Link key={p.slug} href={`/blog/${p.slug}`} className="group flex flex-col overflow-hidden rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-white shadow-[var(--shadow-sm)] transition-all hover:-translate-y-1.5 hover:shadow-[var(--shadow-md)]">
+                  <div className="relative aspect-[16/9] overflow-hidden">
+                    <Image src={p.image} alt={p.title} fill sizes="360px" className="object-cover transition-transform duration-700 group-hover:scale-110" />
+                  </div>
+                  <div className="flex flex-1 flex-col p-6">
+                    <span className="text-[11px] font-bold uppercase tracking-wider text-[var(--color-brand)]">{p.tag}</span>
+                    <h3 className="mt-2 text-[var(--fs-lg)] font-bold leading-snug transition-colors group-hover:text-[var(--color-brand)]">{p.title}</h3>
+                    <span className="mt-auto inline-flex items-center gap-1.5 pt-4 text-[var(--fs-xs)] font-bold uppercase tracking-wider text-[var(--color-ink)]">Read <ArrowUpRight size={14} /></span>
+                  </div>
+                </Link>
+              ))}
+            </Reveal>
+          </div>
+        </section>
+      ) : null}
       <PageCta />
-    </>
+    </div>
   );
 }

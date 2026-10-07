@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { ArrowRight, ChevronDown, ChevronRight, Code, Mail, Megaphone, Menu, PenTool, Phone, Search, Smartphone, X } from "lucide-react";
 import type { ComponentType } from "react";
-import { company, nav } from "@/data/home";
+import type { Company, MenuItem } from "@/lib/settings";
 
 const groupIcons: Record<string, ComponentType<{ size?: number; strokeWidth?: number; className?: string }>> = {
   "SEO Services": Search,
@@ -25,7 +25,7 @@ const groupIcons: Record<string, ComponentType<{ size?: number; strokeWidth?: nu
   "Lead Generation": Megaphone,
 };
 
-type NavGroup = { heading: string; links: [string, string][] | string[][] };
+type NavGroup = { heading: string; links: { label: string; href: string }[] };
 
 function DropGroup({ g }: { g: NavGroup }) {
   const Icon = groupIcons[g.heading] ?? Search;
@@ -34,7 +34,7 @@ function DropGroup({ g }: { g: NavGroup }) {
       <Icon size={40} strokeWidth={1.4} className="text-[var(--color-brand)]" />
       <p className="mb-3 mt-5 text-[15px] font-bold text-[var(--color-ink)]">{g.heading}</p>
       <ul className="flex flex-col gap-2.5">
-        {g.links.map(([label, href]) => (
+        {g.links.map(({ label, href }) => (
           <li key={label}>
             <Link
               href={href}
@@ -50,7 +50,7 @@ function DropGroup({ g }: { g: NavGroup }) {
   );
 }
 
-export function Header() {
+export function Header({ company, nav }: { company: Company; nav: MenuItem[] }) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [mobileSub, setMobileSub] = useState<string | null>(null);
@@ -109,10 +109,10 @@ export function Header() {
         }`}
       >
         <div className="container-max flex h-[70px] items-center justify-between gap-6">
-          <Link href="/" className="flex items-center" aria-label="Hover Business Services home">
+          <Link href="/" className="flex items-center" aria-label={`${company.name} home`}>
             <Image
-              src="https://hoverbusinessservices.com/images/hbs-logo.png"
-              alt="Hover Business Services"
+              src={company.logo || "/icon.svg"}
+              alt={company.logoAlt || company.name}
               width={190}
               height={46}
               priority
@@ -128,13 +128,13 @@ export function Header() {
                   className="flex items-center gap-1 rounded-full px-3.5 py-2 text-[var(--fs-sm)] font-medium text-[var(--color-text)] transition-colors hover:text-[var(--color-primary)]"
                 >
                   {item.label}
-                  {item.groups ? (
+                  {item.groups?.length ? (
                     <ChevronDown size={14} className="transition-transform group-hover:rotate-180" />
                   ) : null}
                 </Link>
 
-                {item.groups ? (
-                  item.groups.length > 1 ? (
+                {item.groups?.length ? (
+                  (item.groups?.length ?? 0) > 1 ? (
                     <div className="invisible absolute inset-x-0 top-full z-10 translate-y-1 opacity-0 transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
                       <div className="border-t-2 border-[var(--color-brand)] bg-white shadow-[0_24px_50px_rgba(16,19,26,.12)]">
                         <div className="container-max flex justify-center py-7">
@@ -149,7 +149,7 @@ export function Header() {
                   ) : (
                     <div className="invisible absolute left-1/2 top-full z-10 w-[300px] -translate-x-1/2 translate-y-1 opacity-0 transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
                       <div className="border-t-2 border-[var(--color-brand)] bg-white p-6 shadow-[0_24px_50px_rgba(16,19,26,.12)]">
-                        <DropGroup g={item.groups[0]!} />
+                        <DropGroup g={item.groups![0]!} />
                       </div>
                     </div>
                   )
@@ -186,7 +186,7 @@ export function Header() {
                 <Link href={item.href} className="flex-1 py-4 font-display text-lg font-bold">
                   {item.label}
                 </Link>
-                {item.groups ? (
+                {item.groups?.length ? (
                   <button
                     onClick={() => setMobileSub(mobileSub === item.label ? null : item.label)}
                     aria-label={`Toggle ${item.label}`}
@@ -200,7 +200,7 @@ export function Header() {
                 ) : null}
               </div>
 
-              {item.groups ? (
+              {item.groups?.length ? (
                 <div
                   className="grid transition-all duration-300"
                   style={{ gridTemplateRows: mobileSub === item.label ? "1fr" : "0fr" }}
@@ -213,7 +213,7 @@ export function Header() {
                             {g.heading}
                           </p>
                           <ul className="mt-2 flex flex-col gap-2">
-                            {g.links.map(([label, href]) => (
+                            {g.links.map(({ label, href }) => (
                               <li key={label}>
                                 <Link href={href} className="text-[var(--fs-sm)] text-[var(--color-text-muted)]">
                                   {label}

@@ -6,22 +6,27 @@ import { Reveal } from "@/components/ui/Reveal";
 import { WorkGallery } from "@/components/portfolio/WorkGallery";
 import { Industries } from "@/components/home/Industries";
 import { Testimonials } from "@/components/home/Testimonials";
-import { results, stats } from "@/data/home";
+import { getSetting } from "@/lib/site";
+import { results } from "@/data/home";
 
-export const metadata: Metadata = buildMeta({
+export async function generateMetadata(): Promise<Metadata> {
+  return buildMeta({
   title: "Portfolio",
   description: "Selected client work and measurable results from Hover Business Services LLP.",
   path: "/portfolio",
 });
+}
 
-export default function PortfolioPage() {
+export default async function PortfolioPage() {
+  const { items: stats } = await getSetting("stats");
   return (
-    <>
+    <div className="theme-hbs">
       <PageHero
         eyebrow="Our work"
         title="Work we are happy to be judged on"
         tagline="Sites, stores and campaigns we have shipped — and what changed after launch."
         crumbs={[{ label: "Portfolio", href: "/portfolio" }]}
+        variant="purple"
       />
 
       {/* stats */}
@@ -31,7 +36,7 @@ export default function PortfolioPage() {
             {stats.map((s) => (
               <div key={s.label} className="px-4 py-7 text-center sm:py-9">
                 <p className="font-display text-3xl font-extrabold text-[var(--color-ink)] sm:text-4xl">
-                  {s.value.toLocaleString("en-IN")}
+                  {Number(s.value).toLocaleString("en-IN")}
                   <span className="text-[var(--color-brand)]">{s.suffix}</span>
                 </p>
                 <p className="mt-1 text-[var(--fs-xs)] font-semibold uppercase tracking-wider text-[var(--color-text-muted)]">
@@ -44,8 +49,9 @@ export default function PortfolioPage() {
       </section>
 
       {/* work */}
-      <section className="section-space">
-        <div className="container-max">
+      <section className="section-space relative overflow-hidden">
+        <div className="pointer-events-none absolute inset-0 bg-circuit opacity-50" aria-hidden />
+        <div className="container-max relative">
           <Reveal className="mx-auto max-w-[60ch] text-center">
             <span className="pill">Selected work</span>
             <h2 className="mt-4" style={{ fontSize: "var(--fs-3xl)" }}>
@@ -72,7 +78,7 @@ export default function PortfolioPage() {
         />
         <div
           className="pointer-events-none absolute -left-40 top-0 h-[420px] w-[420px] rounded-full blur-[120px]"
-          style={{ background: "radial-gradient(circle, rgba(229,35,27,.3), transparent 70%)" }}
+          style={{ background: "radial-gradient(circle, rgba(229,35,27,.4), transparent 70%)" }}
         />
 
         <div className="container-max relative">
@@ -123,6 +129,6 @@ export default function PortfolioPage() {
       <Testimonials />
       <Industries />
       <PageCta title="Want results like these on your account?" />
-    </>
+    </div>
   );
 }
