@@ -25,7 +25,10 @@ function Tile({ value, alt }: { value: string; alt: string }) {
 export async function Logos() {
   const { items } = await getSetting("clients");
   const base = items.filter((c) => c.logo).map((c) => ({ v: c.logo, alt: c.alt || `${c.name} client logo` }));
-  const row = [...base, ...base];
+  // Each half must be wider than the screen, otherwise a gap shows during the loop.
+  const reps = Math.max(1, Math.ceil(16 / Math.max(base.length, 1)));
+  const half = Array.from({ length: reps }).flatMap(() => base);
+  const row = [...half, ...half];
 
   return (
     <section className="overflow-hidden border-y border-[var(--color-border)] bg-[var(--color-surface)] py-8 sm:py-10">
@@ -35,7 +38,7 @@ export async function Logos() {
         </p>
       </div>
 
-      <div className="marquee-wrap relative mt-6 overflow-hidden sm:mt-8">
+      <div className="marquee-wrap relative mt-6 overflow-hidden sm:mt-8 [mask-image:linear-gradient(to_right,transparent,#000_6%,#000_94%,transparent)]">
         <div className="marquee items-stretch" style={{ ["--dur" as string]: "48s" }}>
           {row.map((c, i) => (
             <Tile key={`a-${i}`} value={c.v} alt={c.alt} />
@@ -43,7 +46,7 @@ export async function Logos() {
         </div>
       </div>
 
-      <div className="marquee-wrap relative mt-3 overflow-hidden sm:mt-4">
+      <div className="marquee-wrap relative mt-3 overflow-hidden sm:mt-4 [mask-image:linear-gradient(to_right,transparent,#000_6%,#000_94%,transparent)]">
         <div className="marquee marquee-rev items-stretch" style={{ ["--dur" as string]: "56s" }}>
           {row.map((c, i) => (
             <Tile key={`b-${i}`} value={c.v} alt={c.alt} />

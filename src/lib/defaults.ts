@@ -84,11 +84,12 @@ export const DEFAULTS = {
 ] as { name: string; sector: string; scope: string[]; outcome: string; image: string; alt: string; ratio: string }[] },
 
   hero: {
-    badge: "5+ Years · 1500+ global clients", headline1: "AI-Enabled", headline2: "Digital Marketing Agency",
+    badge: "5+ Years of Impact · 1500+ Global Clients", headline1: "AI-Powered", headline2: "Digital Marketing | That Drives Real Growth",
     sub: "Redefining growth with AI + human intelligence.",
-    intro: "SEO, performance marketing, web and app engineering under one roof — run by 80+ specialists across Delhi and Auckland, measured on the numbers that actually move your revenue.",
-    cta1: "Get your free AI growth strategy", cta2: "Talk to an expert", rating: "Rated 5 stars based on 600+ client reviews",
+    intro: "We combine AI technology with human creativity to build marketing strategies, websites and apps that get real results — more traffic, more leads and more revenue for your business.",
+    cta1: "Get Your Free AI Growth Strategy", cta2: "Watch Our Work", rating: "Rated 5 stars based on 600+ client reviews",
     chip1: "10x Growth", chip2: "AI-Powered Results", chip3: "#1 Rank on Google",
+    stat1Value: "10x", stat1Label: "Average Growth", stat2Value: "80+", stat2Label: "Marketing Specialists",
   },
   contactCta: { eyebrow: "Why Choose Us", heading: "Recognized As One\nOf The Leading\nCompany!", formKicker: "Contact Us", formTitle: "Get in Touch" },
   career: { numbers: [{"value": "80+", "label": "Team members"}, {"value": "4", "label": "Offices"}, {"value": "1500+", "label": "Clients served"}, {"value": "6 mo", "label": "Review cycle"}] },

@@ -37,7 +37,7 @@ export default function HomePage() {
 
       <Industries />
       <Testimonials />
-      <Products />
+      {/* <Products /> */}
       <WhyUs />
       <Blog />
 

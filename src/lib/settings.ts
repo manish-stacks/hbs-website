@@ -6,7 +6,7 @@ export type Company = {
   social: { facebook: string; instagram: string; linkedin: string; twitter: string; youtube: string };
 };
 export type MenuLink = { label: string; href: string };
-export type MenuItem = { label: string; href: string; groups?: { heading: string; links: MenuLink[] }[] };
+export type MenuItem = { label: string; href: string; groups?: { heading: string; icon?: string; links: MenuLink[] }[] };
 export type FooterData = { about: string; copyright: string; columns: { title: string; links: MenuLink[] }[]; legal: MenuLink[] };
 
 export type GroupKey =
@@ -54,7 +54,7 @@ export const GROUPS: Record<GroupKey, Group> = {
   menu: {
     label: "Header menu", section: "Site", desc: "Categories, groups and links shown in the header.",
     fields: [items("items", "Menu items", [t("label", "Category label"), t("href", "Category link"),
-      items("groups", "Groups", [t("heading", "Group heading"), items("links", "Links", link)])])],
+      items("groups", "Groups", [t("heading", "Group heading"), { k: "icon", label: "Group icon", t: "icon" }, items("links", "Links", link)])])],
   },
   footer: {
     label: "Footer", section: "Site", desc: "Footer text, link columns and legal links.",
@@ -77,8 +77,9 @@ export const GROUPS: Record<GroupKey, Group> = {
   reviews: { label: "Reviews", section: "Sections", desc: "Client testimonials.",
     fields: [items("items", "Reviews", [t("name", "Name"), t("role", "Role / company"), a("text", "Review")])] },
   hero: { label: "Home hero", section: "Sections", desc: "Main banner text on the home page.",
-    fields: [t("badge", "Badge"), t("headline1", "Headline line 1"), t("headline2", "Headline line 2 (underlined)"), t("sub", "Sub heading"), a("intro", "Intro text"),
-      t("cta1", "Primary button"), t("cta2", "Phone button"), t("rating", "Rating text"), t("chip1", "Chip 1"), t("chip2", "Chip 2"), t("chip3", "Chip 3")] },
+    fields: [t("badge", "Badge"), t("headline1", "Headline line 1"), t("headline2", "Headline line 2 (underlined)", "Use | for a line break. Only the last line is underlined."), t("sub", "Sub heading"), a("intro", "Intro text"),
+      t("cta1", "Primary button"), t("cta2", "Phone button"), t("rating", "Rating text"), t("chip1", "Chip 1"), t("chip2", "Chip 2"), t("chip3", "Chip 3"),
+      t("stat1Value", "Stat 1 value"), t("stat1Label", "Stat 1 label"), t("stat2Value", "Stat 2 value"), t("stat2Label", "Stat 2 label"), t("stat3Value", "Stat 3 value"), t("stat3Label", "Stat 3 label")] },
   contactCta: { label: "Contact form section", section: "Sections", desc: "Text around the contact form.",
     fields: [t("eyebrow", "Eyebrow"), a("heading", "Heading (new line = line break)"), t("formKicker", "Form kicker"), t("formTitle", "Form title")] },
   career: { label: "Career page numbers", section: "Sections", desc: "The four numbers at the top of the Careers page.",

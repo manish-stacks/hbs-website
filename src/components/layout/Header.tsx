@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { ArrowRight, ChevronDown, ChevronRight, Code, Mail, Megaphone, Menu, PenTool, Phone, Search, Smartphone, X } from "lucide-react";
 import type { ComponentType } from "react";
 import type { Company, MenuItem } from "@/lib/settings";
+import { MENU_ICONS } from "@/lib/menuIcons";
 
 const groupIcons: Record<string, ComponentType<{ size?: number; strokeWidth?: number; className?: string }>> = {
   "SEO Services": Search,
@@ -25,10 +26,10 @@ const groupIcons: Record<string, ComponentType<{ size?: number; strokeWidth?: nu
   "Lead Generation": Megaphone,
 };
 
-type NavGroup = { heading: string; links: { label: string; href: string }[] };
+type NavGroup = { heading: string; icon?: string; links: { label: string; href: string }[] };
 
 function DropGroup({ g }: { g: NavGroup }) {
-  const Icon = groupIcons[g.heading] ?? Search;
+  const Icon = (g.icon && MENU_ICONS[g.icon]) || groupIcons[g.heading] || Search;
   return (
     <div>
       <Icon size={40} strokeWidth={1.4} className="text-[var(--color-brand)]" />

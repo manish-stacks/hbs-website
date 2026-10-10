@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowRight, FileText, Inbox, Newspaper, Plus, Wrench } from "lucide-react";
-import { statusBadge } from "@/components/admin/ListUI";
+import { PageHead, card, statusBadge } from "@/components/admin/ListUI";
 import { counts, recentEntries, type EntryType } from "@/lib/content";
 import { newLeadCount, searchLeads } from "@/lib/leads";
 import { GROUPS, type GroupKey } from "@/lib/settings";
@@ -14,7 +14,6 @@ const stats: { type: EntryType; label: string; Icon: typeof FileText }[] = [
   { type: "blog", label: "Blog posts", Icon: Newspaper },
 ];
 const shortcuts: GroupKey[] = ["general", "seo", "menu", "footer", "faqs", "reviews", "offices", "team"];
-const card = "rounded-[var(--radius-md)] border border-[var(--color-border)] bg-white shadow-[var(--shadow-sm)]";
 
 export default async function Dashboard() {
   const [c, recent, newLeads, leads] = await Promise.all([
@@ -26,21 +25,15 @@ export default async function Dashboard() {
 
   return (
     <div className="p-4 sm:p-8">
-      <div className="flex flex-wrap items-end justify-between gap-4">
-        <div>
-          <h1 className="font-display text-2xl font-extrabold">Dashboard</h1>
-          <p className="mt-1 text-sm text-[var(--color-text-muted)]">Create and manage everything on your website.</p>
-        </div>
-        <div className="flex flex-wrap gap-2">
-          {stats.map(({ type, label }) => (
-            <Link key={type} href={`/admin/${route[type]}/new`} className="flex h-10 items-center gap-1.5 rounded-full border border-[var(--color-border)] bg-white px-4 text-xs font-bold transition-colors hover:border-[var(--color-brand)] hover:text-[var(--color-brand)]">
-              <Plus size={14} /> New {label.replace(/s$/, "").toLowerCase()}
-            </Link>
-          ))}
-        </div>
-      </div>
+      <PageHead title="Dashboard" desc="Create and manage everything on your website.">
+        {stats.map(({ type, label }) => (
+          <Link key={type} href={`/admin/${route[type]}/new`} className="flex h-10 items-center gap-1.5 rounded-full border border-[var(--color-border)] bg-white px-4 text-xs font-bold transition-colors hover:border-[var(--color-brand)] hover:text-[var(--color-brand)]">
+            <Plus size={14} /> New {label.replace(/s$/, "").toLowerCase()}
+          </Link>
+        ))}
+      </PageHead>
 
-      <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         {stats.map(({ type, label, Icon }) => (
           <Link key={type} href={`/admin/${route[type]}`} className={`${card} group p-5 transition-all hover:-translate-y-0.5 hover:shadow-[var(--shadow-md)]`}>
             <div className="flex items-center justify-between">
@@ -52,7 +45,7 @@ export default async function Dashboard() {
             <p className="mt-1 text-xs text-[var(--color-text-muted)]">{c[type].published} published / {c[type].draft} draft</p>
           </Link>
         ))}
-        <Link href="/admin/leads?status=new" className="group rounded-[var(--radius-md)] bg-[var(--color-ink)] p-5 text-white shadow-[var(--shadow-sm)] transition-all hover:-translate-y-0.5 hover:shadow-[var(--shadow-md)]">
+        <Link href="/admin/leads?status=new" className="group rounded-2xl bg-[var(--color-ink)] p-5 text-white shadow-[var(--shadow-sm)] transition-all hover:-translate-y-0.5 hover:shadow-[var(--shadow-md)]">
           <div className="flex items-center justify-between">
             <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[var(--color-brand)] text-white"><Inbox size={20} /></span>
             <ArrowRight size={16} className="text-white/60 transition-transform group-hover:translate-x-1" />
@@ -63,7 +56,7 @@ export default async function Dashboard() {
         </Link>
       </div>
 
-      <div className="mt-6 grid gap-6 lg:grid-cols-[1.4fr_1fr]">
+      <div className="mt-6 grid gap-5 lg:grid-cols-[1.4fr_1fr]">
         <section className={card}>
           <div className="flex items-center justify-between border-b border-[var(--color-border)] px-5 py-4">
             <h2 className="font-display text-base font-bold">Recently edited</h2>
@@ -103,7 +96,7 @@ export default async function Dashboard() {
         <h2 className="font-display text-base font-bold">Quick settings</h2>
         <div className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
           {shortcuts.map((k) => (
-            <Link key={k} href={`/admin/settings/${k}`} className="rounded-xl border border-[var(--color-border)] px-4 py-3 transition-colors hover:border-[var(--color-brand)]">
+            <Link key={k} href={`/admin/settings/${k}`} className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-3 transition hover:border-[var(--color-brand)] hover:bg-white">
               <span className="block text-sm font-semibold">{GROUPS[k].label}</span>
               <span className="mt-0.5 block truncate text-xs text-[var(--color-text-muted)]">{GROUPS[k].desc}</span>
             </Link>
