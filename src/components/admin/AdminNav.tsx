@@ -16,7 +16,7 @@ const CONTENT: { href: string; label: string; Icon: Icon }[] = [
 
 const SECTIONS: { title: string; Icon: Icon; keys: GroupKey[] }[] = [
   { title: "Site settings", Icon: Settings, keys: ["general", "seo", "pageSeo", "menu", "footer"] },
-  { title: "Home page", Icon: Home, keys: ["hero", "about", "stats", "services", "whyUs", "industries", "reviews", "clients", "team", "faqs", "offices", "contactCta"] },
+  { title: "Home page", Icon: Home, keys: ["heroSlides", "about", "stats", "services", "whyUs", "industries", "reviews", "clients", "team", "faqs", "offices", "contactCta"] },
   { title: "Portfolio & careers", Icon: Briefcase, keys: ["work", "career", "jobs"] },
 ];
 

@@ -17,7 +17,7 @@ export const revalidate = 60;
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const e = await getEntry(["blog"], slug);
-  return e ? buildMeta({ title: e.seoTitle || e.title, description: e.seoDescription || e.excerpt || e.title, path: `/blog/${slug}`, type: "article" }) : {};
+  return e ? buildMeta({ title: e.seoTitle || e.title, description: e.seoDescription || e.excerpt || e.title, path: `/blog/${slug}`, type: "article", canonical: e.canonical || undefined, noindex: e.noindex, image: e.image || undefined, imageAlt: e.imageAlt || undefined }) : {};
 }
 
 export default async function BlogDetail({ params }: { params: Promise<{ slug: string }> }) {

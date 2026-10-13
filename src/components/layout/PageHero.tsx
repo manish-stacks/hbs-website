@@ -1,4 +1,4 @@
-import { Breadcrumbs, type Crumb } from "@/components/ui/Breadcrumbs";
+import type { Crumb } from "@/components/ui/Breadcrumbs";
 
 const DEFAULT_BANNER = "/images/art/page-banner.svg";
 
@@ -45,9 +45,7 @@ export function PageHero({
       />
 
       <div className="container-max relative py-12 text-center sm:py-16 lg:py-20">
-        <Breadcrumbs crumbs={crumbs} tone="dark" />
-
-        <span className="mt-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[.07] px-5 py-2 text-[11px] font-bold uppercase tracking-[0.16em] text-[var(--color-accent)] backdrop-blur">
+        <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[.07] px-5 py-2 text-[11px] font-bold uppercase tracking-[0.16em] text-[var(--color-accent)] backdrop-blur">
           {eyebrow}
         </span>
 

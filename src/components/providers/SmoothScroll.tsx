@@ -6,6 +6,7 @@ import { gsap, ScrollTrigger } from "@/lib/gsap";
 
 export function SmoothScroll({ children }: { children: React.ReactNode }) {
   useEffect(() => {
+    if (location.pathname.startsWith("/admin")) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const lenis = new Lenis({

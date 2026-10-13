@@ -2,37 +2,16 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useCallback, useEffect, useRef } from "react";
-import { ArrowLeft, ArrowRight, Plus } from "lucide-react";
+import { useState } from "react";
+import { Plus } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHead } from "./SectionHead";
 
-const GAP = 24;
+const FIRST = 6;
 
 export function ServicesView({ services }: { services: { n: string; title: string; body: string; badge?: string; tags: string[]; href: string; image: string; alt: string }[] }) {
-  const track = useRef<HTMLDivElement>(null);
-  const paused = useRef(false);
-
-  const step = useCallback((dir: 1 | -1) => {
-    const el = track.current;
-    const card = el?.querySelector("article");
-    if (!el || !card) return;
-    const atEnd = el.scrollLeft + el.clientWidth >= el.scrollWidth - 8;
-    const atStart = el.scrollLeft <= 8;
-    if (dir === 1 && atEnd) el.scrollTo({ left: 0, behavior: "smooth" });
-    else if (dir === -1 && atStart) el.scrollTo({ left: el.scrollWidth, behavior: "smooth" });
-    else el.scrollBy({ left: dir * (card.offsetWidth + GAP), behavior: "smooth" });
-  }, []);
-
-  useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const id = setInterval(() => {
-      if (!paused.current && !document.hidden) step(1);
-    }, 3200);
-    return () => clearInterval(id);
-  }, [step]);
-
-  const hold = (v: boolean) => () => { paused.current = v; };
+  const [all, setAll] = useState(false);
+  const list = all ? services : services.slice(0, FIRST);
 
   return (
     <section className="section-space bg-[var(--color-surface)]">
@@ -44,34 +23,11 @@ export function ServicesView({ services }: { services: { n: string; title: strin
         />
 
         <Reveal className="mt-10">
-          <div className="mb-2 flex justify-end gap-2">
-            {([-1, 1] as const).map((d) => (
-              <button
-                key={d}
-                type="button"
-                onClick={() => step(d)}
-                aria-label={d === 1 ? "Next services" : "Previous services"}
-                className="flex h-11 w-11 items-center justify-center rounded-full border border-[var(--color-border)] bg-white text-[var(--color-ink)] transition hover:border-[var(--color-ink)] hover:bg-[var(--color-ink)] hover:text-white"
-              >
-                {d === 1 ? <ArrowRight size={18} /> : <ArrowLeft size={18} />}
-              </button>
-            ))}
-          </div>
-
-          <div
-            ref={track}
-            onMouseEnter={hold(true)}
-            onMouseLeave={hold(false)}
-            onTouchStart={hold(true)}
-            onTouchEnd={() => setTimeout(hold(false), 4000)}
-            onFocus={hold(true)}
-            onBlur={hold(false)}
-            className="no-scrollbar -mx-2 flex snap-x snap-mandatory gap-6 overflow-x-auto px-2 py-4"
-          >
-            {services.map((s) => (
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {list.map((s) => (
               <article
                 key={s.n}
-                className="group relative flex shrink-0 basis-[86%] snap-start flex-col rounded-[26px] border border-[var(--color-border)] bg-white p-7 pb-[78px] transition-all duration-300 hover:-translate-y-1 hover:shadow-xl sm:basis-[calc((100%-24px)/2)] lg:basis-[calc((100%-48px)/3)]"
+                className="group relative flex flex-col rounded-[26px] border border-[var(--color-border)] bg-white p-7 pb-[78px] transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
               >
                 <div className="flex items-start justify-between gap-4">
                   <div className="relative h-20 w-20 shrink-0">
@@ -114,6 +70,11 @@ export function ServicesView({ services }: { services: { n: string; title: strin
               </article>
             ))}
           </div>
+          {services.length > FIRST ? (
+            <div className="mt-8 text-center">
+              <button type="button" onClick={() => setAll((v) => !v)} className="btn btn-accent">{all ? "View less" : "View more"}</button>
+            </div>
+          ) : null}
         </Reveal>
       </div>
     </section>

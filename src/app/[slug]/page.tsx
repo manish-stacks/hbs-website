@@ -12,7 +12,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const e = await getEntry([...TYPES], slug);
   if (!e) return {};
-  return buildMeta({ title: e.seoTitle || e.title, description: e.seoDescription || e.excerpt || e.title, path: `/${slug}` });
+  return buildMeta({ title: e.seoTitle || e.title, description: e.seoDescription || e.excerpt || e.title, path: `/${slug}`, canonical: e.canonical || undefined, noindex: e.noindex, image: e.image || undefined, imageAlt: e.imageAlt || undefined });
 }
 
 export default async function DynamicPage({ params }: { params: Promise<{ slug: string }> }) {

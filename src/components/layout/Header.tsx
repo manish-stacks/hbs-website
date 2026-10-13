@@ -8,6 +8,7 @@ import { ArrowRight, ChevronDown, ChevronRight, Code, Mail, Megaphone, Menu, Pen
 import type { ComponentType } from "react";
 import type { Company, MenuItem } from "@/lib/settings";
 import { MENU_ICONS } from "@/lib/menuIcons";
+import { TopBar } from "./TopBar";
 
 const groupIcons: Record<string, ComponentType<{ size?: number; strokeWidth?: number; className?: string }>> = {
   "SEO Services": Search,
@@ -29,7 +30,7 @@ const groupIcons: Record<string, ComponentType<{ size?: number; strokeWidth?: nu
 type NavGroup = { heading: string; icon?: string; links: { label: string; href: string }[] };
 
 function DropGroup({ g }: { g: NavGroup }) {
-  const Icon = (g.icon && MENU_ICONS[g.icon]) || groupIcons[g.heading] || Search;
+  const Icon = (g.icon && MENU_ICONS[g.icon]) || groupIcons[g.heading] || Search; // icon is chosen in Admin > Header menu
   return (
     <div>
       <Icon size={40} strokeWidth={1.4} className="text-[var(--color-brand)]" />
@@ -75,33 +76,7 @@ export function Header({ company, nav }: { company: Company; nav: MenuItem[] }) 
 
   return (
     <header className="fixed inset-x-0 top-0 z-50">
-      {/* top bar */}
-      <div className="hidden bg-[var(--color-ink)] text-white md:block">
-        <div className="container-max flex h-10 items-center justify-between text-[var(--fs-xs)]">
-          <div className="flex items-center gap-5">
-            <a href={`tel:${company.phone}`} className="flex items-center gap-1.5 hover:text-[#ff8a84]">
-              <Phone size={13} /> {company.phone}
-            </a>
-            <a href={`tel:${company.phoneNz}`} className="hidden hover:text-[#ff8a84] lg:inline">
-              NZ {company.phoneNz}
-            </a>
-            <a href={`mailto:${company.email}`} className="flex items-center gap-1.5 hover:text-[#ff8a84]">
-              <Mail size={13} /> {company.email}
-            </a>
-          </div>
-          <div className="flex items-center gap-5">
-            <a href={company.whatsapp} target="_blank" rel="noreferrer" className="hover:text-[#ff8a84]">
-              WhatsApp
-            </a>
-            <a href={company.pay} target="_blank" rel="noreferrer" className="hover:text-[#ff8a84]">
-              Pay Now
-            </a>
-            <a href={company.crm} target="_blank" rel="noreferrer" className="hover:text-[#ff8a84]">
-              Client Login
-            </a>
-          </div>
-        </div>
-      </div>
+      <TopBar company={company} />
 
       {/* main bar */}
       <div
@@ -110,7 +85,7 @@ export function Header({ company, nav }: { company: Company; nav: MenuItem[] }) 
         }`}
       >
         <div className="container-max flex h-[70px] items-center justify-between gap-6">
-          <Link href="/" className="flex items-center" aria-label={`${company.name} home`}>
+          <Link href="/" className="flex shrink-0 items-center" aria-label={`${company.name} home`}>
             <Image
               src={company.logo || "/icon.svg"}
               alt={company.logoAlt || company.name}
@@ -126,7 +101,7 @@ export function Header({ company, nav }: { company: Company; nav: MenuItem[] }) 
               <div key={item.label} className={`group flex h-[70px] items-center ${item.groups && item.groups.length < 2 ? "relative" : ""}`}>
                 <Link
                   href={item.href}
-                  className="flex items-center gap-1 rounded-full px-3.5 py-2 text-[var(--fs-sm)] font-medium text-[var(--color-text)] transition-colors hover:text-[var(--color-primary)]"
+                  className="flex items-center gap-1 whitespace-nowrap rounded-full px-3 py-2 text-[15px] xl:px-3.5 font-medium text-[var(--color-text)] transition-colors hover:text-[var(--color-primary)]"
                 >
                   {item.label}
                   {item.groups?.length ? (
@@ -140,7 +115,7 @@ export function Header({ company, nav }: { company: Company; nav: MenuItem[] }) 
                       <div className="border-t-2 border-[var(--color-brand)] bg-white shadow-[0_24px_50px_rgba(16,19,26,.12)]">
                         <div className="container-max flex justify-center py-7">
                           {item.groups.map((g) => (
-                            <div key={g.heading} className="w-[260px] border-l border-[var(--color-border)] px-8 first:border-l-0">
+                            <div key={g.heading} className="min-w-0 max-w-[260px] flex-1 border-l border-[var(--color-border)] px-5 first:border-l-0 xl:px-6">
                               <DropGroup g={g} />
                             </div>
                           ))}
@@ -160,7 +135,7 @@ export function Header({ company, nav }: { company: Company; nav: MenuItem[] }) 
           </nav>
 
           <div className="flex items-center gap-2">
-            <Link href="/free-website-audit" className="btn btn-accent hidden sm:inline-flex">
+            <Link href="/free-website-audit" className="btn btn-accent hidden whitespace-nowrap xl:inline-flex">
               Free Website Audit <ArrowRight size={16} />
             </Link>
             <button

@@ -1,5 +1,6 @@
-import { company, clients, faqs, industries, nav, offices, services, stats, testimonials, whyUs } from "@/data/home";
-import type { FooterData, MenuItem } from "./settings";
+import { company, clients, faqs, industries, offices, services, stats, testimonials, whyUs } from "@/data/home";
+import type { FooterData } from "./settings";
+import { MENU } from "@/data/menu";
 
 const pairs = (l: [string, string][]) => l.map(([label, href]) => ({ label, href }));
 const kv = (a: [string, string][]) => a.map(([value, label]) => ({ value, label }));
@@ -20,12 +21,7 @@ export const DEFAULTS = {
     orgStreet: "916, 9th Floor, Tower-2, Pearls Omaxe, NSP, Pitampura", orgCity: "Delhi", orgPostal: "110034", orgCountry: "IN",
   },
   pageSeo: { items: ["/", "/about-us", "/contact-us", "/portfolio", "/products", "/blog", "/career", "/free-website-audit"].map((path) => ({ path, title: "", description: "", image: "" })) },
-  menu: {
-    items: nav.map((n) => ({
-      label: n.label, href: n.href,
-      groups: (n.groups ?? []).map((g) => ({ heading: g.heading, links: pairs(g.links as [string, string][]) })),
-    })) as MenuItem[],
-  },
+  menu: { items: MENU },
   footer: {
     about: "Hover Business Services trusts in good quality services, so that you get a real and broad return on everything you invest in growth.",
     copyright: "Hover Business Services LLP. All rights reserved.",
@@ -91,6 +87,10 @@ export const DEFAULTS = {
     chip1: "10x Growth", chip2: "AI-Powered Results", chip3: "#1 Rank on Google",
     stat1Value: "10x", stat1Label: "Average Growth", stat2Value: "80+", stat2Label: "Marketing Specialists",
   },
+  heroSlides: { interval: "5", items: [
+    { image: "/images/hero/slide-1.webp", mobile: "", alt: "Grow your business with data-driven digital marketing", href: "/contact-us" },
+    { image: "/images/hero/slide-2.webp", mobile: "", alt: "AI-powered digital marketing that delivers real business growth", href: "/free-website-audit" },
+  ] },
   contactCta: { eyebrow: "Why Choose Us", heading: "Recognized As One\nOf The Leading\nCompany!", formKicker: "Contact Us", formTitle: "Get in Touch" },
   career: { numbers: [{"value": "80+", "label": "Team members"}, {"value": "4", "label": "Offices"}, {"value": "1500+", "label": "Clients served"}, {"value": "6 mo", "label": "Review cycle"}] },
   jobs: { items: [{"role": "SEO Executive", "team": "Digital Marketing", "type": "Full-time", "location": "Pitampura, Delhi", "exp": "1–3 years", "points": ["Run audits, keyword research and on-page optimisation", "Build and track link and content campaigns", "Report ranking and traffic growth to clients"]}, {"role": "Performance Marketing Specialist", "team": "Paid Media", "type": "Full-time", "location": "Pitampura, Delhi", "exp": "2–5 years", "points": ["Plan and optimise Google and Meta ad accounts", "Own budgets, tracking and conversion goals", "Test creatives and landing pages weekly"]}, {"role": "Next.js Developer", "team": "Engineering", "type": "Full-time", "location": "Delhi / Hybrid", "exp": "2–4 years", "points": ["Build fast, SEO-friendly websites and web apps", "Integrate APIs, CMS and payment systems", "Review code and improve performance"]}, {"role": "React Native Developer", "team": "Engineering", "type": "Full-time", "location": "Delhi / Remote", "exp": "2–4 years", "points": ["Ship Android and iOS apps from one codebase", "Work with REST APIs and push notifications", "Publish and maintain store releases"]}, {"role": "UI/UX Designer", "team": "Creative", "type": "Full-time", "location": "Pitampura, Delhi", "exp": "1–4 years", "points": ["Design user flows, wireframes and interfaces", "Create and maintain design systems in Figma", "Work closely with developers on handoff"]}, {"role": "Content Writer", "team": "Content", "type": "Full-time", "location": "Delhi / Hybrid", "exp": "0–2 years", "points": ["Write blogs, service pages and ad copy", "Research topics with search intent in mind", "Edit for clarity, tone and accuracy"]}, {"role": "Business Development Executive", "team": "Sales", "type": "Full-time", "location": "Pitampura, Delhi", "exp": "1–3 years", "points": ["Qualify inbound and outbound leads", "Run discovery calls and prepare proposals", "Build long-term client relationships"]}, {"role": "Graphic Design Intern", "team": "Creative", "type": "Internship", "location": "Pitampura, Delhi", "exp": "Fresher", "points": ["Create social media and ad creatives", "Support senior designers on live projects", "Learn brand and layout fundamentals"]}] },

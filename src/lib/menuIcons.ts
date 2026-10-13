@@ -1,4 +1,4 @@
-import { Activity, Bot, Briefcase, Camera, Code, Cpu, Globe, Heart, Layers, Mail, Megaphone, MapPin, MessageCircle, Monitor, Palette, PenTool, Phone, Rocket, Search, Share2, ShieldCheck, ShoppingCart, Smartphone, Star, Target, TrendingUp, Users, Video, Zap } from "lucide-react";
+import { Building2, Factory, GraduationCap, Link2, Newspaper, Package, Scale, Sparkles, Stethoscope, Store, Wrench, Activity, Bot, Briefcase, Camera, Code, Cpu, Globe, Heart, Layers, Mail, Megaphone, MapPin, MessageCircle, Monitor, Palette, PenTool, Phone, Rocket, Search, Share2, ShieldCheck, ShoppingCart, Smartphone, Star, Target, TrendingUp, Users, Video, Zap } from "lucide-react";
 import type { ComponentType } from "react";
 
 export type MenuIcon = ComponentType<{ size?: number; strokeWidth?: number; className?: string }>;
@@ -9,4 +9,6 @@ export const MENU_ICONS: Record<string, MenuIcon> = {
   message: MessageCircle, globe: Globe, chart: Activity, bot: Bot, target: Target, cart: ShoppingCart, pin: MapPin,
   users: Users, palette: Palette, video: Video, camera: Camera, layers: Layers, rocket: Rocket, zap: Zap,
   briefcase: Briefcase, cpu: Cpu, share: Share2, trending: TrendingUp, monitor: Monitor, star: Star, shield: ShieldCheck, heart: Heart,
+  sparkles: Sparkles, newspaper: Newspaper, package: Package, education: GraduationCap, factory: Factory, store: Store,
+  building: Building2, health: Stethoscope, legal: Scale, link: Link2, tools: Wrench,
 };

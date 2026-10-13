@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Phone } from "lucide-react";
-import { Breadcrumbs, type Crumb } from "@/components/ui/Breadcrumbs";
+import type { Crumb } from "@/components/ui/Breadcrumbs";
 import type { SvcTheme } from "@/lib/serviceTheme";
 
 export function ServiceHero({
@@ -17,8 +17,7 @@ export function ServiceHero({
 
       <div className="container-max relative grid items-center gap-10 py-12 sm:py-16 lg:grid-cols-[1.05fr_0.95fr] lg:py-20">
         <div>
-          <Breadcrumbs crumbs={crumbs} tone="dark" />
-          <span className="mt-6 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-5 py-2 text-[11px] font-bold uppercase tracking-[0.16em] text-white backdrop-blur">
+          <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-5 py-2 text-[11px] font-bold uppercase tracking-[0.16em] text-white backdrop-blur">
             <span className="h-2 w-2 rounded-full" style={{ background: theme.brand, boxShadow: `0 0 0 4px ${theme.brand}55` }} />
             {theme.label}
           </span>
