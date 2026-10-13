@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 3027",
     "lint": "eslint .",
     "db:seed": "tsx --env-file=.env.local scripts/seed.ts"
   },
