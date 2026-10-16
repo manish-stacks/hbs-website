@@ -24,6 +24,7 @@ const INFO: Record<BlockType, { Icon: ComponentType<{ size?: number }>; desc: st
   checklist: { Icon: ListChecks, desc: "A tick list of what is included" },
   faq: { Icon: CircleHelp, desc: "Questions and answers (helps SEO)" },
   cta: { Icon: MousePointerClick, desc: "Colour banner with a button" },
+  article: { Icon: AlignLeft, desc: "Long-form article content" },
 };
 const WIDTH = { desktop: "100%", tablet: "768px", mobile: "390px" } as const;
 const count = (n: number, max: number) => <span className={`ml-1 font-normal ${n > max ? "text-red-600" : "text-[var(--color-text-muted)]"}`}>{n}/{max}</span>;
