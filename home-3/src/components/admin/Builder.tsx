@@ -16,6 +16,7 @@ const INFO: Record<BlockType, { Icon: ComponentType<{ size?: number }>; desc: st
   hero: { Icon: LayoutTemplate, desc: "Big top banner with title and tagline" },
   heading: { Icon: Heading, desc: "A centred section title" },
   text: { Icon: AlignLeft, desc: "Paragraphs with an optional heading" },
+  article: { Icon: AlignLeft, desc: "Long-form article content" },
   split: { Icon: Columns2, desc: "Text beside a picture, with bullets and button" },
   steps: { Icon: ListOrdered, desc: "Numbered process: how it works" },
   stats: { Icon: Hash, desc: "Big numbers: clients, years, results" },

@@ -1,4 +1,4 @@
-export type BlockType = "hero" | "heading" | "text" | "split" | "steps" | "stats" | "image" | "features" | "checklist" | "faq" | "cta";
+export type BlockType = "hero" | "heading" | "text" | "article" | "split" | "steps" | "stats" | "image" | "features" | "checklist" | "faq" | "cta",;
 export type Block = { id: string; type: BlockType; [k: string]: unknown };
 export type Field = { k: string; label: string; t: "text" | "area" | "image" | "lines" | "items" | "icon"; sub?: Field[]; hint?: string };
 
