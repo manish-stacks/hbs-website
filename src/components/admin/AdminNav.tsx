@@ -3,24 +3,23 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { Briefcase, ChevronDown, ExternalLink, FileText, Home, Inbox, LayoutDashboard, Newspaper, Settings, Wrench, X } from "lucide-react";
+import { Briefcase, ChevronDown, ExternalLink, FileText, Home, Inbox, LayoutDashboard, Newspaper, Settings, X } from "lucide-react";
 import { GROUPS, type GroupKey } from "@/lib/settings";
 
 type Icon = typeof Settings;
 
 const CONTENT: { href: string; label: string; Icon: Icon }[] = [
   { href: "/admin/pages", label: "Pages", Icon: FileText },
-  { href: "/admin/services", label: "Services", Icon: Wrench },
   { href: "/admin/blog", label: "Blog posts", Icon: Newspaper },
 ];
 
 const SECTIONS: { title: string; Icon: Icon; keys: GroupKey[] }[] = [
   { title: "Site settings", Icon: Settings, keys: ["general", "seo", "pageSeo", "menu", "footer"] },
-  { title: "Home page", Icon: Home, keys: ["heroSlides", "about", "stats", "services", "whyUs", "industries", "reviews", "clients", "team", "faqs", "offices", "contactCta"] },
+  { title: "Home page", Icon: Home, keys: ["hero", "about", "stats", "services", "whyUs", "industries", "reviews", "clients", "team", "faqs", "offices", "contactCta"] },
   { title: "Portfolio & careers", Icon: Briefcase, keys: ["work", "career", "jobs"] },
 ];
 
-const label = "px-3 pb-1 pt-5 text-[11px] font-bold uppercase tracking-wider text-white/40";
+const label = "px-3 pb-1.5 pt-6 text-[10px] font-bold uppercase tracking-[0.2em] text-white/35";
 
 export function AdminNav({ newLeads = 0, open, onClose }: { newLeads?: number; open: boolean; onClose: () => void }) {
   const path = usePathname();
@@ -29,12 +28,12 @@ export function AdminNav({ newLeads = 0, open, onClose }: { newLeads?: number; o
   const isOpen = (title: string, keys: GroupKey[]) => toggled[title] ?? keys.some((k) => path === `/admin/settings/${k}`);
 
   const row = (on: boolean) =>
-    `flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors ${on ? "bg-[var(--color-brand)] text-white" : "text-white/70 hover:bg-white/10 hover:text-white"}`;
+    `flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all ${on ? "bg-gradient-to-r from-[var(--color-brand)] to-[#e11d63] text-white shadow-[0_10px_22px_-10px_rgba(229,35,27,.8)]" : "text-white/65 hover:translate-x-0.5 hover:bg-white/[0.07] hover:text-white"}`;
 
   return (
-    <aside className={`fixed inset-y-0 left-0 z-50 flex w-[260px] flex-col bg-[var(--color-ink)] text-white transition-transform duration-300 lg:translate-x-0 ${open ? "translate-x-0" : "-translate-x-full"}`}>
+    <aside className={`fixed inset-y-0 left-0 z-50 flex w-[260px] flex-col bg-gradient-to-b from-[#0d1018] via-[#12121c] to-[#1b0f1d] text-white shadow-2xl transition-transform duration-300 lg:translate-x-0 ${open ? "translate-x-0" : "-translate-x-full"}`}>
       <div className="flex h-16 shrink-0 items-center justify-between border-b border-white/10 px-5">
-        <Link href="/admin" className="font-display text-lg font-extrabold">HBS <span className="text-[var(--color-brand)]">Admin</span></Link>
+        <Link href="/admin" className="flex items-center gap-2.5"><span className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-[var(--color-brand)] to-[#e11d63] shadow-lg shadow-red-600/30"><LayoutDashboard size={18} /></span><span className="font-display text-lg font-extrabold leading-none">HBS<span className="block text-[10px] font-semibold uppercase tracking-[0.22em] text-white/40">Admin</span></span></Link>
         <button onClick={onClose} className="text-white/70 hover:text-white lg:hidden" aria-label="Close menu"><X size={20} /></button>
       </div>
 
@@ -86,7 +85,7 @@ export function AdminNav({ newLeads = 0, open, onClose }: { newLeads?: number; o
       </nav>
 
       <div className="shrink-0 border-t border-white/10 p-3">
-        <a href="/" target="_blank" className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-white/70 transition-colors hover:bg-white/10 hover:text-white"><ExternalLink size={16} /> View website</a>
+        <a href="/" target="_blank" className="flex items-center justify-between gap-3 rounded-xl border border-white/10 bg-white/[0.05] px-4 py-3 text-sm font-semibold text-white/80 transition hover:border-[var(--color-brand)]/60 hover:text-white"><span>View website</span><ExternalLink size={15} /></a>
       </div>
     </aside>
   );

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { BlockRenderer } from "@/components/blocks/BlockRenderer";
+import { ArticleHeader } from "@/components/layout/ArticleHeader";
 import { getEntry } from "@/lib/content";
 import { rows, str } from "@/lib/blocks";
 import { buildMeta, SITE_NAME, SITE_URL } from "@/lib/seo";
@@ -44,6 +45,7 @@ export default async function DynamicPage({ params }: { params: Promise<{ slug: 
   return (
     <div className="theme-hbs">
       {jsonLd ? <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} /> : null}
+      {e.blocks[0]?.type === "article" ? <ArticleHeader title={e.title} excerpt={e.excerpt} image={e.image} imageAlt={e.imageAlt} /> : null}
       <BlockRenderer blocks={e.blocks} slug={slug} path={`/${slug}`} />
     </div>
   );

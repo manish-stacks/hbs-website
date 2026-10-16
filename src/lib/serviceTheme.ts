@@ -12,7 +12,7 @@ const T = {
 } satisfies Record<string, SvcTheme>;
 
 const map: Record<string, keyof typeof T> = {
-  "seo-service": "seo", "local-seo-service": "seo", "google-map-seo": "seo", "orm-service": "seo",
+  "seo-service": "seo", "seo-services": "seo", "local-seo-service": "seo", "google-map-seo": "seo", "orm-service": "seo",
   "e-commerce-seo": "shop", "e-commerce-web-designing": "shop",
   "ppc-service": "ppc",
   "social-media-marketing": "social", "facebook-promotion": "social", "online-marketing": "social",

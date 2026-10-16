@@ -3,7 +3,7 @@
 import { Fragment, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { AlignLeft, ArrowDown, ArrowLeft, ArrowUp, CircleHelp, Copy, Eye, GripVertical, Heading, Image as ImageIcon, LayoutGrid, LayoutTemplate, ListChecks, Monitor, MousePointerClick, Plus, Redo2, Smartphone, Tablet, Trash2, Undo2, X } from "lucide-react";
+import { AlignLeft, ArrowDown, ArrowLeft, ArrowUp, CircleHelp, Copy, Eye, GripVertical, Heading, Image as ImageIcon, Columns2, Hash, ListOrdered, LayoutGrid, LayoutTemplate, ListChecks, Monitor, MousePointerClick, Plus, Redo2, Smartphone, Tablet, Trash2, Undo2, X } from "lucide-react";
 import type { ComponentType } from "react";
 import { FieldEditor, ImageField, iconBtn, inp, lbl, slugify } from "./Fields";
 import { BlockPreview } from "./BlockPreview";
@@ -16,6 +16,9 @@ const INFO: Record<BlockType, { Icon: ComponentType<{ size?: number }>; desc: st
   hero: { Icon: LayoutTemplate, desc: "Big top banner with title and tagline" },
   heading: { Icon: Heading, desc: "A centred section title" },
   text: { Icon: AlignLeft, desc: "Paragraphs with an optional heading" },
+  split: { Icon: Columns2, desc: "Text beside a picture, with bullets and button" },
+  steps: { Icon: ListOrdered, desc: "Numbered process: how it works" },
+  stats: { Icon: Hash, desc: "Big numbers: clients, years, results" },
   image: { Icon: ImageIcon, desc: "A single picture with caption" },
   features: { Icon: LayoutGrid, desc: "Cards: benefits, services, steps" },
   checklist: { Icon: ListChecks, desc: "A tick list of what is included" },

@@ -32,15 +32,15 @@ type NavGroup = { heading: string; icon?: string; links: { label: string; href: 
 function DropGroup({ g }: { g: NavGroup }) {
   const Icon = (g.icon && MENU_ICONS[g.icon]) || groupIcons[g.heading] || Search; // icon is chosen in Admin > Header menu
   return (
-    <div>
-      <Icon size={40} strokeWidth={1.4} className="text-[var(--color-brand)]" />
+    <div className="group/g">
+      <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[var(--color-brand-soft)] text-[var(--color-brand)] transition-transform duration-300 group-hover/g:-rotate-6 group-hover/g:scale-110"><Icon size={26} strokeWidth={1.6} /></span>
       <p className="mb-3 mt-5 text-[15px] font-bold text-[var(--color-ink)]">{g.heading}</p>
       <ul className="flex flex-col gap-2.5">
         {g.links.map(({ label, href }) => (
           <li key={label}>
             <Link
               href={href}
-              className="group/l flex items-start gap-2 text-[14px] text-[#4a5468] transition-colors hover:text-[var(--color-brand)]"
+              className="group/l flex items-start gap-2 text-[14px] text-[#4a5468] transition-all duration-200 hover:translate-x-1 hover:text-[var(--color-brand)]"
             >
               <ChevronRight size={12} strokeWidth={3} className="mt-[5px] shrink-0 text-[var(--color-brand)]" />
               {label}
@@ -76,11 +76,13 @@ export function Header({ company, nav }: { company: Company; nav: MenuItem[] }) 
 
   return (
     <header className="fixed inset-x-0 top-0 z-50">
-      <TopBar company={company} />
+      <div className={`overflow-hidden transition-all duration-300 ${scrolled ? "max-h-0" : "max-h-11"}`}>
+        <TopBar company={company} />
+      </div>
 
       {/* main bar */}
       <div
-        className={`border-b bg-white transition-shadow duration-300 ${
+        className={`border-b bg-white/90 backdrop-blur-xl transition-shadow duration-300 ${
           scrolled ? "border-[var(--color-border)] shadow-[0_4px_24px_rgba(11,21,38,.07)]" : "border-transparent"
         }`}
       >
@@ -101,7 +103,7 @@ export function Header({ company, nav }: { company: Company; nav: MenuItem[] }) 
               <div key={item.label} className={`group flex h-[70px] items-center ${item.groups && item.groups.length < 2 ? "relative" : ""}`}>
                 <Link
                   href={item.href}
-                  className="flex items-center gap-1 whitespace-nowrap rounded-full px-3 py-2 text-[15px] xl:px-3.5 font-medium text-[var(--color-text)] transition-colors hover:text-[var(--color-primary)]"
+                  className={`relative flex items-center gap-1 whitespace-nowrap px-3 py-2 text-[15px] font-semibold transition-colors after:absolute after:inset-x-3 after:bottom-1 after:h-0.5 after:origin-left after:rounded-full after:bg-[var(--color-brand)] after:transition-transform after:duration-300 group-hover:text-[var(--color-brand)] group-hover:after:scale-x-100 xl:px-3.5 ${(item.href === "/" ? pathname === "/" : pathname.startsWith(item.href)) ? "text-[var(--color-brand)] after:scale-x-100" : "text-[var(--color-ink)] after:scale-x-0"}`}
                 >
                   {item.label}
                   {item.groups?.length ? (
@@ -112,7 +114,7 @@ export function Header({ company, nav }: { company: Company; nav: MenuItem[] }) 
                 {item.groups?.length ? (
                   (item.groups?.length ?? 0) > 1 ? (
                     <div className="invisible absolute inset-x-0 top-full z-10 translate-y-1 opacity-0 transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
-                      <div className="border-t-2 border-[var(--color-brand)] bg-white shadow-[0_24px_50px_rgba(16,19,26,.12)]">
+                      <div className="border-t-2 border-[var(--color-brand)] rounded-b-[28px] bg-white shadow-[0_24px_50px_rgba(16,19,26,.12)]">
                         <div className="container-max flex justify-center py-7">
                           {item.groups.map((g) => (
                             <div key={g.heading} className="min-w-0 max-w-[260px] flex-1 border-l border-[var(--color-border)] px-5 first:border-l-0 xl:px-6">
@@ -124,7 +126,7 @@ export function Header({ company, nav }: { company: Company; nav: MenuItem[] }) 
                     </div>
                   ) : (
                     <div className="invisible absolute left-1/2 top-full z-10 w-[300px] -translate-x-1/2 translate-y-1 opacity-0 transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
-                      <div className="border-t-2 border-[var(--color-brand)] bg-white p-6 shadow-[0_24px_50px_rgba(16,19,26,.12)]">
+                      <div className="border-t-2 border-[var(--color-brand)] rounded-b-[28px] bg-white p-6 shadow-[0_24px_50px_rgba(16,19,26,.12)]">
                         <DropGroup g={item.groups![0]!} />
                       </div>
                     </div>
@@ -135,8 +137,9 @@ export function Header({ company, nav }: { company: Company; nav: MenuItem[] }) 
           </nav>
 
           <div className="flex items-center gap-2">
-            <Link href="/free-website-audit" className="btn btn-accent hidden whitespace-nowrap xl:inline-flex">
-              Free Website Audit <ArrowRight size={16} />
+            <Link href="/free-website-audit" className="group hidden items-center gap-3 whitespace-nowrap rounded-full bg-[var(--color-ink)] py-1.5 pl-5 pr-1.5 text-[14px] font-semibold text-white shadow-[0_10px_24px_-10px_rgba(10,14,23,.6)] transition-transform hover:-translate-y-0.5 xl:inline-flex">
+              Free Website Audit
+              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[var(--color-brand)] transition-transform duration-300 group-hover:rotate-45"><ArrowRight size={16} /></span>
             </Link>
             <button
               onClick={() => setOpen((v) => !v)}

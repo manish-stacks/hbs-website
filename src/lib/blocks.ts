@@ -1,8 +1,9 @@
-export type BlockType = "hero" | "heading" | "text" | "image" | "features" | "checklist" | "faq" | "cta";
+export type BlockType = "article" | "hero" | "heading" | "text" | "split" | "steps" | "stats" | "image" | "features" | "checklist" | "faq" | "cta";
 export type Block = { id: string; type: BlockType; [k: string]: unknown };
-export type Field = { k: string; label: string; t: "text" | "area" | "image" | "lines" | "items" | "icon"; sub?: Field[]; hint?: string };
+export type Field = { k: string; label: string; t: "text" | "area" | "rich" | "image" | "lines" | "items" | "icon"; sub?: Field[]; hint?: string };
 
 export const BLOCKS: Record<BlockType, { label: string; fields: Field[]; init: Record<string, unknown> }> = {
+  article: { label: "Article", fields: [{ k: "body", label: "Content", t: "rich" }], init: { body: "" } },
   hero: {
     label: "Hero banner",
     fields: [
@@ -25,9 +26,40 @@ export const BLOCKS: Record<BlockType, { label: string; fields: Field[]; init: R
     label: "Text",
     fields: [
       { k: "heading", label: "Heading (optional)", t: "text" },
-      { k: "body", label: "Body (blank line = new paragraph)", t: "area" },
+      { k: "body", label: "Body", t: "rich" },
     ],
     init: { heading: "", body: "Write your content here." },
+  },
+  split: {
+    label: "Image + text",
+    fields: [
+      { k: "heading", label: "Heading", t: "text" },
+      { k: "body", label: "Text", t: "rich" },
+      { k: "points", label: "Bullet points (one per line, optional)", t: "lines" },
+      { k: "image", label: "Image", t: "image" },
+      { k: "alt", label: "Image alt text", t: "text" },
+      { k: "side", label: "Image side: left or right", t: "text" },
+      { k: "label", label: "Button label (optional)", t: "text" },
+      { k: "href", label: "Button link", t: "text" },
+    ],
+    init: { heading: "Section heading", body: "Write a short paragraph here.", points: ["First point", "Second point"], image: "", alt: "", side: "right", label: "", href: "/contact-us" },
+  },
+  steps: {
+    label: "Process steps",
+    fields: [
+      { k: "heading", label: "Heading", t: "text" },
+      { k: "intro", label: "Intro", t: "area" },
+      { k: "items", label: "Steps", t: "items", sub: [{ k: "title", label: "Title", t: "text" }, { k: "body", label: "Text", t: "area" }] },
+    ],
+    init: { heading: "How we work", intro: "", items: [{ title: "Discover", body: "We learn your goals." }, { title: "Plan", body: "We build a clear roadmap." }, { title: "Deliver", body: "We launch and improve." }] },
+  },
+  stats: {
+    label: "Numbers strip",
+    fields: [
+      { k: "heading", label: "Heading (optional)", t: "text" },
+      { k: "items", label: "Numbers", t: "items", sub: [{ k: "value", label: "Number (e.g. 500+)", t: "text" }, { k: "label", label: "Label", t: "text" }] },
+    ],
+    init: { heading: "", items: [{ value: "500+", label: "Projects" }, { value: "10+", label: "Years" }, { value: "98%", label: "Retention" }] },
   },
   image: {
     label: "Image",

@@ -1,13 +1,14 @@
 "use client";
 
 import { useState } from "react";
+import { RichEditor } from "./RichEditor";
 import { ArrowDown, ArrowUp, Image as ImageIcon, Plus, Trash2, Upload } from "lucide-react";
 import { rows, str, strs, type Field } from "@/lib/blocks";
 import { MENU_ICONS } from "@/lib/menuIcons";
 
 
-export const inp = "w-full rounded-lg border border-[var(--color-border)] bg-white px-3 py-2 text-[13px] outline-none transition placeholder:text-[var(--color-text-muted)]/60 hover:border-[#d8d0c8] focus:border-[var(--color-brand)] focus:ring-4 focus:ring-[var(--color-brand)]/10";
-export const lbl = "mb-1 block text-xs font-semibold text-[var(--color-ink)]";
+export const inp = "w-full rounded-xl border border-[var(--color-border)] bg-slate-50/60 px-3.5 py-2.5 text-[13px] outline-none transition placeholder:text-[var(--color-text-muted)]/60 hover:border-[#d8d0c8] focus:border-[var(--color-brand)] focus:bg-white focus:ring-4 focus:ring-[var(--color-brand)]/10";
+export const lbl = "mb-1.5 block text-xs font-bold text-[var(--color-ink)]";
 export const isWide = (f: Field) => f.t !== "text";
 export const iconBtn = "flex h-7 w-7 items-center justify-center rounded-lg text-[var(--color-text-muted)] hover:bg-white hover:text-[var(--color-ink)] disabled:opacity-30";
 export const slugify = (s: string) => s.toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
@@ -120,6 +121,7 @@ export function FieldEditor({ f, v, set }: { f: Field; v: unknown; set: (x: unkn
       <label className={lbl}>{f.label}</label>
       {f.hint ? <p className="-mt-0.5 mb-1.5 text-[11px] text-[var(--color-text-muted)]">{f.hint}</p> : null}
       {f.t === "text" ? <input className={inp} value={str(v)} onChange={(e) => set(e.target.value)} /> : null}
+      {f.t === "rich" ? <RichEditor value={str(v)} onChange={set} /> : null}
       {f.t === "area" ? <textarea className={inp} rows={3} value={str(v)} onChange={(e) => set(e.target.value)} /> : null}
       {f.t === "lines" ? <textarea className={inp} rows={3} value={strs(v).join("\n")} onChange={(e) => set(e.target.value.split("\n"))} /> : null}
       {f.t === "image" ? <ImageField value={str(v)} onChange={set} /> : null}

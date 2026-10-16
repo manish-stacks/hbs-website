@@ -16,7 +16,7 @@ export function TopBar({ company }: { company: Company }) {
   ] as const;
 
   return (
-    <div className="hidden bg-[var(--color-ink)] text-white md:block">
+    <div className="hidden border-b border-white/10 bg-gradient-to-r from-[#0a0e17] via-[#170a22] to-[#0a0e17] text-white md:block">
       <div className="container-max flex h-11 items-center justify-between text-[13px]">
         <div className="flex items-center gap-3 xl:gap-4">
           <a href={`tel:${company.phone}`} className={link}>

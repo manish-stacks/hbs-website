@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Mail, MapPin, Phone } from "lucide-react";
+import { ArrowRight, Mail, MapPin, Phone } from "lucide-react";
 import type { Company, FooterData } from "@/lib/settings";
 import { FaRobot, FaWhatsapp } from "react-icons/fa6";
 
@@ -15,9 +15,13 @@ const socialIcons = [
 export function Footer({ company, footer }: { company: Company; footer: FooterData }) {
   const socials = socialIcons.map((s) => ({ ...s, href: company.social[s.key] })).filter((s) => s.href);
   return (
-    <footer className="bg-ink text-white">
-      <div className="container-max pt-16">
-        <div className="grid gap-12 lg:grid-cols-[1.5fr_1fr_1fr_1fr]">
+    <footer className="relative overflow-hidden bg-[#0a0e17] text-white">
+      <div className="pointer-events-none absolute -left-40 top-1/3 h-[420px] w-[420px] rounded-full bg-[var(--color-brand)] opacity-15 blur-[140px]" aria-hidden />
+      <div className="pointer-events-none absolute -right-40 bottom-0 h-[420px] w-[420px] rounded-full bg-[#7c3aed] opacity-20 blur-[140px]" aria-hidden />
+      <div className="container-max relative">
+        
+
+        <div className="mt-16 grid gap-12 lg:grid-cols-[1.5fr_1fr_1fr_1fr]">
           <div>
             <Link href="/" className="inline-flex max-w-57.5 items-center rounded-[14px] bg-white px-4 py-3">
               <Image
@@ -54,7 +58,7 @@ export function Footer({ company, footer }: { company: Company; footer: FooterDa
                   aria-label={label}
                   target="_blank"
                   rel="noreferrer"
-                  className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-white/70 transition-colors hover:border-white/60 hover:text-white"
+                  className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-white/70 transition-colors hover:-translate-y-1 hover:border-[var(--color-brand)] hover:bg-[var(--color-brand)] hover:text-white"
                 >
                   <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden>
                     <path d={d} />
@@ -67,12 +71,13 @@ export function Footer({ company, footer }: { company: Company; footer: FooterDa
           {footer.columns.map((c) => (
             <div key={c.title}>
               <p className="font-display text-[15px] font-bold">{c.title}</p>
+              <span className="mt-2 block h-0.5 w-8 rounded-full bg-gradient-to-r from-[var(--color-brand)] to-[#b794f6]" aria-hidden />
               <ul className="mt-5 flex flex-col gap-3 text-[var(--fs-sm)] text-white/65">
                 {c.links.map(({ label, href }) => (
                   <li key={`${label}-${href}`}>
                     <Link
                       href={href}
-                      className="transition-colors hover:text-white"
+                      className="inline-block transition-all duration-200 hover:translate-x-1 hover:text-white"
                     >
                       {label}
                     </Link>

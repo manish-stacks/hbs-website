@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { buildMeta } from "@/lib/seo";
-import { HeroSlider } from "@/components/home/HeroSlider";
+import { Hero } from "@/components/home/Hero";
 import { Logos } from "@/components/home/Logos";
 import { About } from "@/components/home/About";
 import { Stats } from "@/components/home/Stats";
@@ -24,7 +24,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default function HomePage() {
   return (
     <>
-      <HeroSlider />
+      <Hero />
       <Logos />
       <About />
       <Stats />

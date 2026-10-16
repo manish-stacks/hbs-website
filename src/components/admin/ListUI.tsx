@@ -9,13 +9,14 @@ const qs = (p: Params) => {
   return s ? `?${s}` : "";
 };
 
-export const card = "rounded-2xl border border-[var(--color-border)] bg-white shadow-[var(--shadow-sm)]";
-const ctl = "h-10 rounded-xl border border-[var(--color-border)] bg-white px-3 text-sm outline-none transition focus:border-[var(--color-brand)] focus:ring-4 focus:ring-[var(--color-brand)]/10";
+export const card = "rounded-3xl border border-[var(--color-border)] bg-white shadow-[0_12px_34px_-22px_rgba(20,20,60,.25)]";
+const ctl = "h-10 rounded-xl bg-slate-50/60 border border-[var(--color-border)] bg-white px-3 text-sm outline-none transition focus:border-[var(--color-brand)] focus:ring-4 focus:ring-[var(--color-brand)]/10";
 
 export function PageHead({ title, desc, children }: { title: string; desc?: string; children?: React.ReactNode }) {
   return (
     <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
       <div className="min-w-0">
+        <span className="mb-2 block h-1.5 w-10 rounded-full bg-gradient-to-r from-[var(--color-brand)] to-[#b794f6]" aria-hidden />
         <h1 className="font-display text-2xl font-extrabold tracking-tight sm:text-3xl">{title}</h1>
         {desc ? <p className="mt-1 text-sm text-[var(--color-text-muted)]">{desc}</p> : null}
       </div>
@@ -65,4 +66,4 @@ export function Pager({ page, total, per, params }: { page: number; total: numbe
 }
 
 export const statusBadge = (s: string) =>
-  `inline-flex items-center rounded-full px-2.5 py-1 text-xs font-bold capitalize ${s === "published" || s === "done" ? "bg-green-50 text-[var(--color-success)]" : s === "new" ? "bg-[var(--color-brand-soft)] text-[var(--color-brand)]" : "bg-[var(--color-accent-soft)] text-[var(--color-accent)]"}`;
+  `inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-bold capitalize before:h-1.5 before:w-1.5 before:rounded-full before:bg-current ${s === "published" || s === "done" ? "bg-green-50 text-[var(--color-success)]" : s === "new" ? "bg-[var(--color-brand-soft)] text-[var(--color-brand)]" : "bg-[var(--color-accent-soft)] text-[var(--color-accent)]"}`;

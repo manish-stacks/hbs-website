@@ -11,7 +11,7 @@ export type FooterData = { about: string; copyright: string; columns: { title: s
 
 export type GroupKey =
   | "general" | "seo" | "pageSeo" | "menu" | "footer" | "about" | "stats" | "faqs" | "offices" | "reviews"
-  | "hero" | "heroSlides" | "contactCta" | "career" | "jobs" | "team" | "clients" | "services" | "whyUs" | "industries" | "work";
+  | "hero" | "contactCta" | "career" | "jobs" | "team" | "clients" | "services" | "whyUs" | "industries" | "work";
 
 export type Group = { label: string; section: "Site" | "Sections"; desc: string; fields: Field[] };
 
@@ -80,9 +80,6 @@ export const GROUPS: Record<GroupKey, Group> = {
     fields: [t("badge", "Badge"), t("headline1", "Headline line 1"), t("headline2", "Headline line 2 (underlined)", "Use | for a line break. Only the last line is underlined."), t("sub", "Sub heading"), a("intro", "Intro text"),
       t("cta1", "Primary button"), t("cta2", "Phone button"), t("rating", "Rating text"), t("chip1", "Chip 1"), t("chip2", "Chip 2"), t("chip3", "Chip 3"),
       t("stat1Value", "Stat 1 value"), t("stat1Label", "Stat 1 label"), t("stat2Value", "Stat 2 value"), t("stat2Label", "Stat 2 label"), t("stat3Value", "Stat 3 value"), t("stat3Label", "Stat 3 label")] },
-  heroSlides: { label: "Home banner slider", section: "Sections", desc: "Full-width banner images at the top of the home page. Add, remove, reorder and set the link of each slide.",
-    fields: [t("interval", "Seconds per slide", "Example: 5. Use 0 to stop auto-sliding."),
-      items("items", "Slides", [im("image", "Banner image (desktop)"), im("mobile", "Banner image for mobile (optional)"), t("alt", "Image alt text"), t("href", "Link when clicked", "Example: /contact-us or https://...")])] },
   contactCta: { label: "Contact form section", section: "Sections", desc: "Text around the contact form.",
     fields: [t("eyebrow", "Eyebrow"), a("heading", "Heading (new line = line break)"), t("formKicker", "Form kicker"), t("formTitle", "Form title")] },
   career: { label: "Career page numbers", section: "Sections", desc: "The four numbers at the top of the Careers page.",
@@ -118,8 +115,7 @@ export const WHERE: Record<GroupKey, { where: string; url: string }> = {
   faqs: { where: "FAQ section on the Home and Contact us pages.", url: "/contact-us" },
   offices: { where: "Offices section on the Home, About us and Contact us pages.", url: "/contact-us" },
   reviews: { where: "Reviews slider on the Home, About us and Portfolio pages.", url: "/about-us" },
-  hero: { where: "Old text banner (not used now).", url: "/" },
-  heroSlides: { where: "Banner slider at the very top of the Home page.", url: "/" },
+  hero: { where: "Top banner of the Home page.", url: "/" },
   contactCta: { where: "Text around the contact form on the Contact us and About us pages.", url: "/contact-us" },
   career: { where: "The four numbers at the top of the Careers page.", url: "/career" },
   jobs: { where: "Open positions list and the application form on the Careers page.", url: "/career" },

@@ -42,7 +42,7 @@ export async function generateMetadata(): Promise<Metadata> {
     formatDetection: { telephone: false, email: false, address: false },
     robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1, "max-video-preview": -1 } },
     verification: s.googleVerification ? { google: s.googleVerification } : undefined,
-    icons: { icon: s.favicon || "/favicon.ico", shortcut: s.favicon || "/favicon.ico", apple: s.favicon || "/apple-icon.png" },
+    icons: { icon: s.favicon || "/icon.svg", apple: s.favicon || undefined },
     openGraph: { type: "website", siteName: s.siteName, locale: "en_IN", url: "/", images: img },
     twitter: { card: "summary_large_image", images: s.ogImage ? [s.ogImage] : undefined, site: s.twitterHandle || undefined },
   };

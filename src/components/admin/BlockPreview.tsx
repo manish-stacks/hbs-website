@@ -1,4 +1,6 @@
 import { rows, str, strs, type Block } from "@/lib/blocks";
+import { isHtml } from "@/lib/richtext";
+const plain = (s: string) => (isHtml(s) ? s.replace(/<\/(p|h\d|li|div|blockquote)>/gi, "\n\n").replace(/<[^>]+>/g, "") : s);
 
 /** Database-free visual preview of a block, used inside the page builder canvas. */
 export function BlockPreview({ b }: { b: Block }) {
@@ -16,7 +18,13 @@ export function BlockPreview({ b }: { b: Block }) {
     case "heading":
       return <div className={`${p} text-center`}><h2 className="text-2xl font-bold">{str(b.text) || empty}</h2><p className="mx-auto mt-1 max-w-xl text-gray-500">{str(b.sub)}</p></div>;
     case "text":
-      return <div className={p}>{str(b.heading) ? <h2 className="mb-2 text-xl font-bold">{str(b.heading)}</h2> : null}{str(b.body).split(/\n\s*\n/).map((x, i) => <p key={i} className="mb-2 leading-relaxed text-gray-600">{x}</p>)}</div>;
+      return <div className={p}>{str(b.heading) ? <h2 className="mb-2 text-xl font-bold">{str(b.heading)}</h2> : null}{plain(str(b.body)).replace(/\*\*/g, "").split(/\n\s*\n/).map((x, i) => <p key={i} className="mb-2 leading-relaxed text-gray-600">{x}</p>)}</div>;
+    case "split":
+      return <div className={`${p} grid gap-5 sm:grid-cols-2`}><div><h2 className="text-xl font-bold">{str(b.heading)}</h2><p className="mt-2 whitespace-pre-line text-gray-600">{plain(str(b.body)).replace(/\*\*/g, "")}</p><ul className="mt-2">{strs(b.points).filter(Boolean).map((x, i) => <li key={i} className="text-gray-700">&#10003; {x}</li>)}</ul></div>{str(b.image) ? /* eslint-disable-next-line @next/next/no-img-element */ <img src={str(b.image)} alt="" className="rounded-xl" /> : <div className="rounded-xl bg-gray-100 p-10 text-center text-gray-400">Image</div>}</div>;
+    case "steps":
+      return <div className={p}><h2 className="text-center text-xl font-bold">{str(b.heading)}</h2><div className="mt-4 grid gap-3 sm:grid-cols-3">{rows(b.items).map((x, i) => <div key={i} className="rounded-xl border border-gray-200 p-4"><span className="font-bold text-[var(--color-brand)]">0{i + 1}</span><p className="font-bold">{x.title}</p><p className="text-sm text-gray-500">{x.body}</p></div>)}</div></div>;
+    case "stats":
+      return <div className="m-6 flex flex-wrap justify-around gap-4 rounded-2xl bg-[var(--color-ink)] p-6 text-center text-white">{rows(b.items).map((x, i) => <div key={i}><p className="text-2xl font-bold text-[#ff8a84]">{x.value}</p><p className="text-sm text-white/70">{x.label}</p></div>)}</div>;
     case "image":
       return <div className={p}>{str(b.src) ? /* eslint-disable-next-line @next/next/no-img-element */ <img src={str(b.src)} alt={str(b.alt)} className="mx-auto max-h-80 rounded-xl" /> : <div className="rounded-xl bg-gray-100 p-12 text-center text-gray-400">No image selected</div>}{str(b.caption) ? <p className="mt-2 text-center text-sm text-gray-500">{str(b.caption)}</p> : null}</div>;
     case "features":

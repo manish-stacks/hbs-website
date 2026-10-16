@@ -3,8 +3,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { Plus } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
+import { Spotlight } from "@/components/ui/Spotlight";
 import { SectionHead } from "./SectionHead";
 
 const FIRST = 6;
@@ -14,64 +15,60 @@ export function ServicesView({ services }: { services: { n: string; title: strin
   const list = all ? services : services.slice(0, FIRST);
 
   return (
-    <section className="section-space bg-[var(--color-surface)]">
-      <div className="container-max">
+    <section className="section-space relative overflow-hidden bg-[var(--color-surface)]">
+      <span className="pointer-events-none absolute -left-40 top-20 h-[420px] w-[420px] rounded-full bg-[var(--color-brand-soft)] opacity-80 blur-[120px]" aria-hidden />
+      <span className="pointer-events-none absolute -right-40 bottom-10 h-[420px] w-[420px] rounded-full bg-[var(--color-accent-soft)] opacity-80 blur-[120px]" aria-hidden />
+
+      <div className="container-max relative">
         <SectionHead
           pill="What we do"
           title="Digital growth solutions under one roof"
           sub="Search, paid media, development, e-commerce and branding — designed to work together and move your revenue forward."
         />
 
-        <Reveal className="mt-10">
+        <Reveal className="mt-12">
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {list.map((s) => (
-              <article
+              <Spotlight
                 key={s.n}
-                className="group relative flex flex-col rounded-[26px] border border-[var(--color-border)] bg-white p-7 pb-[78px] transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+                className="flex flex-col rounded-[28px] border border-[var(--color-border)] bg-white p-7 transition-all duration-300 hover:-translate-y-1.5 hover:border-[var(--color-brand)]/40 hover:shadow-[0_30px_60px_-28px_rgba(229,35,27,.35)]"
               >
                 <div className="flex items-start justify-between gap-4">
-                  <div className="relative h-20 w-20 shrink-0">
-                    <span className="absolute inset-0 rounded-[22px] bg-[var(--color-primary-soft)]" />
-                    <Image src={s.image} alt={s.alt} fill sizes="80px" className="relative object-contain p-2.5" />
+                  <div className="relative h-[72px] w-[72px] shrink-0">
+                    <span className="absolute inset-0 rotate-6 rounded-[22px] bg-gradient-to-br from-[var(--color-brand-soft)] to-[var(--color-accent-soft)] transition-transform duration-500 group-hover:rotate-12" />
+                    <Image src={s.image} alt={s.alt} fill sizes="72px" className="relative object-contain p-2.5 transition-transform duration-500 group-hover:scale-110" />
                   </div>
                   {s.badge ? (
-                    <span className="rounded-full bg-[var(--color-accent-soft)] px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-[var(--color-accent)]">
-                      {s.badge}
-                    </span>
+                    <span className="rounded-full bg-[var(--color-accent-soft)] px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-[var(--color-accent)]">{s.badge}</span>
                   ) : (
-                    <span className="font-display text-2xl text-[var(--color-border)]">{s.n}</span>
+                    <span className="font-display text-4xl font-black leading-none text-[var(--color-ink)]/[0.07]">{s.n}</span>
                   )}
                 </div>
 
                 <h3 className="mt-6 text-[var(--fs-xl)]">{s.title}</h3>
                 <p className="mt-3 text-[var(--fs-sm)] leading-relaxed text-[var(--color-text-muted)]">{s.body}</p>
 
-                <ul className="mt-5 flex flex-wrap gap-2">
+                <ul className="mb-6 mt-5 flex flex-wrap gap-2">
                   {s.tags.map((t) => (
-                    <li key={t} className="rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-1 text-[12px] text-[var(--color-text-muted)]">
-                      {t}
-                    </li>
+                    <li key={t} className="rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-1 text-[12px] text-[var(--color-text-muted)]">{t}</li>
                   ))}
                 </ul>
 
-                <div className="absolute bottom-0 left-7 right-[90px] flex h-[65px] items-center">
-                  <span className="h-px flex-1 bg-[var(--color-border)]" />
-                  <Link href={s.href} className="ml-5 text-[12px] font-bold uppercase text-[var(--color-text-muted)]">More</Link>
+                <div className="mt-auto flex items-center justify-between border-t border-[var(--color-border)] pt-5">
+                  <span className="text-[13px] font-bold uppercase tracking-wider text-[var(--color-ink)]">Explore</span>
+                  <Link
+                    href={s.href}
+                    aria-label={`Explore ${s.title}`}
+                    className="flex h-11 w-11 items-center justify-center rounded-full bg-[var(--color-ink)] text-white transition-all duration-300 after:absolute after:inset-0 group-hover:rotate-45 group-hover:bg-[var(--color-brand)]"
+                  >
+                    <ArrowUpRight size={20} />
+                  </Link>
                 </div>
-
-                <div className="absolute bottom-0 right-0 h-[82px] w-[82px] rounded-br-[28px] rounded-tl-[28px] bg-[var(--color-surface)]" />
-                <Link
-                  href={s.href}
-                  aria-label={`Explore ${s.title}`}
-                  className="absolute bottom-[8px] right-[8px] z-10 flex h-[58px] w-[58px] items-center justify-center rounded-full bg-[#FFA90B] text-black transition-all duration-300 hover:rotate-90 hover:scale-105"
-                >
-                  <Plus size={25} strokeWidth={2.5} />
-                </Link>
-              </article>
+              </Spotlight>
             ))}
           </div>
           {services.length > FIRST ? (
-            <div className="mt-8 text-center">
+            <div className="mt-10 text-center">
               <button type="button" onClick={() => setAll((v) => !v)} className="btn btn-accent">{all ? "View less" : "View more"}</button>
             </div>
           ) : null}

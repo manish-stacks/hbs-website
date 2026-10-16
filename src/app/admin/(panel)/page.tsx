@@ -10,7 +10,6 @@ export const dynamic = "force-dynamic";
 const route = { page: "pages", service: "services", blog: "blog" } as const;
 const stats: { type: EntryType; label: string; Icon: typeof FileText }[] = [
   { type: "page", label: "Pages", Icon: FileText },
-  { type: "service", label: "Services", Icon: Wrench },
   { type: "blog", label: "Blog posts", Icon: Newspaper },
 ];
 const shortcuts: GroupKey[] = ["general", "seo", "menu", "footer", "faqs", "reviews", "offices", "team"];
