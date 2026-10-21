@@ -16,7 +16,7 @@ export async function WhyUs() {
   return (
     <section className="section-space relative overflow-hidden bg-[#0a0e17] text-white">
       <div className="grid-lines-dark pointer-events-none absolute inset-0" />
-      <div className="pointer-events-none absolute -right-40 -top-40 h-[480px] w-[480px] rounded-full bg-[#7c3aed] opacity-30 blur-[130px]" />
+      <div className="pointer-events-none absolute -right-40 -top-40 h-[480px] w-[480px] rounded-full bg-[#e5231b] opacity-20 blur-[130px]" />
       <div className="pointer-events-none absolute -bottom-48 -left-40 h-[460px] w-[460px] rounded-full bg-[var(--color-brand)] opacity-25 blur-[130px]" />
 
       <div className="container-max relative grid gap-14 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
@@ -27,7 +27,7 @@ export async function WhyUs() {
             Why choose HBS
           </span>
           <h2 className="mt-5 text-white" style={{ fontSize: "var(--fs-3xl)" }}>
-            A straightforward, <span className="bg-gradient-to-r from-[#ff6b5e] to-[#b794f6] bg-clip-text text-transparent">targeted way</span> of working with you
+            A straightforward, <span className="bg-gradient-to-r from-[#ff6b5e] to-[#e5231b] bg-clip-text text-transparent">targeted way</span> of working with you
           </h2>
           <p className="mt-4 max-w-[48ch] text-white/65">
             No jargon, no black boxes, no surprise invoices — just a team that reports honestly and keeps shipping.

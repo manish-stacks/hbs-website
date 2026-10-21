@@ -1,6 +1,7 @@
 import type { ResultSetHeader } from "mysql2/promise";
 import { pool, query } from "./db";
 import type { Block } from "./blocks";
+import { blogPosts } from "@/data/blog";
 
 export type EntryType = "page" | "service" | "blog";
 type Row = {
@@ -103,11 +104,24 @@ export async function listBlog(limit = 12, exclude = "") {
       "SELECT * FROM entries WHERE type='blog' AND status='published' AND slug<>? ORDER BY COALESCE(published_at,created_at) DESC LIMIT ?",
       [exclude, limit],
     );
-    return r.map((x) => toPost(toEntry(x)));
+    if (r.length) return r.map((x) => toPost(toEntry(x)));
   } catch (e) {
     console.error(e);
-    return [];
   }
+  return blogPosts
+    .filter((p) => p.slug !== exclude)
+    .slice(0, limit)
+    .map((p) => ({
+      slug: p.slug,
+      title: p.title,
+      excerpt: p.excerpt,
+      author: p.author,
+      tag: p.tag,
+      image: p.image,
+      imageAlt: p.title,
+      readTime: p.readTime,
+      date: p.date,
+    }));
 }
 
 /* ---------- save / delete ---------- */

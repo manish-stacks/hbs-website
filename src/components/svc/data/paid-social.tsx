@@ -17,7 +17,7 @@ export const ppc: Svc = {
   title: "PPC Management That Pays for Itself",
   eyebrow: "PPC Management",
   tagline: "We build and manage paid campaigns that put your offer in front of buyers at the right moment, and we track every rupee back to the leads it created.",
-  accent: "#2563eb",
+  accent: "#e5231b",
   heroStyle: "light",
   formTitle: "Get a free PPC audit",
   points: ["Google Search, Shopping, Display and YouTube ads", "Conversion tracking set up properly first", "Weekly optimisation, monthly reporting", "Budget goes to ads, not hidden fees"],

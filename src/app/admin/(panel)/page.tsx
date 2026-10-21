@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, FileText, Inbox, Newspaper, Plus, Wrench } from "lucide-react";
+import { ArrowRight, FileText, Inbox, Newspaper, Plus } from "lucide-react";
 import { PageHead, card, statusBadge } from "@/components/admin/ListUI";
 import { counts, recentEntries, type EntryType } from "@/lib/content";
 import { newLeadCount, searchLeads } from "@/lib/leads";
@@ -36,7 +36,7 @@ export default async function Dashboard() {
         {stats.map(({ type, label, Icon }) => (
           <Link key={type} href={`/admin/${route[type]}`} className={`${card} group p-5 transition-all hover:-translate-y-0.5 hover:shadow-[var(--shadow-md)]`}>
             <div className="flex items-center justify-between">
-              <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[var(--color-brand-soft)] text-[var(--color-brand)]"><Icon size={20} /></span>
+              <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-[var(--color-brand)] to-[#e11d63] text-white shadow-lg shadow-red-600/25"><Icon size={20} /></span>
               <ArrowRight size={16} className="text-[var(--color-text-muted)] transition-transform group-hover:translate-x-1" />
             </div>
             <p className="mt-4 font-display text-3xl font-extrabold">{c[type].published + c[type].draft}</p>
@@ -44,9 +44,9 @@ export default async function Dashboard() {
             <p className="mt-1 text-xs text-[var(--color-text-muted)]">{c[type].published} published / {c[type].draft} draft</p>
           </Link>
         ))}
-        <Link href="/admin/leads?status=new" className="group rounded-2xl bg-[var(--color-ink)] p-5 text-white shadow-[var(--shadow-sm)] transition-all hover:-translate-y-0.5 hover:shadow-[var(--shadow-md)]">
+        <Link href="/admin/leads?status=new" className="group rounded-3xl bg-gradient-to-br from-[#10131a] via-[#1a1030] to-[#3b1230] p-5 text-white shadow-[0_18px_40px_-20px_rgba(20,10,40,.6)] transition-all hover:-translate-y-0.5 hover:shadow-[var(--shadow-md)]">
           <div className="flex items-center justify-between">
-            <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[var(--color-brand)] text-white"><Inbox size={20} /></span>
+            <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-[var(--color-brand)] to-[#e11d63] text-white"><Inbox size={20} /></span>
             <ArrowRight size={16} className="text-white/60 transition-transform group-hover:translate-x-1" />
           </div>
           <p className="mt-4 font-display text-3xl font-extrabold">{newLeads}</p>

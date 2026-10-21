@@ -52,7 +52,7 @@ export default function LoginPage() {
     <main className="relative flex h-[100dvh] items-center justify-center overflow-hidden bg-[#0a0e17] p-4 sm:p-6">
       {/* Backdrop */}
       <div className="pointer-events-none absolute -left-40 -top-40 h-[480px] w-[480px] rounded-full bg-red-600/30 blur-[140px]" />
-      <div className="pointer-events-none absolute -bottom-48 -right-40 h-[520px] w-[520px] rounded-full bg-violet-600/30 blur-[150px]" />
+      <div className="pointer-events-none absolute -bottom-48 -right-40 h-[520px] w-[520px] rounded-full bg-[var(--color-brand)]/20 blur-[150px]" />
       <div
         className="pointer-events-none absolute inset-0 opacity-[0.05]"
         style={{

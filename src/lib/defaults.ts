@@ -39,7 +39,6 @@ export const DEFAULTS = {
     points: [
   "360° services: PPC, SEO, SMO, web, apps and branding",
   "80+ in-house specialists — nothing outsourced",
-  "Offices in Delhi and Auckland, clients on four continents",
 ] as string[], image: "/images/ai-powered-growth.png", imageAlt: "AI-powered growth for your business",
     badgeValue: "1500+", badgeLabel: "Happy clients served", linkLabel: "Learn more about HBS",
   },

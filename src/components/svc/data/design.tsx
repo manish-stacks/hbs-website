@@ -30,7 +30,7 @@ export const graphic: Svc = mk({
     { icon: "eye", t: "Brand refresh", b: "Modernise your look while keeping what customers recognise." },
   ],
   hl: { eyebrow: "Creative with purpose", title: "Design that looks good and does its job", body: "Every piece starts with a clear goal and audience, then we find the simplest, strongest way to express it.", bullets: ["Briefing call to understand your brand", "Two or three concepts to choose from", "Final files in every format you need"] },
-  visual: <SwatchMock name="Studio" colors={["#e11d48", "#7c3aed", "#0a0e17", "#e2e8f0"]} />,
+  visual: <SwatchMock name="Studio" colors={["#e5231b", "#b8140e", "#0a0e17", "#e2e8f0"]} />,
   processHead: "Our design process",
   process: [{ t: "Brief", b: "Goals, audience, style references." }, { t: "Concepts", b: "Initial design directions." }, { t: "Refine", b: "Revisions based on your feedback." }, { t: "Deliver", b: "Final files and usage guide." }],
   faqs: [

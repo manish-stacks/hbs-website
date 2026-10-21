@@ -17,7 +17,7 @@ export function Footer({ company, footer }: { company: Company; footer: FooterDa
   return (
     <footer className="relative overflow-hidden bg-[#0a0e17] text-white">
       <div className="pointer-events-none absolute -left-40 top-1/3 h-[420px] w-[420px] rounded-full bg-[var(--color-brand)] opacity-15 blur-[140px]" aria-hidden />
-      <div className="pointer-events-none absolute -right-40 bottom-0 h-[420px] w-[420px] rounded-full bg-[#7c3aed] opacity-20 blur-[140px]" aria-hidden />
+      <div className="pointer-events-none absolute -right-40 bottom-0 h-[420px] w-[420px] rounded-full bg-[var(--color-brand)] opacity-15 blur-[140px]" aria-hidden />
       <div className="container-max relative">
         
 

@@ -39,7 +39,7 @@ export async function Blog({ limit = 3 }: { limit?: number }) {
                 <Link href={`/blog/${first.slug}`} className="after:absolute after:inset-0">{first.title}</Link>
               </h3>
               <p className="mt-3 max-w-[56ch] text-[var(--fs-sm)] leading-relaxed text-white/75">{first.excerpt}</p>
-              <span className="mt-5 inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-[var(--fs-xs)] font-bold uppercase tracking-[0.12em] text-[var(--color-ink)] transition-colors group-hover:bg-[var(--color-brand)] group-hover:text-white">
+              <span className="mt-5 inline-flex items-center gap-2 rounded-full bg-brand px-5 py-2.5 text-[var(--fs-xs)] font-bold uppercase tracking-[0.12em] text-[var(--color-ink)] transition-colors group-hover:bg-[var(--color-brand)] group-hover:text-white">
                 Read article <ArrowRight size={15} />
               </span>
             </div>

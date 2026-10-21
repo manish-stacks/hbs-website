@@ -52,7 +52,7 @@ function Rich({ text, lead = false }: { text: string; lead?: boolean }) {
 
 const Title = ({ children }: { children: string }) => (
   <div>
-    <span className="mb-4 block h-1.5 w-14 rounded-full bg-gradient-to-r from-[var(--color-brand)] to-[#b794f6]" aria-hidden />
+    <span className="mb-4 block h-1.5 w-14 rounded-full bg-gradient-to-r from-[var(--color-brand)] to-[var(--color-brand-dark)]" aria-hidden />
     <h2 className="leading-tight" style={H2}>{children}</h2>
   </div>
 );
@@ -63,7 +63,7 @@ function Head({ heading, intro }: { heading: string; intro?: string }) {
     <Reveal className="mx-auto mb-10 max-w-[60ch] text-center">
       {heading ? (
         <>
-          <span className="mx-auto mb-4 block h-1.5 w-14 rounded-full bg-gradient-to-r from-[var(--color-brand)] to-[#b794f6]" aria-hidden />
+          <span className="mx-auto mb-4 block h-1.5 w-14 rounded-full bg-gradient-to-r from-[var(--color-brand)] to-[var(--color-brand-dark)]" aria-hidden />
           <h2 style={H2}>{heading}</h2>
         </>
       ) : null}
@@ -149,7 +149,7 @@ function One({ b, slug, path, phone }: { b: Block; slug: string; path: string; p
           <div className="container-max">
             <Reveal className="relative overflow-hidden rounded-[28px] bg-[#0a0e17] px-6 py-12 text-center sm:px-10">
               <span className="pointer-events-none absolute -left-20 -top-20 h-72 w-72 rounded-full bg-[var(--color-brand)] opacity-30 blur-[100px]" aria-hidden />
-              <span className="pointer-events-none absolute -bottom-24 -right-16 h-72 w-72 rounded-full bg-[#7c3aed] opacity-30 blur-[110px]" aria-hidden />
+              <span className="pointer-events-none absolute -bottom-24 -right-16 h-72 w-72 rounded-full bg-[var(--color-brand)] opacity-20 blur-[110px]" aria-hidden />
               {str(b.heading) ? <h2 className="mb-8 text-white" style={H2}>{str(b.heading)}</h2> : null}
               <div className="relative grid grid-cols-2 gap-6 lg:grid-cols-4 lg:gap-0 lg:divide-x lg:divide-white/10">
                 {rows(b.items).map((s, i) => (
@@ -253,7 +253,7 @@ function One({ b, slug, path, phone }: { b: Block; slug: string; path: string; p
             <Reveal className="relative overflow-hidden rounded-[32px] bg-[#0a0e17] px-6 py-16 text-center sm:px-12">
               <span className="bg-circuit pointer-events-none absolute inset-0 opacity-[.07] invert" aria-hidden />
               <span className="pointer-events-none absolute -right-20 -top-20 h-80 w-80 rounded-full bg-[var(--color-brand)] opacity-40 blur-[100px]" aria-hidden />
-              <span className="pointer-events-none absolute -bottom-24 -left-16 h-72 w-72 rounded-full bg-[#7c3aed] opacity-30 blur-[110px]" aria-hidden />
+              <span className="pointer-events-none absolute -bottom-24 -left-16 h-72 w-72 rounded-full bg-[var(--color-brand)] opacity-20 blur-[110px]" aria-hidden />
               <h2 className="relative text-white" style={H2}>{str(b.title)}</h2>
               <p className="relative mx-auto mt-3 max-w-[56ch] text-white/70">{str(b.text)}</p>
               <div className="relative mt-8 flex flex-wrap items-center justify-center gap-3">

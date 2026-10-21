@@ -15,13 +15,7 @@ const items: Item[] = [
 ];
 
 export function DigitalSolutions() {
-  // const [first, ...rest] = items;
-  const first = items[0];
-
-  if (!first) {
-    return null;
-  }
-
+  const first = items[0]!;
   const rest = items.slice(1);
   return (
     <section className="theme-hbs relative overflow-hidden bg-white py-12 md:py-16">

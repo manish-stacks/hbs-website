@@ -13,18 +13,19 @@ export const slugOf = (g: G, label: string) => {
 export const TOP: Top[] = [
   { label: "About", href: "/about-us", groups: [{ h: "About Us", icon: "users", kind: "about", l: ["Company Overview", "Our Team (Life @ Hover)", "Case Studies", "Client Reviews", "Careers"] }] },
   { label: "Digital Marketing", href: "/digital-marketing", groups: [
-    { h: "AI Search & Visibility", icon: "sparkles", kind: "marketing", l: ["LLMO Services", "AI Search Optimization (AISO)", "Generative Engine Optimization (GEO)", "Answer Engine Optimization (AEO)", "AI Brand Visibility"] },
+    { h: "AI Search & Visibility", icon: "sparkles", kind: "marketing", l: ["LLMO Services", "AI Search Optimization", "Generative Engine Optimization", "Answer Engine Optimization", "AI Brand Visibility"] },
     { h: "SEO Services", icon: "search", kind: "marketing", l: ["SEO Services", "Local SEO", "Ecommerce SEO", "Technical SEO", "Small Business SEO", "SEO Audit"] },
     { h: "Content & Link Building", icon: "newspaper", kind: "marketing", l: ["Content Writing", "Link Building", "Blog Outreach", "Guest Posting", "Digital PR"] },
     { h: "Paid Marketing", icon: "target", kind: "marketing", l: ["Google Ads", "PPC Management", "Performance Marketing", "Shopping Ads", "Lead Generation"] },
-    { h: "Social Media", icon: "share", kind: "marketing", l: ["Social Media Optimisation", "Social Media Marketing", "Facebook/Meta Ads", "Instagram Ads", "YouTube Marketing", "Influencer Marketing", "ORM (Online Reputation Management)"] },
+    { h: "Social Media", icon: "share", kind: "marketing", l: ["Social Media Optimisation", "Social Media Marketing", "Facebook/Meta Ads", "Instagram Ads", "YouTube Marketing", "Influencer Marketing", "ORM"] },
     { h: "Packages", icon: "package", kind: "package", l: ["SEO Packages", "Local SEO Packages", "Ecommerce SEO Packages", "PPC Packages", "Social Media Packages", "Digital Marketing Packages"] },
   ] },
   { label: "Web & App Development", href: "/website-development", groups: [
-    { h: "Website Development", icon: "code", kind: "dev", l: ["Custom Web Development", "WordPress Development", "Laravel Development", "PHP Development", "Shopify Development", "WooCommerce Development", "Next.js Development", "React Development", "API Development & Integration", "CRM Development", "Website Maintenance & Support"] },
-    { h: "Website Designing", icon: "monitor", kind: "design", l: ["Website Design", "Website Redesign", "Landing Page Design", "Node.js"] },
-    { h: "Ecommerce", icon: "cart", kind: "dev", l: ["Shopify", "WooCommerce", "Magento", "Custom Ecommerce"] },
+    { h: "Web Development", icon: "code", kind: "dev", l: ["Custom Web Development", "WordPress Development", "Laravel Development", "PHP Development", "Next.js Development", "React Development", "Node.js"] },
+    { h: "Website Design", icon: "monitor", kind: "design", l: ["Website Design", "Website Redesign", "Landing Page Design"] },
+    { h: "Ecommerce", icon: "cart", kind: "dev", l: ["Shopify Development", "WooCommerce Development", "Magento", "Custom Ecommerce"] },
     { h: "Mobile Apps", icon: "smartphone", kind: "dev", l: ["Mobile App Development", "Android App Development", "App Maintenance & Support"] },
+    { h: "Support & Integration", icon: "tools", kind: "dev", l: ["API Development & Integration", "CRM Development", "Website Maintenance & Support"] },
   ] },
   { label: "Creative & Design", href: "/graphic-design", groups: [
     { h: "Creative Studio", icon: "palette", kind: "design", l: ["Logo Design", "Graphic Design", "Video Editing", "Social Media Creatives", "UI/UX Design", "Product Packaging Design"] },

@@ -9,7 +9,7 @@ const field =
 
 export function LeadForm({ service, title }: { service: string; title: string }) {
   const path = usePathname();
-  const [f, setF] = useState({ name: "", email: "", phone: "", message: "" });
+  const [f, setF] = useState({ name: "", email: "", phone: "", message: "", budget: "" });
   const [busy, setBusy] = useState(false);
   const [done, setDone] = useState(false);
   const [err, setErr] = useState("");
@@ -24,7 +24,7 @@ export function LeadForm({ service, title }: { service: string; title: string })
       const r = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...f, message: f.message || `Interested in ${service}.`, subject: `${service} enquiry`, source: path }),
+        body: JSON.stringify({ name: f.name, email: f.email, phone: f.phone, message: `${f.message || `Interested in ${service}.`}${f.budget ? `\n\nMonthly budget: ${f.budget}` : ""}`, subject: `${service} enquiry`, source: path }),
       });
       if (r.ok) setDone(true);
       else setErr(((await r.json().catch(() => ({}))) as { error?: string }).error || "Something went wrong. Please try again.");
@@ -51,6 +51,10 @@ export function LeadForm({ service, title }: { service: string; title: string })
       <input className={field} placeholder="Your name" value={f.name} onChange={set("name")} required autoComplete="name" />
       <input className={field} type="email" placeholder="Email address" value={f.email} onChange={set("email")} required autoComplete="email" />
       <input className={field} type="tel" placeholder="Phone number" value={f.phone} onChange={set("phone")} required autoComplete="tel" />
+      <select className={field} value={f.budget} onChange={set("budget")} aria-label="Monthly budget">
+        <option value="">Monthly budget (optional)</option>
+        <option>Below ₹25,000</option><option>₹25,000 - ₹75,000</option><option>₹75,000 - ₹2,00,000</option><option>Above ₹2,00,000</option>
+      </select>
       <textarea className={`${field} h-24 resize-none py-3`} placeholder="Your website / what you need (optional)" value={f.message} onChange={set("message")} />
       {err ? <p role="alert" className="rounded-lg bg-red-50 px-3 py-2 text-[13px] font-medium text-red-600">{err}</p> : null}
       <button

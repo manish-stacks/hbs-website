@@ -2,6 +2,7 @@ import bcrypt from "bcryptjs";
 import { pool } from "../src/lib/db";
 import { uid, type Block } from "../src/lib/blocks";
 import { innerPages, type InnerPage } from "../src/data/pages";
+import { generatedPages } from "../src/data/servicePages";
 import { blogPosts } from "../src/data/blog";
 import { DEFAULTS } from "../src/lib/defaults";
 import type { RowDataPacket } from "mysql2/promise";
@@ -87,7 +88,8 @@ async function main() {
   }
 
   // Import existing static content. Existing rows are never overwritten.
-  for (const p of innerPages) {
+  const allPages = [...innerPages, ...generatedPages()];
+  for (const p of allPages) {
     await pool.query(
       "INSERT IGNORE INTO entries (type,slug,title,excerpt,status,blocks,published_at) VALUES (?,?,?,?, 'published', ?, NOW())",
       [p.kind === "service" ? "service" : "page", p.slug, p.title, p.tagline, JSON.stringify(pageBlocks(p))],
@@ -104,7 +106,7 @@ async function main() {
     );
   }
   console.log("Settings seeded.");
-  console.log(`Imported ${innerPages.length} pages/services and ${blogPosts.length} posts.`);
+  console.log(`Imported ${allPages.length} pages/services and ${blogPosts.length} posts.`);
   await pool.end();
 }
 

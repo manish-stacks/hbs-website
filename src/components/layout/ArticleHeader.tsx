@@ -7,7 +7,7 @@ export function ArticleHeader({ title, excerpt, image, imageAlt }: { title: stri
   return (
     <section className="relative isolate overflow-hidden bg-[#0a0e17] text-white">
       <span className="pointer-events-none absolute -left-32 -top-32 -z-10 h-[420px] w-[420px] rounded-full bg-[var(--color-brand)] opacity-30 blur-[130px]" aria-hidden />
-      <span className="pointer-events-none absolute -bottom-40 right-0 -z-10 h-[420px] w-[420px] rounded-full bg-violet-600 opacity-25 blur-[140px]" aria-hidden />
+      <span className="pointer-events-none absolute -bottom-40 right-0 -z-10 h-[420px] w-[420px] rounded-full bg-[var(--color-brand)] opacity-20 blur-[140px]" aria-hidden />
       <div className="pointer-events-none absolute inset-0 -z-10 opacity-[0.05]" style={{ backgroundImage: "linear-gradient(#fff 1px,transparent 1px),linear-gradient(90deg,#fff 1px,transparent 1px)", backgroundSize: "56px 56px" }} aria-hidden />
       <div className={`container-max grid items-center gap-10 py-14 md:py-20 ${image ? "lg:grid-cols-[1.1fr_0.9fr]" : ""}`}>
         <div>

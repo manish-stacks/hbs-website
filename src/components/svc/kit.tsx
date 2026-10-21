@@ -10,6 +10,9 @@ import { Spotlight } from "@/components/ui/Spotlight";
 import { buildMeta, SITE_NAME, SITE_URL } from "@/lib/seo";
 import { getCompany } from "@/lib/site";
 import { LeadForm } from "./LeadForm";
+import { Logos } from "@/components/home/Logos";
+import { Testimonials } from "@/components/home/Testimonials";
+import { Blog } from "@/components/home/Blog";
 
 export const ICONS = {
   search: Search, map: MapPin, cart: ShoppingCart, shield: ShieldCheck, file: FileText, link: Link2, chart: BarChart3,
@@ -91,7 +94,7 @@ export async function ServicePage({ s }: { s: Svc }) {
         return (
           <section className={`relative isolate overflow-hidden pb-28 pt-10 lg:pb-32 lg:pt-14 ${dark ? "bg-[#0a0e17] text-white" : "bg-gradient-to-br from-[var(--a)]/15 via-white to-[var(--a)]/5"}`}>
             <span className="pointer-events-none absolute -left-40 -top-40 -z-10 h-[460px] w-[460px] rounded-full bg-[var(--a)] opacity-30 blur-[140px]" aria-hidden />
-            {dark ? <span className="pointer-events-none absolute -bottom-48 right-0 -z-10 h-[500px] w-[500px] rounded-full bg-violet-600 opacity-25 blur-[150px]" aria-hidden /> : null}
+            {dark ? <span className="pointer-events-none absolute -bottom-48 right-0 -z-10 h-[500px] w-[500px] rounded-full bg-[var(--color-brand)] opacity-20 blur-[150px]" aria-hidden /> : null}
             <div className="pointer-events-none absolute inset-0 -z-10 opacity-[0.05]" style={bgStyle(s.heroBg, dark)} aria-hidden />
 
             <div className={`container-max grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr] ${s.flip ? "lg:[&>*:first-child]:order-2" : ""}`}>
@@ -150,6 +153,8 @@ export async function ServicePage({ s }: { s: Svc }) {
           </div>
         )}
       </div>
+
+      <div className="pt-14"><Logos /></div>
 
       {/* OFFERS */}
       <section className="py-16 md:py-20">
@@ -236,6 +241,26 @@ export async function ServicePage({ s }: { s: Svc }) {
         </div>
       </section>
 
+      {/* PROBLEMS WE SOLVE */}
+      <section className="py-16 md:py-20">
+        <div className="container-max">
+          <Reveal><Head pill="Problems we solve" title={`Common ${s.eyebrow} challenges, fixed`} sub="Most businesses come to us with one of these four problems." /></Reveal>
+          <Reveal stagger className="mt-12 grid gap-5 md:grid-cols-2">
+            {[
+              ["Spending money without clear results", "We tie every task and rupee back to enquiries and sales, then stop what does not work."],
+              ["Getting visits but few enquiries", "We improve the pages, offers and forms that stop interested visitors from getting in touch."],
+              ["No clear plan or priorities", "You receive a written roadmap with goals, timelines and next steps you can approve."],
+              ["Reports you cannot understand", "Plain-language monthly updates that explain what was done, what changed and what comes next."],
+            ].map(([t, b], i) => (
+              <div key={t} className="group relative flex gap-5 overflow-hidden rounded-[26px] border border-[var(--color-border)] bg-white p-7 transition hover:border-[var(--a)]/50 hover:shadow-[0_24px_50px_-28px_var(--a)]">
+                <span className="font-display text-5xl font-black leading-none text-[var(--a)]/25 transition-colors group-hover:text-[var(--a)]">{String(i + 1).padStart(2, "0")}</span>
+                <div><h3 className="text-[var(--fs-lg)]">{t}</h3><p className="mt-2 text-[var(--fs-sm)] leading-relaxed text-[var(--color-text-muted)]">{b}</p></div>
+              </div>
+            ))}
+          </Reveal>
+        </div>
+      </section>
+
       {/* PROCESS */}
       <section className="py-16 md:py-20">
         <div className="container-max">
@@ -305,6 +330,8 @@ export async function ServicePage({ s }: { s: Svc }) {
         </div>
       </section>
 
+      <Testimonials />
+
       {/* FAQ */}
       <section className="bg-[var(--color-surface)] py-16 md:py-20">
         {(() => {
@@ -330,6 +357,8 @@ export async function ServicePage({ s }: { s: Svc }) {
           );
         })()}
       </section>
+
+      <Blog />
 
       {s.heroStyle === "visual" ? (
         <section id="get-proposal" className="scroll-mt-32 bg-[var(--color-surface)] py-16 md:py-20">

@@ -33,16 +33,18 @@ function DropGroup({ g }: { g: NavGroup }) {
   const Icon = (g.icon && MENU_ICONS[g.icon]) || groupIcons[g.heading] || Search; // icon is chosen in Admin > Header menu
   return (
     <div className="group/g">
-      <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[var(--color-brand-soft)] text-[var(--color-brand)] transition-transform duration-300 group-hover/g:-rotate-6 group-hover/g:scale-110"><Icon size={26} strokeWidth={1.6} /></span>
-      <p className="mb-3 mt-5 text-[15px] font-bold text-[var(--color-ink)]">{g.heading}</p>
-      <ul className="flex flex-col gap-2.5">
+      <div className="mb-3 flex items-center gap-2.5 border-b border-[var(--color-border)] pb-3">
+        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[var(--color-brand-soft)] text-[var(--color-brand)] transition-transform duration-300 group-hover/g:scale-110"><Icon size={18} strokeWidth={1.8} /></span>
+        <p className="text-[14px] font-bold leading-tight text-[var(--color-ink)]">{g.heading}</p>
+      </div>
+      <ul className="flex flex-col gap-0.5">
         {g.links.map(({ label, href }) => (
           <li key={label}>
             <Link
               href={href}
-              className="group/l flex items-start gap-2 text-[14px] text-[#4a5468] transition-all duration-200 hover:translate-x-1 hover:text-[var(--color-brand)]"
+              className="group/l flex items-center gap-1.5 rounded-lg px-2 py-1.5 text-[13.5px] leading-snug text-[#4a5468] transition-colors duration-150 hover:bg-[var(--color-brand-soft)] hover:text-[var(--color-brand)]"
             >
-              <ChevronRight size={12} strokeWidth={3} className="mt-[5px] shrink-0 text-[var(--color-brand)]" />
+              <ChevronRight size={11} strokeWidth={3} className="shrink-0 text-[var(--color-brand)] opacity-60 transition-all group-hover/l:translate-x-0.5 group-hover/l:opacity-100" />
               {label}
             </Link>
           </li>
@@ -114,19 +116,28 @@ export function Header({ company, nav }: { company: Company; nav: MenuItem[] }) 
                 {item.groups?.length ? (
                   (item.groups?.length ?? 0) > 1 ? (
                     <div className="invisible absolute inset-x-0 top-full z-10 translate-y-1 opacity-0 transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
-                      <div className="border-t-2 border-[var(--color-brand)] rounded-b-[28px] bg-white shadow-[0_24px_50px_rgba(16,19,26,.12)]">
-                        <div className="container-max flex justify-center py-7">
-                          {item.groups.map((g) => (
-                            <div key={g.heading} className="min-w-0 max-w-[260px] flex-1 border-l border-[var(--color-border)] px-5 first:border-l-0 xl:px-6">
-                              <DropGroup g={g} />
-                            </div>
-                          ))}
+                      <div className="border-t-2 border-[var(--color-brand)] bg-white shadow-[0_24px_50px_rgba(16,19,26,.12)]">
+                        <div className="container-max py-6">
+                          <div className="grid gap-x-6" style={{ gridTemplateColumns: `repeat(${item.groups.length}, minmax(0, 1fr))` }}>
+                            {item.groups.map((g) => (
+                              <DropGroup key={g.heading} g={g} />
+                            ))}
+                          </div>
+                        </div>
+                        <div className="border-t border-[var(--color-border)] bg-[#f8f9fb]">
+                          <div className="container-max flex items-center justify-between gap-4 py-3 text-[13px]">
+                            <span className="text-[#4a5468]">Not sure where to start? Our team will suggest the right plan.</span>
+                            <span className="flex items-center gap-5 font-semibold">
+                              <Link href="/free-website-audit" className="text-[var(--color-brand)] hover:underline">Free Website Audit</Link>
+                              <Link href="/contact-us" className="inline-flex items-center gap-1 text-[var(--color-ink)] hover:text-[var(--color-brand)]">Talk to an expert <ArrowRight size={14} /></Link>
+                            </span>
+                          </div>
                         </div>
                       </div>
                     </div>
                   ) : (
-                    <div className="invisible absolute left-1/2 top-full z-10 w-[300px] -translate-x-1/2 translate-y-1 opacity-0 transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
-                      <div className="border-t-2 border-[var(--color-brand)] rounded-b-[28px] bg-white p-6 shadow-[0_24px_50px_rgba(16,19,26,.12)]">
+                    <div className="invisible absolute left-1/2 top-full z-10 w-[280px] -translate-x-1/2 translate-y-1 opacity-0 transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
+                      <div className="border-t-2 border-[var(--color-brand)] rounded-b-2xl bg-white p-5 shadow-[0_24px_50px_rgba(16,19,26,.12)]">
                         <DropGroup g={item.groups![0]!} />
                       </div>
                     </div>

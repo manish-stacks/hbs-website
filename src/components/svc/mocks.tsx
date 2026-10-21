@@ -18,7 +18,7 @@ export function SerpMock({ query, results }: { query: string; results: { t: stri
           <li key={r.t} className={`relative rounded-2xl p-4 ${i === 0 ? "border-2 border-[var(--a)] bg-[var(--a)]/[0.04]" : "border border-[var(--color-border)]"}`}>
             {i === 0 && <span className="absolute -top-3 right-4 rounded-full bg-[var(--a)] px-3 py-0.5 text-[11px] font-bold text-white">#1</span>}
             <p className="text-[12px] text-emerald-700">{r.u}</p>
-            <p className="mt-0.5 text-[15px] font-semibold text-blue-700">{r.t}</p>
+            <p className="mt-0.5 text-[15px] font-bold text-[var(--color-ink)] hover:text-[var(--a)]">{r.t}</p>
             <p className="mt-1 text-[13px] leading-snug text-slate-500">{r.s}</p>
           </li>
         ))}
@@ -110,7 +110,7 @@ export function PhoneMock({ brand, caption }: { brand: string; caption: string }
         <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[var(--a)] text-[13px] font-black text-white">{brand.slice(0, 1)}</span>
         <span className="text-[13px] font-bold text-slate-800">{brand}</span>
       </div>
-      <div className="mt-3 flex h-44 items-center justify-center rounded-2xl bg-gradient-to-br from-[var(--a)] to-[#7c3aed]">
+      <div className="mt-3 flex h-44 items-center justify-center rounded-2xl bg-gradient-to-br from-[var(--a)] to-[var(--color-brand-dark)]">
         <p className="max-w-[16ch] text-center font-display text-xl font-black leading-tight text-white">{caption}</p>
       </div>
       <div className="mt-3 flex items-center gap-4 px-1 text-slate-600"><Heart size={20} className="fill-[var(--a)] text-[var(--a)]" /><MessageCircle size={20} /><Share2 size={20} /></div>
