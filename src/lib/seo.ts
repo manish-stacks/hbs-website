@@ -17,7 +17,8 @@ export async function buildMeta(a: Args): Promise<Metadata> {
   const description = o?.description || a.description || seo.description;
   const image = o?.image || a.image || seo.ogImage;
   const alt = a.imageAlt || a.title || seo.ogImageAlt || seo.siteName;
-  const canonical = a.canonical || a.path;
+  const cleanPath = a.path === "/" ? "/" : a.path.replace(/\/+$/, "");
+  const canonical = a.canonical || cleanPath;
   if (!title) return { alternates: { canonical }, ...(description && o?.description ? { description } : {}) };
   const full = seo.titleTemplate.replace("%s", title);
   const images = image ? [{ url: image, alt, width: 1200, height: 630 }] : undefined;

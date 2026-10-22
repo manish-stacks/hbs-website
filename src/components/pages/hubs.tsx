@@ -47,7 +47,7 @@ export async function HubDigital({ h }: { h: HubData }) {
           <p className="text-lg text-white/70">{h.tagline}</p>
         </div>
       </section>
-      <section className="-mt-10 pb-14"><div className="container-max grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+      <section className="mt-10 pb-14"><div className="container-max grid gap-5 md:grid-cols-2 xl:grid-cols-3">
         {h.groups.map((g, i) => (<div key={g.title} className="rounded-3xl border border-[var(--color-border)] bg-white p-7 shadow-[var(--shadow-md)]">
           <span className="font-display text-sm font-black text-[var(--a)]">{num(i)}</span>
           <h2 className="mt-1 font-display text-xl font-black">{g.title}</h2><p className="mt-1 text-sm text-[var(--color-text-muted)]">{g.sub}</p>

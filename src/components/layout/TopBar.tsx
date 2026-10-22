@@ -53,7 +53,7 @@ export function TopBar({ company }: { company: Company }) {
         <div className="flex items-center gap-5 font-medium">
           <a href={company.crm} target="_blank" rel="noreferrer" className="hover:text-[#ff8a84]">CRM Login</a>
           <a href={company.pay} target="_blank" rel="noreferrer" className="hover:text-[#ff8a84]">Pay Now</a>
-          <a href={company.crm} target="_blank" rel="noreferrer" className="hover:text-[#ff8a84]">Client Login</a>
+          <a href={company.clients} target="_blank" rel="noreferrer" className="hover:text-[#ff8a84]">Client Login</a>
         </div>
       </div>
     </div>

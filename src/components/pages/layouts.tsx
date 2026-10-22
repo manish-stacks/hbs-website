@@ -175,6 +175,99 @@ function Related({ d, dark = false }: { d: PageData; dark?: boolean }) {
   );
 }
 
+function CardDescription({
+  text,
+  dark = false,
+}: {
+  text?: string;
+  dark?: boolean;
+}) {
+  if (!text) return null;
+
+  // Check if text has numbered items like "1. ", "2. "
+  const numbered = text.match(/(?:^|\s)(?:\d+\.\s+)(.*?)(?=(?:\s+\d+\.\s+)|$)/gs);
+  if (numbered && numbered.length > 1) {
+    return (
+      <div className="mt-3 space-y-2">
+        {numbered.map((item, i) => {
+          const clean = item.trim().replace(/^\d+\.\s*/, "");
+          const colonMatch = clean.match(/^([^:]+):\s*(.+)$/);
+          return (
+            <div
+              key={i}
+              className={`flex items-start gap-2 text-[12.5px] leading-relaxed ${
+                dark ? "text-white/70" : "text-[#55504a]"
+              }`}
+            >
+              <span
+                className={`mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-[10px] font-bold ${
+                  dark ? "bg-white/10 text-white" : "bg-[#fdecea] text-[#e5231b]"
+                }`}
+              >
+                {i + 1}
+              </span>
+              <span>
+                {colonMatch ? (
+                  <>
+                    <strong className={dark ? "font-semibold text-white" : "font-semibold text-[var(--color-ink)]"}>
+                      {colonMatch[1]}:{" "}
+                    </strong>
+                    {colonMatch[2]}
+                  </>
+                ) : (
+                  clean
+                )}
+              </span>
+            </div>
+          );
+        })}
+      </div>
+    );
+  }
+
+  // Check if text has multiple bullet-like sentences with colons (e.g. "Title: description. Other: description.")
+  if (text.includes(": ") && text.length > 160) {
+    const parts = text.split(/(?<=\.)\s+(?=[A-Z])/).filter(Boolean);
+    if (parts.length > 1) {
+      return (
+        <div className="mt-2.5 space-y-2 text-sm leading-relaxed">
+          {parts.map((p, idx) => {
+            const colonMatch = p.match(/^([^:]+):\s*(.+)$/);
+            if (colonMatch) {
+              return (
+                <div key={idx} className="flex items-start gap-2 text-[12.5px]">
+                  <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#e5231b]" />
+                  <span className={dark ? "text-white/75" : "text-[#55504a]"}>
+                    <strong className={dark ? "font-semibold text-white" : "font-semibold text-[var(--color-ink)]"}>
+                      {colonMatch[1]}:{" "}
+                    </strong>
+                    {colonMatch[2]}
+                  </span>
+                </div>
+              );
+            }
+            return (
+              <p key={idx} className={dark ? "text-white/70" : "text-[var(--color-text-muted)]"}>
+                {p}
+              </p>
+            );
+          })}
+        </div>
+      );
+    }
+  }
+
+  return (
+    <p
+      className={`mt-2.5 text-sm leading-relaxed ${
+        dark ? "text-white/70" : "text-[var(--color-text-muted)]"
+      }`}
+    >
+      {text}
+    </p>
+  );
+}
+
 function Btns({ co, dark = false, d }: { co: Co; dark?: boolean; d?: PageData }) {
   const whatsappUrl = `${co.whatsapp}?text=${encodeURIComponent(
     `Hello Hover team, I am looking for ${d?.title || "your digital growth services"}. Can we discuss a proposal?`
@@ -407,7 +500,7 @@ function A({ d, co }: P) {
                 </div>
               </div>
             ) : (
-              <div className="max-w-5xl mx-auto">
+              <div >
                 <div className="text-center max-w-3xl mx-auto mb-10">
                   <span className="inline-block text-xs font-bold uppercase tracking-widest text-[var(--color-brand)] mb-2">
                     Overview & Methodology
@@ -459,9 +552,7 @@ function A({ d, co }: P) {
                 <h3 className="font-display text-lg font-bold text-[var(--color-ink)] leading-snug">
                   {point.title}
                 </h3>
-                <p className="mt-2.5 text-sm leading-relaxed text-[var(--color-text-muted)]">
-                  {point.description}
-                </p>
+                <CardDescription text={point.description} />
               </div>
             ))}
           </div>
@@ -512,9 +603,7 @@ function A({ d, co }: P) {
                     <h3 className="font-display text-lg font-bold text-[var(--color-ink)]">
                       {item.title}
                     </h3>
-                    <p className="mt-2 text-sm leading-relaxed text-[var(--color-text-muted)]">
-                      {item.description}
-                    </p>
+                    <CardDescription text={item.description} />
                   </div>
                   {item.features && item.features.length > 0 && (
                     <ul className="mt-5 space-y-2 border-t border-[var(--color-border)] pt-4 text-xs font-medium text-[var(--color-ink)]">
@@ -915,7 +1004,7 @@ function B({ d, co }: P) {
                   {num(i)}
                 </span>
                 <h3 className="mt-3 font-display text-lg font-bold">{b.title}</h3>
-                <p className="mt-2 text-sm text-white/70 leading-relaxed">{b.description}</p>
+                <CardDescription text={b.description} dark />
               </div>
             ))}
           </div>
@@ -1168,9 +1257,7 @@ function C({ d, co }: P) {
                 <h3 className="font-display text-lg font-bold text-[var(--color-ink)] leading-snug">
                   {point.title}
                 </h3>
-                <p className="mt-2.5 text-sm leading-relaxed text-[var(--color-text-muted)]">
-                  {point.description}
-                </p>
+                <CardDescription text={point.description} />
               </div>
             ))}
           </div>
@@ -1220,9 +1307,7 @@ function C({ d, co }: P) {
                   <h3 className="font-display text-lg font-bold text-[var(--color-ink)]">
                     {item.title}
                   </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-[var(--color-text-muted)]">
-                    {item.description}
-                  </p>
+                  <CardDescription text={item.description} />
                 </div>
                 {item.features && item.features.length > 0 && (
                   <ul className="mt-5 space-y-2 border-t border-[var(--color-border)] pt-4 text-xs font-medium text-[var(--color-ink)]">
@@ -1453,9 +1538,7 @@ function D({ d, co }: P) {
                 <h3 className="font-display text-lg font-bold text-[var(--color-ink)] leading-snug">
                   {point.title}
                 </h3>
-                <p className="mt-2.5 text-sm leading-relaxed text-[var(--color-text-muted)]">
-                  {point.description}
-                </p>
+                <CardDescription text={point.description} />
               </div>
             ))}
           </div>
@@ -1493,9 +1576,7 @@ function D({ d, co }: P) {
                   <h3 className="font-display text-lg font-bold text-[var(--color-ink)]">
                     {item.title}
                   </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-[var(--color-text-muted)]">
-                    {item.description}
-                  </p>
+                  <CardDescription text={item.description} />
                 </div>
                 {item.features && item.features.length > 0 && (
                   <ul className="mt-5 space-y-2 border-t border-[var(--color-border)] pt-4 text-xs font-medium text-[var(--color-ink)]">

@@ -14,7 +14,9 @@ export const pool =
     database: process.env.DB_NAME,
     charset: "utf8mb4",
     waitForConnections: true,
-    connectionLimit: 10,
+    connectionLimit: 4,
+    idleTimeout: 30000,
+    maxIdle: 4,
     ssl: process.env.DB_SSL === "true" ? { rejectUnauthorized: false } : undefined,
   }));
 

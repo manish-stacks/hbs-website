@@ -73,7 +73,9 @@ export async function counts() {
 
 export async function listSlugs() {
   try {
-    return await query<{ type: EntryType; slug: string }>("SELECT type,slug FROM entries WHERE status='published'");
+    return await query<{ type: EntryType; slug: string; updated_at?: Date }>(
+      "SELECT type, slug, updated_at FROM entries WHERE status='published' AND (noindex IS NULL OR noindex = 0)"
+    );
   } catch {
     return [];
   }

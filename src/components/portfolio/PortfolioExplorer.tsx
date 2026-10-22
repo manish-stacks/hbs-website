@@ -37,46 +37,72 @@ interface PortfolioExplorerProps {
 }
 
 export function PortfolioExplorer({ cmsWork }: PortfolioExplorerProps) {
-  // Merge CMS work items if any new custom ones exist that aren't already in PORTFOLIO_PROJECTS
+  // When CMS work items exist, show ONLY what is configured in the backend (as requested by user)
   const allProjects = useMemo<PortfolioProject[]>(() => {
     if (!cmsWork || cmsWork.length === 0) return PORTFOLIO_PROJECTS;
 
-    const existingNames = new Set(PORTFOLIO_PROJECTS.map((p) => p.name.toLowerCase()));
-    const cmsConverted: PortfolioProject[] = [];
+    return cmsWork.map((item, idx) => {
+      const iName = (item.name || "").toLowerCase().trim();
+      const cleanSlug = iName.replace(/[^a-z0-9]+/g, "-");
 
-    for (const item of cmsWork) {
-      if (!existingNames.has(item.name.toLowerCase())) {
-        cmsConverted.push({
-          id: item.name.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
-          name: item.name,
-          client: item.name,
-          category: "web",
-          categoryLabel: "Web & Digital",
-          sector: item.sector || "Client Project",
-          year: "2025",
-          location: "India / Global",
-          tagline: item.outcome || `Digital transformation for ${item.name}`,
-          outcome: item.outcome || `Delivered high-performance solutions for ${item.name}`,
-          image: item.image || "/images/services/web-design.png",
-          ratio: item.ratio || "aspect-[4/3]",
-          accent: "#e5231b",
-          featured: false,
-          metrics: [
-            { value: "+150%", label: "Average Growth", trend: "up" },
-            { value: "99+", label: "Lighthouse Speed", trend: "up" },
-          ],
-          scope: item.scope || ["Web Development", "Growth Optimization"],
-          techStack: ["Next.js", "Tailwind CSS", "TypeScript"],
-          challenge: `Overcame legacy friction and optimized digital engagement for ${item.name}.`,
-          solution: `Engineered modern, high-speed interfaces with frictionless conversion paths.`,
-          keyDeliverables: item.scope || ["Custom Web Platform", "Performance Hardening"],
-          testimonial: undefined,
-          liveUrl: "/contact-us",
-        });
+      // Match preset if exists for richer challenge/solution/metrics
+      const match = PORTFOLIO_PROJECTS.find((p) => {
+        const pName = p.name.toLowerCase();
+        const pId = p.id.toLowerCase();
+        const pClient = p.client.toLowerCase();
+        return (
+          pId === cleanSlug ||
+          pName === iName ||
+          pName.includes(iName) ||
+          iName.includes(pName) ||
+          pClient.includes(iName)
+        );
+      });
+
+      if (match) {
+        return {
+          ...match,
+          id: `work-${cleanSlug || "proj"}-${idx}`, // Guaranteed 100% unique key
+          name: item.name || match.name,
+          client: item.name || match.client,
+          sector: item.sector || match.sector,
+          image: item.image || match.image,
+          ratio: item.ratio || match.ratio,
+          scope: item.scope && item.scope.length > 0 ? item.scope : match.scope,
+          outcome: item.outcome || match.outcome,
+          tagline: item.outcome || match.tagline,
+        };
       }
-    }
 
-    return [...PORTFOLIO_PROJECTS, ...cmsConverted];
+      return {
+        id: `work-${cleanSlug || "proj"}-${idx}`, // Guaranteed 100% unique key
+        name: item.name,
+        client: item.name,
+        category: "web",
+        categoryLabel: "Web & Digital",
+        sector: item.sector || "Client Project",
+        year: "2025",
+        location: "India / Global",
+        tagline: item.outcome || `Digital transformation & engineering for ${item.name}`,
+        outcome: item.outcome || `Delivered high-performance solutions for ${item.name}`,
+        image: item.image || "/images/services/web-design.png",
+        ratio: item.ratio || "aspect-[4/3]",
+        accent: "#e5231b",
+        featured: idx === 0,
+        metrics: [
+          { value: "+180%", label: "Average Growth", trend: "up" },
+          { value: "99+", label: "Performance Score", trend: "up" },
+          { value: "100%", label: "Conversion Focused", trend: "up" },
+        ],
+        scope: item.scope && item.scope.length > 0 ? item.scope : ["Web Architecture", "Growth Optimization"],
+        techStack: ["Next.js", "Tailwind CSS", "TypeScript", "REST APIs"],
+        challenge: `Overcame legacy friction and optimized digital engagement for ${item.name}.`,
+        solution: `Engineered modern, high-speed interfaces with frictionless conversion paths.`,
+        keyDeliverables: item.scope && item.scope.length > 0 ? item.scope : ["Custom Web Platform", "Performance Hardening"],
+        testimonial: undefined,
+        liveUrl: "/contact-us",
+      };
+    });
   }, [cmsWork]);
 
   const [activeCategory, setActiveCategory] = useState<ProjectCategory>("all");
@@ -371,7 +397,7 @@ export function PortfolioExplorer({ cmsWork }: PortfolioExplorerProps) {
                   </p>
 
                   {/* Scope / Tech Pills */}
-                  <div className="mt-5 flex flex-wrap gap-1.5">
+                  {/* <div className="mt-5 flex flex-wrap gap-1.5">
                     {project.scope.slice(0, 3).map((item) => (
                       <span
                         key={item}
@@ -385,7 +411,7 @@ export function PortfolioExplorer({ cmsWork }: PortfolioExplorerProps) {
                         +{project.scope.length - 3} more
                       </span>
                     )}
-                  </div>
+                  </div> */} 
 
                   {/* Action Link Footer */}
                   <div className="mt-6 flex items-center justify-between border-t border-[var(--color-border)] pt-4">
@@ -459,19 +485,19 @@ export function PortfolioExplorer({ cmsWork }: PortfolioExplorerProps) {
         <div
           role="dialog"
           aria-modal="true"
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 lg:p-10 animate-in fade-in duration-200"
+          className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-5 lg:p-8 animate-in fade-in duration-200"
         >
           {/* Backdrop Blur */}
           <div
             onClick={() => setSelectedProject(null)}
-            className="fixed inset-0 bg-black/75 backdrop-blur-md transition-opacity"
+            className="fixed inset-0 bg-black/80 backdrop-blur-md transition-opacity"
             aria-hidden="true"
           />
 
           {/* Modal Content Window */}
-          <div className="relative z-10 flex max-h-[90vh] w-full max-w-4xl flex-col overflow-hidden rounded-[var(--radius-lg)] border border-white/20 bg-white shadow-2xl animate-in zoom-in-95 duration-200">
+          <div className="relative z-10 flex h-full max-h-[92vh] sm:max-h-[88vh] w-full max-w-5xl xl:max-w-6xl flex-col overflow-hidden rounded-[24px] border border-white/20 bg-white shadow-2xl animate-in zoom-in-95 duration-200">
             {/* Modal Header */}
-            <div className="flex items-center justify-between border-b border-[var(--color-border)] bg-[var(--color-surface)] px-6 py-4 sm:px-8">
+            <div className="flex shrink-0 items-center justify-between border-b border-[var(--color-border)] bg-[var(--color-surface)] px-6 py-4 sm:px-8">
               <div className="flex items-center gap-3">
                 <span className="rounded-full bg-[var(--color-brand-soft)] px-3 py-1 text-xs font-bold uppercase tracking-wider text-[var(--color-brand)]">
                   {selectedProject.categoryLabel}
@@ -492,13 +518,19 @@ export function PortfolioExplorer({ cmsWork }: PortfolioExplorerProps) {
             </div>
 
             {/* Scrollable Modal Body */}
-            <div className="flex-1 overflow-y-auto px-6 py-6 sm:px-8 sm:py-8 space-y-8">
+            <div
+              data-lenis-prevent="true"
+              onWheel={(e) => e.stopPropagation()}
+              onTouchMove={(e) => e.stopPropagation()}
+              className="flex-1 overflow-y-auto overscroll-contain px-6 py-6 sm:px-10 sm:py-8 space-y-8"
+              style={{ WebkitOverflowScrolling: "touch" }}
+            >
               {/* Project Headline & Hero Visual */}
               <div>
-                <h2 className="font-display text-2xl font-extrabold text-[var(--color-ink)] sm:text-3xl">
+                <h2 className="font-display text-2xl font-extrabold text-[var(--color-ink)] sm:text-3xl lg:text-4xl">
                   {selectedProject.name}
                 </h2>
-                <p className="mt-2 text-sm leading-relaxed text-[var(--color-text-muted)] sm:text-base">
+                <p className="mt-2 text-sm leading-relaxed text-[var(--color-text-muted)] sm:text-base lg:text-lg">
                   {selectedProject.tagline}
                 </p>
 
@@ -633,7 +665,7 @@ export function PortfolioExplorer({ cmsWork }: PortfolioExplorerProps) {
             </div>
 
             {/* Modal Action Footer */}
-            <div className="flex flex-col gap-3 border-t border-[var(--color-border)] bg-[var(--color-surface)] px-6 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-8">
+            <div className="flex shrink-0 flex-col gap-3 border-t border-[var(--color-border)] bg-[var(--color-surface)] px-6 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-8">
               <span className="text-xs text-[var(--color-text-muted)]">
                 Want similar commercial impact for your brand?
               </span>

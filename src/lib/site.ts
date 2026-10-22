@@ -18,11 +18,32 @@ export const getSetting = cache(async <K extends GroupKey>(key: K): Promise<Defa
 });
 
 export async function getCompany(): Promise<Company> {
-  const g = await getSetting("general");
+  const g = (await getSetting("general")) as any;
+  const clients =
+    g.clients ||
+    g.clients_url ||
+    "https://web-crm.hoverbusinessservices.com/client-portal";
   return {
-    name: g.siteName, logo: g.logo, logoAlt: g.logoAlt, phone: g.phone, phoneAlt: g.phoneAlt, phoneNz: g.phoneNz, whatsapp: g.whatsapp,
-    email: g.email, support: g.support, addressIn: g.address, crm: g.crm, pay: g.pay,
-    social: { facebook: g.facebook, instagram: g.instagram, linkedin: g.linkedin, twitter: g.twitter, youtube: g.youtube },
+    name: g.siteName,
+    logo: g.logo,
+    logoAlt: g.logoAlt,
+    phone: g.phone,
+    phoneAlt: g.phoneAlt,
+    phoneNz: g.phoneNz,
+    whatsapp: g.whatsapp,
+    email: g.email,
+    support: g.support,
+    addressIn: g.address,
+    crm: g.crm,
+    pay: g.pay,
+    clients,
+    social: {
+      facebook: g.facebook,
+      instagram: g.instagram,
+      linkedin: g.linkedin,
+      twitter: g.twitter,
+      youtube: g.youtube,
+    },
   };
 }
 

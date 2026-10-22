@@ -9,6 +9,8 @@ export const company = {
   addressIn: "916, 9th Floor, Tower-2, Pearls Omaxe, NSP, Pitampura, Delhi-110034",
   crm: "https://web-crm.hoverbusinessservices.com/login",
   pay: "https://razorpay.me/@hoverbusinessservices",
+  clients: "https://web-crm.hoverbusinessservices.com/client-portal",
+  clients_url: "https://web-crm.hoverbusinessservices.com/client-portal",
   social: {
     facebook: "https://www.facebook.com/hoverbusinessservicesllp/",
     instagram: "https://www.instagram.com/hoverbusinessservicesllp/",

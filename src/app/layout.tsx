@@ -30,7 +30,10 @@ export async function generateMetadata(): Promise<Metadata> {
   const s = await getSeo();
   const img = s.ogImage ? [{ url: s.ogImage, width: 1200, height: 630, alt: s.ogImageAlt || s.siteName }] : undefined;
   return {
-    metadataBase: new URL(s.siteUrl || "http://localhost:3000"),
+    metadataBase: new URL(s.siteUrl || "https://hoverbusinessservices.com"),
+    alternates: {
+      canonical: "/",
+    },
     applicationName: s.siteName,
     title: { default: s.defaultTitle, template: s.titleTemplate },
     description: s.description,

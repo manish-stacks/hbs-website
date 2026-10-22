@@ -2,7 +2,7 @@ import type { Field } from "./blocks";
 
 export type Company = {
   name: string; logo: string; logoAlt: string; phone: string; phoneAlt: string; phoneNz: string; whatsapp: string;
-  email: string; support: string; addressIn: string; crm: string; pay: string;
+  email: string; support: string; addressIn: string; crm: string; pay: string; clients: string;
   social: { facebook: string; instagram: string; linkedin: string; twitter: string; youtube: string };
 };
 export type MenuLink = { label: string; href: string };
@@ -28,7 +28,7 @@ export const GROUPS: Record<GroupKey, Group> = {
       t("siteName", "Site name"), im("logo", "Logo"), t("logoAlt", "Logo alt text"), im("favicon", "Favicon"),
       t("phone", "Phone"), t("phoneAlt", "Alternate phone"), t("phoneNz", "Second country phone"),
       t("whatsapp", "WhatsApp link"), t("email", "Email"), t("support", "Support email"), a("address", "Address"),
-      t("crm", "Client login URL"), t("pay", "Payment URL"),
+      t("crm", "CRM login URL"), t("clients", "Client login URL"), t("pay", "Payment URL"),
       t("facebook", "Facebook URL"), t("instagram", "Instagram URL"), t("linkedin", "LinkedIn URL"),
       t("twitter", "X / Twitter URL"), t("youtube", "YouTube URL"),
       t("googleRating", "Google rating"), t("googleReviews", "Google review count"),

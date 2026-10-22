@@ -9,7 +9,9 @@ export const DEFAULTS = {
   general: {
     siteName: company.name, logo: "https://hoverbusinessservices.com/images/hbs-logo.png", logoAlt: "Hover Business Services logo", favicon: "",
     phone: company.phone, phoneAlt: company.phoneAlt, phoneNz: company.phoneNz, whatsapp: company.whatsapp, email: company.email,
-    support: company.support, address: company.addressIn, crm: company.crm, pay: company.pay, ...company.social,
+    support: company.support, address: company.addressIn, crm: company.crm,
+    clients: company.clients || company.clients_url || "https://web-crm.hoverbusinessservices.com/client-portal",
+    pay: company.pay, ...company.social,
     googleRating: "4.9/5", googleReviews: "2500+ reviews", notifyEmail: company.email,
   },
   seo: {
