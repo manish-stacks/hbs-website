@@ -14,10 +14,9 @@ export async function proxy(req: NextRequest) {
 
   if (!isLocal) {
     const isWww = host.toLowerCase().startsWith("www.");
-    const isHttp = proto === "http";
 
-    // 1. Enforce Non-WWW and HTTPS (e.g. www.hoverbusinessservices.com -> https://hoverbusinessservices.com)
-    if (isWww || isHttp) {
+    // 1. Enforce Non-WWW (e.g. www.domain.com -> domain.com)
+    if (isWww) {
       const cleanHost = host.replace(/^www\./i, "");
       const destination = `https://${cleanHost}${req.nextUrl.pathname}${req.nextUrl.search}`;
       return NextResponse.redirect(destination, { status: 301 });
