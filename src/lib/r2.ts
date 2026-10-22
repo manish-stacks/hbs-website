@@ -10,6 +10,7 @@ const getClient = () =>
     credentials: { accessKeyId: process.env.R2_ACCESS_KEY_ID || "", secretAccessKey: process.env.R2_SECRET_ACCESS_KEY || "" },
   }));
 
+  
 export async function uploadToR2(body: Buffer, name: string, contentType: string) {
   const safe = name.toLowerCase().replace(/[^a-z0-9.]+/g, "-").slice(-80);
   const key = `uploads/${new Date().getFullYear()}/${Date.now()}-${safe}`;
