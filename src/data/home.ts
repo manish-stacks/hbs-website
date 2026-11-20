@@ -155,7 +155,7 @@ export const heroMetrics = [
 export const stats = [
   { value: 5, suffix: "+", label: "Years in business" },
   { value: 80, suffix: "+", label: "Team members" },
-  { value: 1500, suffix: "+", label: "Happy clients" },
+  { value: 3200, suffix: "+", label: "Happy clients" },
   { value: 24, suffix: "/7", label: "Support available" },
 ];
 
@@ -309,7 +309,7 @@ export const whyUs = [
   },
   {
     title: "Trusted by people like you",
-    body: "1500+ businesses across India and New Zealand have chosen HBS to grow their revenue.",
+    body: "3200+ businesses across India and New Zealand have chosen HBS to grow their revenue.",
   },
   {
     title: "Complete technical depth",

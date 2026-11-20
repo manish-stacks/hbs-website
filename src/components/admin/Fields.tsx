@@ -9,7 +9,7 @@ import { MENU_ICONS } from "@/lib/menuIcons";
 
 export const inp = "w-full rounded-xl border border-[var(--color-border)] bg-slate-50/60 px-3.5 py-2.5 text-[13px] outline-none transition placeholder:text-[var(--color-text-muted)]/60 hover:border-[#d8d0c8] focus:border-[var(--color-brand)] focus:bg-white focus:ring-4 focus:ring-[var(--color-brand)]/10";
 export const lbl = "mb-1.5 block text-xs font-bold text-[var(--color-ink)]";
-export const isWide = (f: Field) => f.t !== "text";
+export const isWide = (f: Field) => f.t !== "text" && f.t !== "select";
 export const iconBtn = "flex h-7 w-7 items-center justify-center rounded-lg text-[var(--color-text-muted)] hover:bg-white hover:text-[var(--color-ink)] disabled:opacity-30";
 export const slugify = (s: string) => s.toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
 
@@ -46,6 +46,35 @@ export function ImageField({ value, onChange }: { value: string; onChange: (v: s
             {value ? <button type="button" onClick={() => onChange("")} className="rounded-md border border-[var(--color-border)] bg-white px-3 py-1.5 text-xs font-semibold hover:text-red-600">Remove</button> : null}
           </div>
         </div>
+      </div>
+      {err ? <p className="mt-1 text-xs text-red-600">{err}</p> : null}
+    </div>
+  );
+}
+
+export function VideoField({ value, onChange }: { value: string; onChange: (v: string) => void }) {
+  const [busy, setBusy] = useState(false);
+  const [err, setErr] = useState("");
+  async function upload(f: File) {
+    setBusy(true);
+    setErr("");
+    const fd = new FormData();
+    fd.append("file", f);
+    const r = await fetch("/api/admin/upload", { method: "POST", body: fd });
+    const j = await r.json().catch(() => ({}));
+    setBusy(false);
+    if (r.ok) onChange(j.url);
+    else setErr(j.error || "Upload failed");
+  }
+  return (
+    <div>
+      <div className="flex flex-wrap items-center gap-2">
+        <input className={`${inp} min-w-0 flex-1`} placeholder="https://youtu.be/... or video link" value={value} onChange={(e) => onChange(e.target.value)} />
+        <label className="flex cursor-pointer items-center gap-1.5 rounded-md bg-[var(--color-ink)] px-3 py-2 text-xs font-bold text-white hover:bg-[var(--color-brand)]">
+          <Upload size={12} /> {busy ? "Uploading..." : "Upload MP4"}
+          <input type="file" accept="video/mp4,video/webm" hidden onChange={(e) => { const f = e.target.files?.[0]; if (f) upload(f); e.target.value = ""; }} />
+        </label>
+        {value ? <button type="button" onClick={() => onChange("")} className="rounded-md border border-[var(--color-border)] bg-white px-3 py-2 text-xs font-semibold hover:text-red-600">Remove</button> : null}
       </div>
       {err ? <p className="mt-1 text-xs text-red-600">{err}</p> : null}
     </div>
@@ -126,6 +155,17 @@ export function FieldEditor({ f, v, set }: { f: Field; v: unknown; set: (x: unkn
       {f.t === "lines" ? <textarea className={inp} rows={3} value={strs(v).join("\n")} onChange={(e) => set(e.target.value.split("\n"))} /> : null}
       {f.t === "image" ? <ImageField value={str(v)} onChange={set} /> : null}
       {f.t === "icon" ? <IconPicker value={str(v)} onChange={set} /> : null}
+      {f.t === "video" ? <VideoField value={str(v)} onChange={set} /> : null}
+      {f.t === "select" ? (
+        <>
+          <select className={inp} value={str(v)} onChange={(e) => set(e.target.value)}>
+            <option value="">Choose category...</option>
+            {(f.options ?? []).map((o) => <option key={o} value={o}>{o}</option>)}
+            {str(v) && !(f.options ?? []).includes(str(v)) ? <option value={str(v)}>{str(v)}</option> : null}
+          </select>
+          {!(f.options ?? []).length ? <p className="mt-1 text-[11px] text-red-600">No categories yet. Create them first in Gallery categories.</p> : null}
+        </>
+      ) : null}
     </div>
   );
 }

@@ -31,7 +31,7 @@ export function TestimonialsView({ testimonials }: { testimonials: { name: strin
           <div>
             <h2 style={{ fontSize: "var(--fs-3xl)" }}>Your Reviews Fuel Us!</h2>
             <p className="mt-2 max-w-[60ch] text-[var(--fs-sm)] text-[var(--color-text-muted)]">
-              Hear from the clients whose businesses have grown with Hover Business Services — 1500+ and counting.
+              Hear from the clients whose businesses have grown with Hover Business Services — 3200+ and counting.
             </p>
           </div>
 

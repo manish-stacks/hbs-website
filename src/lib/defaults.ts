@@ -42,7 +42,7 @@ export const DEFAULTS = {
   "360° services: PPC, SEO, SMO, web, apps and branding",
   "80+ in-house specialists — nothing outsourced",
 ] as string[], image: "/images/ai-powered-growth.png", imageAlt: "AI-powered growth for your business",
-    badgeValue: "1500+", badgeLabel: "Happy clients served", linkLabel: "Learn more about HBS",
+    badgeValue: "3200+", badgeLabel: "Happy clients served", linkLabel: "Learn more about HBS",
   },
   stats: { items: stats.map((s) => ({ value: String(s.value), suffix: s.suffix, label: s.label })) },
   faqs: { items: faqs },
@@ -68,6 +68,15 @@ export const DEFAULTS = {
       "https://html.kodesolution.com/2025/digiplus-html/images/resource/team-h1-3.jpg",
   }
 ] as { name: string; role: string; image: string; alt: string; facebook: string; twitter: string; instagram: string }[] },
+  leaders: { items: [
+  { name: "Team Leader Name", designation: "Team Leader", position: "SEO Department", image: "", alt: "" },
+] as { name: string; designation: string; position: string; image: string; alt: string }[] },
+  galleryCategories: { items: [
+  { name: "Festival Celebrations", date: "", description: "Diwali, Holi and every festival we celebrate together at the office.", cover: "" },
+  { name: "Events & Annual Day", date: "", description: "Company events, award nights and annual functions.", cover: "" },
+  { name: "Team Outings", date: "", description: "Trips, lunches and fun days with the team.", cover: "" },
+] as { name: string; date: string; description: string; cover: string }[] },
+  gallery: { items: [] as { category: string; title: string; image: string; video: string; alt: string }[] },
   clients: { items: [...new Set(clients)].map((logo) => ({ name: (logo.split("/").pop() ?? "").split(".")[0] ?? "", logo, alt: `${(logo.split("/").pop() ?? "").split(".")[0]} client logo` })) },
   services: { items: services.map((s) => ({ title: s.title, body: s.body, badge: s.badge ?? "", tags: s.tags, href: s.href, image: s.image, alt: `${s.title} service` })) },
   whyUs: { items: whyUs },
@@ -81,7 +90,7 @@ export const DEFAULTS = {
 ] as { name: string; sector: string; scope: string[]; outcome: string; image: string; alt: string; ratio: string }[] },
 
   hero: {
-    badge: "5+ Years of Impact · 1500+ Global Clients", headline1: "AI-Powered", headline2: "Digital Marketing | That Drives Real Growth",
+    badge: "5+ Years of Impact · 3200+ Global Clients", headline1: "AI-Powered", headline2: "Digital Marketing | That Drives Real Growth",
     sub: "Redefining growth with AI + human intelligence.",
     intro: "We combine AI technology with human creativity to build marketing strategies, websites and apps that get real results — more traffic, more leads and more revenue for your business.",
     cta1: "Get Your Free AI Growth Strategy", cta2: "Watch Our Work", rating: "Rated 5 stars based on 600+ client reviews",
@@ -89,7 +98,7 @@ export const DEFAULTS = {
     stat1Value: "10x", stat1Label: "Average Growth", stat2Value: "80+", stat2Label: "Marketing Specialists",
   },
   contactCta: { eyebrow: "Why Choose Us", heading: "Recognized As One\nOf The Leading\nCompany!", formKicker: "Contact Us", formTitle: "Get in Touch" },
-  career: { numbers: [{"value": "80+", "label": "Team members"}, {"value": "4", "label": "Offices"}, {"value": "1500+", "label": "Clients served"}, {"value": "6 mo", "label": "Review cycle"}] },
+  career: { numbers: [{"value": "80+", "label": "Team members"}, {"value": "4", "label": "Offices"}, {"value": "3200+", "label": "Clients served"}, {"value": "6 mo", "label": "Review cycle"}] },
   jobs: { items: [{"role": "SEO Executive", "team": "Digital Marketing", "type": "Full-time", "location": "Pitampura, Delhi", "exp": "1–3 years", "points": ["Run audits, keyword research and on-page optimisation", "Build and track link and content campaigns", "Report ranking and traffic growth to clients"]}, {"role": "Performance Marketing Specialist", "team": "Paid Media", "type": "Full-time", "location": "Pitampura, Delhi", "exp": "2–5 years", "points": ["Plan and optimise Google and Meta ad accounts", "Own budgets, tracking and conversion goals", "Test creatives and landing pages weekly"]}, {"role": "Next.js Developer", "team": "Engineering", "type": "Full-time", "location": "Delhi / Hybrid", "exp": "2–4 years", "points": ["Build fast, SEO-friendly websites and web apps", "Integrate APIs, CMS and payment systems", "Review code and improve performance"]}, {"role": "React Native Developer", "team": "Engineering", "type": "Full-time", "location": "Delhi / Remote", "exp": "2–4 years", "points": ["Ship Android and iOS apps from one codebase", "Work with REST APIs and push notifications", "Publish and maintain store releases"]}, {"role": "UI/UX Designer", "team": "Creative", "type": "Full-time", "location": "Pitampura, Delhi", "exp": "1–4 years", "points": ["Design user flows, wireframes and interfaces", "Create and maintain design systems in Figma", "Work closely with developers on handoff"]}, {"role": "Content Writer", "team": "Content", "type": "Full-time", "location": "Delhi / Hybrid", "exp": "0–2 years", "points": ["Write blogs, service pages and ad copy", "Research topics with search intent in mind", "Edit for clarity, tone and accuracy"]}, {"role": "Business Development Executive", "team": "Sales", "type": "Full-time", "location": "Pitampura, Delhi", "exp": "1–3 years", "points": ["Qualify inbound and outbound leads", "Run discovery calls and prepare proposals", "Build long-term client relationships"]}, {"role": "Graphic Design Intern", "team": "Creative", "type": "Internship", "location": "Pitampura, Delhi", "exp": "Fresher", "points": ["Create social media and ad creatives", "Support senior designers on live projects", "Learn brand and layout fundamentals"]}] },
 };
 

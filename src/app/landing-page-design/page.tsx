@@ -70,7 +70,7 @@ const d: PageData = {
       "Years in business"
     ],
     [
-      "1500+",
+      "3200+",
       "Happy clients"
     ],
     [

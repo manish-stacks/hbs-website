@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { SettingsEditor } from "@/components/admin/SettingsEditor";
 import { FooterManager } from "@/components/admin/FooterManager";
 import { ListManager } from "@/components/admin/ListManager";
+import { GalleryAdmin } from "@/components/admin/GalleryAdmin";
 import { getSetting } from "@/lib/site";
 import { GROUPS, GROUP_KEYS, WHERE, type GroupKey } from "@/lib/settings";
 
@@ -14,6 +15,11 @@ export default async function SettingsPage({ params }: { params: Promise<{ group
   const initial = (await getSetting(key)) as unknown as Record<string, unknown>;
   if (key === "footer") return <FooterManager key={key} group={key} label={g.label} desc={g.desc} url={WHERE[key].url} fields={g.fields} initial={initial} />;
   const only = g.fields.length === 1 && g.fields[0]!.t === "items" ? g.fields[0]! : null;
+  if (key === "gallery" && only) {
+    const options = (await getSetting("galleryCategories")).items.map((c) => c.name).filter(Boolean);
+    const field = { ...only, sub: (only.sub ?? []).map((x) => (x.t === "select" ? { ...x, options } : x)) };
+    return <GalleryAdmin key={key} group={key} label={g.label} desc={g.desc} url={WHERE[key].url} field={field} initial={initial} options={options} />;
+  }
   if (only) return <ListManager key={key} group={key} label={g.label} desc={g.desc} url={WHERE[key].url} field={only} initial={initial} />;
   return <SettingsEditor key={key} group={key} label={g.label} desc={g.desc} where={WHERE[key].where} url={WHERE[key].url} fields={g.fields} initial={initial} />;
 }

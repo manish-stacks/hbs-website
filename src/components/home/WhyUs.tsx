@@ -6,8 +6,8 @@ import { getSetting } from "@/lib/site";
 
 const icons = [ShieldCheck, Users, Cpu, Handshake, BadgeCheck, Repeat2];
 const facts = [
-  ["1500+", "Clients served"],
-  ["80+", "In-house experts"],
+  ["3200+", "Clients served"],
+  ["90+", "In-house experts"],
   ["5+", "Years of growth"],
 ];
 

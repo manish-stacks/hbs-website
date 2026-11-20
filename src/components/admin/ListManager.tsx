@@ -7,7 +7,7 @@ import { rows, str, type Field } from "@/lib/blocks";
 
 type Row = Record<string, unknown>;
 const PER = 10;
-const FILTER_KEYS = ["sector", "team", "type", "country", "role"];
+const FILTER_KEYS = ["category", "sector", "team", "type", "country", "role"];
 const SKIP = /^(alt|facebook|twitter|instagram)$/;
 
 type Persist = (next: Row[], ok: string) => Promise<boolean>;
@@ -24,8 +24,8 @@ export function ListTable({ field, list, persist, title }: { field: Field; list:
   const [msg, setMsg] = useState<{ ok: boolean; t: string } | null>(null);
 
   const img = sub.find((s) => s.t === "image");
-  const cols = sub.filter((s) => (s.t === "text" || s.t === "area") && !SKIP.test(s.k)).slice(0, 3);
-  const fk = sub.find((s) => s.t === "text" && FILTER_KEYS.includes(s.k));
+  const cols = sub.filter((s) => (s.t === "text" || s.t === "area" || s.t === "select") && !SKIP.test(s.k)).slice(0, 3);
+  const fk = sub.find((s) => (s.t === "text" || s.t === "select") && FILTER_KEYS.includes(s.k));
   const opts = useMemo(() => (fk ? [...new Set(list.map((x) => str(x[fk.k])).filter(Boolean))] : []), [list, fk]);
   const nested = sub.filter((x) => x.t === "items");
   const singular = field.label.replace(/ies$/, "y").replace(/s$/, "");

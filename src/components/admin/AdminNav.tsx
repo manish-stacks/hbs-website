@@ -15,8 +15,8 @@ const CONTENT: { href: string; label: string; Icon: Icon }[] = [
 
 const SECTIONS: { title: string; Icon: Icon; keys: GroupKey[] }[] = [
   { title: "Site settings", Icon: Settings, keys: ["general", "seo", "pageSeo", "menu", "footer"] },
-  { title: "Home page", Icon: Home, keys: ["hero", "about", "stats", "services", "whyUs", "industries", "reviews", "clients", "team", "faqs", "offices", "contactCta"] },
-  { title: "Portfolio & careers", Icon: Briefcase, keys: ["work", "career", "jobs"] },
+  { title: "Home page", Icon: Home, keys: ["hero", "about", "stats", "services", "whyUs", "industries", "reviews", "clients", "team", "leaders", "faqs", "offices", "contactCta"] },
+  { title: "Portfolio & careers", Icon: Briefcase, keys: ["work", "galleryCategories", "gallery", "career", "jobs"] },
 ];
 
 const label = "px-3 pb-1.5 pt-6 text-[10px] font-bold uppercase tracking-[0.2em] text-white/35";

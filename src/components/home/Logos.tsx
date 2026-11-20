@@ -34,7 +34,7 @@ export async function Logos() {
     <section className="overflow-hidden border-y border-[var(--color-border)] bg-[var(--color-surface)] py-8 sm:py-10">
       <div className="container-max">
         <p className="text-center text-[var(--fs-xs)] font-bold uppercase tracking-[0.16em] text-[var(--color-text-muted)] sm:text-[var(--fs-sm)]">
-          Trusted by 1500+ growing brands
+          Trusted by 3200+ growing brands
         </p>
       </div>
 

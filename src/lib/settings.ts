@@ -11,13 +11,14 @@ export type FooterData = { about: string; copyright: string; columns: { title: s
 
 export type GroupKey =
   | "general" | "seo" | "pageSeo" | "menu" | "footer" | "about" | "stats" | "faqs" | "offices" | "reviews"
-  | "hero" | "contactCta" | "career" | "jobs" | "team" | "clients" | "services" | "whyUs" | "industries" | "work";
+  | "hero" | "contactCta" | "career" | "jobs" | "team" | "leaders" | "galleryCategories" | "gallery" | "clients" | "services" | "whyUs" | "industries" | "work";
 
 export type Group = { label: string; section: "Site" | "Sections"; desc: string; fields: Field[] };
 
 const t = (k: string, label: string, hint?: string): Field => ({ k, label, t: "text", hint });
 const a = (k: string, label: string): Field => ({ k, label, t: "area" });
 const im = (k: string, label: string): Field => ({ k, label, t: "image" });
+const vid = (k: string, label: string, hint?: string): Field => ({ k, label, t: "video", hint });
 const items = (k: string, label: string, sub: Field[]): Field => ({ k, label, t: "items", sub });
 const link: Field[] = [t("label", "Label"), t("href", "Link")];
 
@@ -89,6 +90,13 @@ export const GROUPS: Record<GroupKey, Group> = {
   team: { label: "Team", section: "Sections", desc: "Team members.",
     fields: [items("items", "Members", [t("name", "Name"), t("role", "Role"), im("image", "Photo"), t("alt", "Photo alt text"),
       t("facebook", "Facebook URL"), t("twitter", "X URL"), t("instagram", "Instagram URL")])] },
+  leaders: { label: "Team leaders", section: "Sections", desc: "Team leaders shown on the Team Members page.",
+    fields: [items("items", "Leaders", [t("name", "Name"), t("designation", "Designation", "e.g. Team Leader"), t("position", "Position / team they lead", "e.g. SEO Department"), im("image", "Photo"), t("alt", "Photo alt text")])] },
+  galleryCategories: { label: "Gallery categories", section: "Sections", desc: "Albums for office memories, e.g. Diwali Celebration, Annual Day, Team Outing. Create these first, then pick one when adding photos or videos.",
+    fields: [items("items", "Categories", [t("name", "Category name", "e.g. Diwali Celebration 2025"), t("date", "Date / year (optional)", "e.g. Nov 2025"), a("description", "Short description (optional)"), im("cover", "Cover photo (optional, first photo is used if empty)")])] },
+  gallery: { label: "Gallery photos & videos", section: "Sections", desc: "Office memories. Choose a category for every photo or video.",
+    fields: [items("items", "Gallery items", [{ k: "category", label: "Category", t: "select", hint: "Categories are created in Gallery categories." }, t("title", "Caption (optional)"),
+      im("image", "Photo (or video thumbnail)"), vid("video", "Video (optional)", "Leave empty for a photo. Paste a YouTube / Vimeo / .mp4 link or upload an MP4."), t("alt", "Photo alt text")])] },
   clients: { label: "Client logos", section: "Sections", desc: "Logo strip.",
     fields: [items("items", "Logos", [t("name", "Client name"), im("logo", "Logo"), t("alt", "Alt text")])] },
   services: { label: "Home service cards", section: "Sections", desc: "Service cards on the home page.",
@@ -120,6 +128,9 @@ export const WHERE: Record<GroupKey, { where: string; url: string }> = {
   career: { where: "The four numbers at the top of the Careers page.", url: "/career" },
   jobs: { where: "Open positions list and the application form on the Careers page.", url: "/career" },
   team: { where: "Team slider on the About us page.", url: "/about-us" },
+  leaders: { where: "Team leaders cards on the Team Members page (About menu).", url: "/team-members" },
+  galleryCategories: { where: "Album cards on the Gallery page (About menu).", url: "/gallery" },
+  gallery: { where: "Photos and videos inside each Gallery album.", url: "/gallery" },
   clients: { where: "Client logo strip on the Home page.", url: "/" },
   services: { where: "Service cards on the Home page.", url: "/" },
   whyUs: { where: "Why choose us section on the Home and About us pages.", url: "/about-us" },

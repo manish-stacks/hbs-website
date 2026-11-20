@@ -1,6 +1,6 @@
 export type BlockType = "article" | "hero" | "heading" | "text" | "split" | "steps" | "stats" | "image" | "features" | "checklist" | "faq" | "cta";
 export type Block = { id: string; type: BlockType; [k: string]: unknown };
-export type Field = { k: string; label: string; t: "text" | "area" | "rich" | "image" | "lines" | "items" | "icon"; sub?: Field[]; hint?: string };
+export type Field = { k: string; label: string; t: "text" | "area" | "rich" | "image" | "lines" | "items" | "icon" | "video" | "select"; sub?: Field[]; hint?: string; options?: string[] };
 
 export const BLOCKS: Record<BlockType, { label: string; fields: Field[]; init: Record<string, unknown> }> = {
   article: { label: "Article", fields: [{ k: "body", label: "Content", t: "rich" }], init: { body: "" } },

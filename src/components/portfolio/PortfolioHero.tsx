@@ -7,7 +7,7 @@ interface PortfolioHeroProps {
 
 export function PortfolioHero({ stats }: PortfolioHeroProps) {
   const displayStats = stats && stats.length >= 4 ? stats : [
-    { value: "1500", suffix: "+", label: "Projects Shipped" },
+    { value: "3200", suffix: "+", label: "Projects Shipped" },
     { value: "50", suffix: "Cr+", label: "Client Revenue" },
     { value: "4.2", suffix: "x", label: "Average ROAS" },
     { value: "98.4", suffix: "%", label: "Client Retention" },

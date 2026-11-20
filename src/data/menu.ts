@@ -6,12 +6,12 @@ export type Top = { label: string; href: string; groups: G[] };
 
 export const slugify = (s: string) => s.toLowerCase().replace(/\(.*?\)/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
 export const slugOf = (g: G, label: string) => {
-  if (g.kind === "about") return ({ "Company Overview": "about-us", "Our Team (Life @ Hover)": "life-at-hover", "Case Studies": "portfolio", "Client Reviews": "client-reviews", Careers: "career" } as Record<string, string>)[label]!;
+  if (g.kind === "about") return ({ "Company Overview": "about-us", "Our Team (Life @ Hover)": "life-at-hover", "Team Members": "team-members", Gallery: "gallery", "Case Studies": "portfolio", "Client Reviews": "client-reviews", Careers: "career" } as Record<string, string>)[label]!;
   return slugify(label) + (g.kind === "industry" ? "-marketing" : "");
 };
 
 export const TOP: Top[] = [
-  { label: "About", href: "/about-us", groups: [{ h: "About Us", icon: "users", kind: "about", l: ["Company Overview", "Our Team (Life @ Hover)", "Case Studies", "Client Reviews", "Careers"] }] },
+  { label: "About", href: "/about-us", groups: [{ h: "About Us", icon: "users", kind: "about", l: ["Company Overview", "Our Team (Life @ Hover)", "Team Members", "Gallery", "Case Studies", "Client Reviews", "Careers"] }] },
   { label: "Digital Marketing", href: "/digital-marketing", groups: [
     { h: "AI Search & Visibility", icon: "sparkles", kind: "marketing", l: ["LLMO Services", "AI Search Optimization", "Generative Engine Optimization", "Answer Engine Optimization", "AI Brand Visibility"] },
     { h: "SEO Services", icon: "search", kind: "marketing", l: ["SEO Services", "Local SEO", "Ecommerce SEO", "Technical SEO", "Small Business SEO", "SEO Audit"] },

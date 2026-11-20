@@ -8,7 +8,7 @@ const d: PageData = {
   intro: "Hover Business Services LLP provides SEO services designed to help businesses improve online visibility, attract relevant visitors, and build a stronger digital presence. Our approach combines keyword research, content optimization, technical SEO, and AI search optimization to support your business goals.",
   "accent": "#e5231b",
   metaTitle: "SEO Services India | Best SEO Agency for Search & AI | Hover Business Services LLP",
-  metaDesc: "Drive qualified organic traffic, high-intent leads, and higher rankings with full-service SEO from Hover Business Services LLP. 1,500+ clients served.",
+  metaDesc: "Drive qualified organic traffic, high-intent leads, and higher rankings with full-service SEO from Hover Business Services LLP. 3,200+ clients served.",
   overviewParagraphs: [
   "Best SEO Services in India for Search Engines & AI Platforms",
   "Hover Business Services LLP provides SEO services designed to help businesses improve online visibility, attract relevant visitors, and build a stronger digital presence. Our approach combines keyword research, content optimization, technical SEO, and AI search optimization to support your business goals.",

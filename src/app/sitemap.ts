@@ -1,7 +1,8 @@
 import type { MetadataRoute } from "next";
 import fs from "fs";
 import path from "path";
-import { getSeo } from "@/lib/site";
+import { getSeo, getSetting } from "@/lib/site";
+import { buildAlbums } from "@/lib/gallery";
 import { productSlugs } from "@/data/products";
 import { listSlugs } from "@/lib/content";
 
@@ -74,6 +75,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ];
   for (const { p, prio, freq } of corePages) {
     add(p, prio, freq);
+  }
+
+  // Gallery albums
+  try {
+    const [cats, g] = await Promise.all([getSetting("galleryCategories"), getSetting("gallery")]);
+    for (const a of buildAlbums(cats.items, g.items)) add(`/gallery/${a.slug}`, 0.6, "monthly");
+  } catch (e) {
+    console.error("sitemap gallery error:", e);
   }
 
   // 3. Products
