@@ -5,6 +5,7 @@ import { RichEditor } from "./RichEditor";
 import { ArrowDown, ArrowUp, Image as ImageIcon, Plus, Trash2, Upload } from "lucide-react";
 import { rows, str, strs, type Field } from "@/lib/blocks";
 import { MENU_ICONS } from "@/lib/menuIcons";
+import { mediaUrl } from "@/lib/media";
 
 
 export const inp = "w-full rounded-xl border border-[var(--color-border)] bg-slate-50/60 px-3.5 py-2.5 text-[13px] outline-none transition placeholder:text-[var(--color-text-muted)]/60 hover:border-[#d8d0c8] focus:border-[var(--color-brand)] focus:bg-white focus:ring-4 focus:ring-[var(--color-brand)]/10";
@@ -32,7 +33,7 @@ export function ImageField({ value, onChange }: { value: string; onChange: (v: s
       <div className="flex items-center gap-3 rounded-lg border border-dashed border-[var(--color-border)] bg-[var(--color-surface)] p-2.5">
         {value ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={value} alt="" style={{ height: 56, width: 80 }} className="shrink-0 rounded-md border border-[var(--color-border)] bg-white object-cover" />
+          <img src={mediaUrl(value)} alt="" style={{ height: 56, width: 80 }} className="shrink-0 rounded-md border border-[var(--color-border)] bg-white object-cover" />
         ) : (
           <span className="flex shrink-0 items-center justify-center rounded-md bg-white text-[var(--color-text-muted)]" style={{ height: 56, width: 80 }}><ImageIcon size={20} /></span>
         )}

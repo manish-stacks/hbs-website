@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { BlockRenderer } from "@/components/blocks/BlockRenderer";
 import { getEntryBySlug, type EntryType } from "@/lib/content";
+import { withMedia } from "@/lib/media";
 
 export const dynamic = "force-dynamic";
 const TYPES: Record<string, EntryType[]> = { pages: ["page", "service"], services: ["service", "page"], blog: ["blog"] };
@@ -18,7 +19,7 @@ export default async function Preview({ params }: { params: Promise<{ type: stri
         <span>Preview ({e.status}): {e.title}</span>
         <Link href={`/admin/${type}/${e.slug}`} className="rounded-full bg-[var(--color-brand)] px-4 py-1.5 text-xs font-bold">Back to editor</Link>
       </div>
-      <BlockRenderer blocks={e.blocks} slug={e.slug} path={path} />
+      <BlockRenderer blocks={withMedia(e.blocks)} slug={e.slug} path={path} />
     </div>
   );
 }

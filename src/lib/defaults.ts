@@ -28,7 +28,7 @@ export const DEFAULTS = {
     about: "Hover Business Services trusts in good quality services, so that you get a real and broad return on everything you invest in growth.",
     copyright: "Hover Business Services LLP. All rights reserved.",
     columns: [
-      { title: "Top Services", links: pairs([["SEO Service", "/seo-service"], ["Local SEO Service", "/local-seo-service"], ["Google Map SEO", "/google-map-seo"], ["PPC Service", "/ppc-service"], ["Social Media Marketing", "/social-media-marketing"], ["ORM Service", "/orm-service"]]) },
+      { title: "Top Services", links: pairs([["SEO Service", "/seo-services"], ["Local SEO Service", "/local-seo"], ["Google Map SEO", "/google-map-seo"], ["PPC Service", "/ppc-service"], ["Social Media Marketing", "/social-media-marketing"], ["ORM Service", "/orm"]]) },
       { title: "Web & App", links: pairs([["Custom Web Design", "/custom-web-design"], ["Website Development", "/website-development"], ["WordPress Development", "/wordpress-development"], ["E-commerce Web Designing", "/e-commerce-web-designing"], ["Software & App Development", "/software-app-development"], ["Website Maintenance", "/website-maintenance"]]) },
       { title: "Company", links: pairs([["About Us", "/about-us"], ["Products", "/products"], ["Portfolio", "/portfolio"], ["Career", "/career"], ["Blog", "/blog"], ["Contact Us", "/contact-us"], ["Become Partner", "/contact-us"]]) },
     ],

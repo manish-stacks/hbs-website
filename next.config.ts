@@ -2,6 +2,12 @@ import type { NextConfig } from "next";
 
 const r2 = process.env.R2_PUBLIC_URL ? new URL(process.env.R2_PUBLIC_URL) : null;
 
+// Domain that uploaded files (/uploads/...) are loaded from — see src/lib/media.ts
+const media = (() => {
+  try { return process.env.NEXT_PUBLIC_MEDIA_URL ? new URL(process.env.NEXT_PUBLIC_MEDIA_URL) : null; } catch { return null; }
+})();
+const mediaIsLocal = !!media && /^(localhost|127\.|10\.|192\.168\.|172\.(1[6-9]|2\d|3[01])\.|\[?::1\]?$)/.test(media.hostname);
+
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
@@ -52,6 +58,8 @@ const nextConfig: NextConfig = {
   },
 
   images: {
+    // lets next/image load uploads from a localhost / LAN media URL during development
+    dangerouslyAllowLocalIP: mediaIsLocal,
     formats: ["image/avif", "image/webp"],
     minimumCacheTTL: 31536000,
     deviceSizes: [640, 750, 828, 1080, 1200, 1920],
@@ -60,6 +68,16 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "hoverbusinessservices.com", pathname: "/images/**" },
       { protocol: "https", hostname: "html.kodesolution.com", pathname: "/**" },
       { protocol: "https", hostname: "images.unsplash.com", pathname: "/**" },
+      ...(media
+        ? [
+            {
+              protocol: media.protocol.replace(":", "") as "http" | "https",
+              hostname: media.hostname,
+              ...(media.port ? { port: media.port } : {}),
+              pathname: "/uploads/**",
+            },
+          ]
+        : []),
       ...(r2
         ? [
             {

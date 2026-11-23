@@ -6,7 +6,7 @@ const REL = [
   { label: "Social Media Marketing", href: "/social-media-marketing" },
   { label: "Facebook Promotion", href: "/facebook-promotion" },
   { label: "Online Marketing", href: "/online-marketing" },
-  { label: "SEO", href: "/seo-service" },
+  { label: "SEO", href: "/seo-services" },
 ];
 const rel = (slug: string) => REL.filter((r) => r.href !== `/${slug}`);
 

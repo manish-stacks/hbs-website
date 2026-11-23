@@ -2,9 +2,10 @@ import { cache } from "react";
 import { query } from "./db";
 import { DEFAULTS, type Defaults } from "./defaults";
 import type { Company, GroupKey } from "./settings";
+import { withMedia } from "./media";
 
-/** Reads one settings group from MySQL, falling back to built-in defaults. */
-export const getSetting = cache(async <K extends GroupKey>(key: K): Promise<Defaults[K]> => {
+/** Reads one settings group from MySQL, falling back to built-in defaults. Paths are stored as saved (use in the admin panel). */
+export const getSettingRaw = cache(async <K extends GroupKey>(key: K): Promise<Defaults[K]> => {
   const def = DEFAULTS[key];
   try {
     const [r] = await query<{ v: unknown }>("SELECT v FROM settings WHERE k=? LIMIT 1", [key]);
@@ -16,6 +17,9 @@ export const getSetting = cache(async <K extends GroupKey>(key: K): Promise<Defa
     return def;
   }
 });
+
+/** Same as getSettingRaw, with uploaded file paths turned into full URLs (NEXT_PUBLIC_MEDIA_URL). Use on the website. */
+export const getSetting = cache(async <K extends GroupKey>(key: K): Promise<Defaults[K]> => withMedia(await getSettingRaw(key)));
 
 export async function getCompany(): Promise<Company> {
   const g = (await getSetting("general")) as any;

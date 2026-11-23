@@ -8,7 +8,7 @@ const REL = [
   { label: "E-commerce Websites", href: "/e-commerce-web-designing" },
   { label: "Website Maintenance", href: "/website-maintenance" },
   { label: "App Development", href: "/software-app-development" },
-  { label: "SEO", href: "/seo-service" },
+  { label: "SEO", href: "/seo-services" },
 ];
 const rel = (slug: string) => REL.filter((r) => r.href !== `/${slug}`).slice(0, 6);
 const mk = (o: Partial<Svc> & Pick<Svc, "slug">): Svc => o as Svc;

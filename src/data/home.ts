@@ -34,11 +34,11 @@ export const nav: NavItem[] = [
       {
         heading: "SEO Services",
         links: [
-          ["SEO Service", "/seo-service"],
-          ["Local SEO Service", "/local-seo-service"],
+          ["SEO Service", "/seo-services"],
+          ["Local SEO Service", "/local-seo"],
           ["Google Map SEO", "/google-map-seo"],
-          ["E-commerce SEO", "/e-commerce-seo"],
-          ["ORM Service", "/orm-service"],
+          ["E-commerce SEO", "/ecommerce-seo"],
+          ["ORM Service", "/orm"],
         ],
       },
       {
@@ -181,7 +181,7 @@ export const services: Service[] = [
     body: "Rank higher on Google Search and Maps, and bring buyers closer to your business with technical, local and e-commerce SEO.",
     badge: "Most requested",
     tags: ["SEO Service", "Local SEO", "Google Map SEO", "E-commerce SEO", "ORM"],
-    href: "/seo-service",
+    href: "/seo-services",
     image: "/images/services/seo-new.png",
   },
   {

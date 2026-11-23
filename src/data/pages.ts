@@ -69,11 +69,11 @@ export const innerPages: InnerPage[] = [
     intro:
       "We run the whole demand side of your business — organic visibility, paid acquisition and social presence — with one team, one plan and one set of numbers everyone is judged on.",
     children: [
-      { title: "SEO Service", href: "/seo-service", body: "Technical, content and authority work that compounds month over month." },
-      { title: "Local SEO Service", href: "/local-seo-service", body: "Own the searches happening within a few kilometres of your business." },
+      { title: "SEO Service", href: "/seo-services", body: "Technical, content and authority work that compounds month over month." },
+      { title: "Local SEO Service", href: "/local-seo", body: "Own the searches happening within a few kilometres of your business." },
       { title: "Google Map SEO", href: "/google-map-seo", body: "Get into the map pack and stay there with a tuned Business Profile." },
-      { title: "E-commerce SEO", href: "/e-commerce-seo", body: "Category and product pages built to rank and to convert." },
-      { title: "ORM Service", href: "/orm-service", body: "Control what shows up when someone searches your brand name." },
+      { title: "E-commerce SEO", href: "/ecommerce-seo", body: "Category and product pages built to rank and to convert." },
+      { title: "ORM Service", href: "/orm", body: "Control what shows up when someone searches your brand name." },
       { title: "PPC Service", href: "/ppc-service", body: "Google and Meta campaigns engineered for return on ad spend." },
       { title: "Social Media Marketing", href: "/social-media-marketing", body: "Content, community and paid social that actually sells." },
       { title: "Facebook Promotion", href: "/facebook-promotion", body: "Meta funnels from first impression to retargeted purchase." },

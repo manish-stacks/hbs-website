@@ -1716,7 +1716,7 @@ export async function PageView({ d, v }: { d: PageData; v?: Variant }) {
               Home
             </Link>
             <ChevronRight size={12} className="opacity-40" />
-            <Link href="/services" className="hover:text-[var(--color-ink)] transition-colors">
+            <Link href="/digital-marketing" className="hover:text-[var(--color-ink)] transition-colors">
               Services
             </Link>
             <ChevronRight size={12} className="opacity-40" />

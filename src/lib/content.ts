@@ -2,6 +2,7 @@ import type { ResultSetHeader } from "mysql2/promise";
 import { pool, query } from "./db";
 import type { Block } from "./blocks";
 import { blogPosts } from "@/data/blog";
+import { withMedia } from "./media";
 
 export type EntryType = "page" | "service" | "blog";
 type Row = {
@@ -34,7 +35,7 @@ const toEntry = (r: Row): Entry => ({
 export async function getEntry(types: EntryType[], slug: string) {
   try {
     const r = await query<Row>("SELECT * FROM entries WHERE slug=? AND type IN (?) AND status='published' LIMIT 1", [slug, types]);
-    return r[0] ? toEntry(r[0]) : null;
+    return r[0] ? withMedia(toEntry(r[0])) : null;
   } catch (e) {
     console.error(e);
     return null;
@@ -106,7 +107,7 @@ export async function listBlog(limit = 12, exclude = "") {
       "SELECT * FROM entries WHERE type='blog' AND status='published' AND slug<>? ORDER BY COALESCE(published_at,created_at) DESC LIMIT ?",
       [exclude, limit],
     );
-    if (r.length) return r.map((x) => toPost(toEntry(x)));
+    if (r.length) return r.map((x) => withMedia(toPost(toEntry(x))));
   } catch (e) {
     console.error(e);
   }

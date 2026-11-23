@@ -2,11 +2,11 @@ import { MapPackMock, ReviewsMock, SerpMock } from "../mocks";
 import type { Svc } from "../kit";
 
 const REL = [
-  { label: "SEO Services", href: "/seo-service" },
-  { label: "Local SEO", href: "/local-seo-service" },
+  { label: "SEO Services", href: "/seo-services" },
+  { label: "Local SEO", href: "/local-seo" },
   { label: "Google Map SEO", href: "/google-map-seo" },
-  { label: "E-commerce SEO", href: "/e-commerce-seo" },
-  { label: "Reputation Management", href: "/orm-service" },
+  { label: "E-commerce SEO", href: "/ecommerce-seo" },
+  { label: "Reputation Management", href: "/orm" },
   { label: "PPC", href: "/ppc-service" },
 ];
 const rel = (slug: string) => REL.filter((r) => r.href !== `/${slug}`);
