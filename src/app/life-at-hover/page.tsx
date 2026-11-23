@@ -29,13 +29,40 @@ const VALUES = [
   { icon: Heart, t: "Look out for each other", b: "Small pods that help each other hit deadlines, and cover when life happens." },
 ];
 
+
 const DAY = [
-  { time: "9:30", t: "Team huddle", b: "A quick stand-up in each pod: priorities, blockers and who needs help." },
-  { time: "10:00", t: "Deep work", b: "Campaigns, code and designs. Fewer meetings, more getting things done." },
-  { time: "1:30", t: "Lunch together", b: "The longest table in the office, and the loudest conversations." },
-  { time: "3:00", t: "Reviews and client calls", b: "Seniors review work before it goes out. Clients hear from the people doing it." },
-  { time: "Friday", t: "Learning hour", b: "Someone shares what they learned this week: a tool, a test result, a mistake." },
+  {
+    time: "10:00 AM",
+    t: "A Fresh Start",
+    b: "The day begins with fresh energy, team check-ins and setting priorities for the day ahead."
+  },
+  {
+    time: "11:00 AM",
+    t: "Focused Work",
+    b: "Time to turn ideas into action. Our teams focus on campaigns, development, creative work and projects."
+  },
+  {
+    time: "2:00 PM",
+    t: "Lunch Break",
+    b: "A chance to step away from work, enjoy a meal together and recharge for the rest of the day."
+  },
+  {
+    time: "4:00 PM",
+    t: "Tea & Refresh",
+    b: "A little break, a cup of tea and some conversations to bring fresh energy into the afternoon."
+  },
+  {
+    time: "4:30 PM",
+    t: "Back to Business",
+    b: "Wrapping up tasks, collaborating with teammates and making sure everything is on track."
+  },
+  {
+    time: "6:30 PM",
+    t: "Time to Sign Off",
+    b: "Another productive day comes to an end. Time to relax, recharge and get ready for tomorrow."
+  },
 ];
+
 
 const CELEBRATE = ["Diwali", "Holi", "Birthdays", "Annual day", "Team outings", "Project launches", "Work anniversaries", "Christmas"];
 
@@ -127,7 +154,7 @@ export default async function LifeAtHoverPage() {
           <div className="lg:sticky lg:top-28 lg:self-start">
             <Coffee size={32} className="text-[var(--color-brand)]" />
             <h2 className="mt-4 font-display text-4xl font-extrabold tracking-tight">A day at Hover</h2>
-            <p className="mt-3 text-[var(--color-text-muted)]">Roughly how a normal working day goes at our Delhi head office.</p>
+            <p className="mt-3 text-[var(--color-text-muted)]">Every day is a mix of collaboration, creativity and meaningful work. Here's a glimpse into our daily office routine.</p>
           </div>
           <ol className="space-y-3">
             {DAY.map((d) => (
@@ -158,9 +185,9 @@ export default async function LifeAtHoverPage() {
           <div className="container-max">
             <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
               <h2 className="font-display text-4xl font-extrabold tracking-tight">Some of the faces you will meet</h2>
-              <Link href="/team-members" className="inline-flex items-center gap-1.5 font-bold text-[var(--color-brand)]">Team leaders <ArrowUpRight size={16} /></Link>
+              {/* <Link href="/team-members" className="inline-flex items-center gap-1.5 font-bold text-[var(--color-brand)]">Team leaders <ArrowUpRight size={16} /></Link> */}
             </div>
-            <div className="mt-10 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
+            <div className="mt-10 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-3">
               {people.map((m, i) => (
                 <figure key={m.name + i} className="group">
                   <div className="aspect-square overflow-hidden rounded-[28px] bg-[var(--color-surface-2)]">
