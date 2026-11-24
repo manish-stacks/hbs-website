@@ -57,7 +57,7 @@ export default async function TeamMembersPage() {
               {depts.length > 0 && <div><p className="font-display text-4xl font-extrabold">{depts.length}</p><p className="text-sm text-white/60">Departments</p></div>}
             </div>
           </div>
-          <div className="grid grid-cols-3 gap-3">
+          {/* <div className="grid grid-cols-3 gap-3">
             {(faces.length ? faces : leaders.slice(0, 6)).map((m, i) => (
               <div key={m.name + i} className={`tm-pop aspect-square overflow-hidden rounded-[28px] bg-white/10 ${i % 3 === 1 ? "translate-y-6" : ""}`} style={{ animationDelay: `${i * 0.08}s` }}>
                 {m.image ? (
@@ -66,7 +66,7 @@ export default async function TeamMembersPage() {
                 ) : <span className="flex h-full w-full items-center justify-center font-display text-3xl font-extrabold text-white/60">{initials(m.name)}</span>}
               </div>
             ))}
-          </div>
+          </div> */}
         </div>
       </section>
 
